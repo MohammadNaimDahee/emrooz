@@ -1,0 +1,48 @@
+{
+  "name": "emrooz",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Emrooz — a global personal cooking assistant. What should I cook today?",
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20.11.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "dev:web": "turbo run dev --filter=@emrooz/web",
+    "dev:mobile": "turbo run dev --filter=@emrooz/mobile",
+    "build": "turbo run build",
+    "build:web": "turbo run build --filter=@emrooz/web",
+    "lint": "turbo run lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e --filter=@emrooz/web",
+    "supabase:start": "supabase start",
+    "supabase:reset": "supabase db reset",
+    "recipes:import": "tsx scripts/recipes-import.ts",
+    "recipes:validate": "tsx scripts/recipes-validate.ts",
+    "recipes:export": "tsx scripts/recipes-export.ts",
+    "backup:database": "tsx scripts/backup-database.ts",
+    "backup:media": "tsx scripts/backup-media.ts",
+    "mobile:icons": "tsx scripts/generate-mobile-icons.ts",
+    "clean": "turbo run clean && rm -rf node_modules .turbo"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "prettier": "^3.3.3",
+    "sharp": "^0.35.4",
+    "tsx": "^4.19.2",
+    "turbo": "^2.3.3",
+    "typescript": "^5.6.3"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "@supabase/supabase-js": "^2.114.0"
+  }
+}

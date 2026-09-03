@@ -1,0 +1,64 @@
+# deps
+node_modules
+.pnpm-store
+.pnpm-debug.log*
+
+# build
+dist
+build
+.next
+.turbo
+.expo
+.expo-shared
+web-build
+*.tsbuildinfo
+
+# env — never commit real credentials; `.env.example` is fine.
+.env
+.env.*
+!.env.example
+
+# system
+.DS_Store
+*.log
+coverage
+.nyc_output
+.vercel
+.eas
+
+# ide
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# supabase local runtime
+supabase/.branches
+supabase/.temp
+
+# --- Mobile native artifacts ---
+# `expo prebuild` regenerates apps/mobile/ios and apps/mobile/android on
+# every native build, so tracking them explodes diff noise and repo size.
+# We keep source (assets/, scripts/, plugins/, config files, entitlements
+# strip script) but ignore the generated Xcode/Gradle scaffolds and build
+# outputs. To reproduce the native projects locally, run
+# `pnpm --filter @emrooz/mobile prebuild:ios` (or the android equivalent).
+apps/mobile/ios/
+apps/mobile/android/
+
+# Any lingering Xcode / CocoaPods / Gradle byproducts outside the ignored
+# native folders. These should never be committed even if a rogue
+# generator drops them elsewhere.
+**/Pods/
+**/DerivedData/
+**/xcuserdata/
+**/*.xcworkspace/xcuserdata/
+**/*.xcodeproj/xcuserdata/
+**/*.xcodeproj/project.xcworkspace/xcuserdata/
+**/build/
+**/.gradle/
+*.jks
+*.p8
+*.p12
+*.mobileprovision
+*.orig.*

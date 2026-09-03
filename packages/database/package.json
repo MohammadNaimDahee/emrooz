@@ -1,0 +1,31 @@
+{
+  "name": "@emrooz/database",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./demo": "./src/demo/index.ts",
+    "./seed": "./src/demo/seed.ts",
+    "./supabase": "./src/supabase/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@emrooz/core": "workspace:*",
+    "@emrooz/types": "workspace:*",
+    "@supabase/supabase-js": "^2.114.0"
+  },
+  "devDependencies": {
+    "@emrooz/config": "workspace:*",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
+  }
+}

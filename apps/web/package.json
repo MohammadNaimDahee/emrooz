@@ -1,0 +1,42 @@
+{
+  "name": "@emrooz/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 3005",
+    "build": "next build",
+    "start": "next start --port 3005",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@emrooz/core": "workspace:*",
+    "@emrooz/database": "workspace:*",
+    "@emrooz/i18n": "workspace:*",
+    "@emrooz/recipe-import": "workspace:*",
+    "@emrooz/recipe-providers": "workspace:*",
+    "@emrooz/recommendations": "workspace:*",
+    "@emrooz/types": "workspace:*",
+    "@supabase/ssr": "^0.12.5",
+    "@supabase/supabase-js": "^2.114.0",
+    "@tanstack/react-query": "^5.59.20",
+    "next": "^15.0.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@emrooz/config": "workspace:*",
+    "@playwright/test": "^1.48.2",
+    "@types/node": "^20.14.10",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
+  }
+}

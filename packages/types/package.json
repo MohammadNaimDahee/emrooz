@@ -1,0 +1,19 @@
+{
+  "name": "@emrooz/types",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": ["src"],
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@emrooz/config": "workspace:*",
+    "typescript": "^5.6.3"
+  }
+}

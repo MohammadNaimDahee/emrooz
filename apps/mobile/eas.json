@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json.schemastore.org/eas.json",
+  "cli": {
+    "version": ">= 12.0.0",
+    "appVersionSource": "remote",
+    "promptToConfigurePushNotifications": false
+  },
+  "build": {
+    "base": {
+      "node": "20.11.0",
+      "env": {
+        "EAS_PROJECT_STAGE": "base"
+      }
+    },
+    "development": {
+      "extends": "base",
+      "developmentClient": true,
+      "distribution": "internal",
+      "channel": "development",
+      "env": {
+        "EAS_PROJECT_STAGE": "development"
+      },
+      "ios": { "simulator": true, "resourceClass": "m-medium" },
+      "android": { "buildType": "apk", "gradleCommand": ":app:assembleDebug" }
+    },
+    "preview": {
+      "extends": "base",
+      "distribution": "internal",
+      "channel": "preview",
+      "env": {
+        "EAS_PROJECT_STAGE": "preview"
+      },
+      "ios": { "resourceClass": "m-medium", "buildConfiguration": "Release" },
+      "android": { "buildType": "apk", "gradleCommand": ":app:assembleRelease" }
+    },
+    "production": {
+      "extends": "base",
+      "distribution": "store",
+      "channel": "production",
+      "autoIncrement": true,
+      "env": {
+        "EAS_PROJECT_STAGE": "production"
+      },
+      "ios": { "resourceClass": "m-medium" },
+      "android": { "buildType": "app-bundle" }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "ascAppId": "REPLACE_WITH_ASC_APP_ID",
+        "appleId": "REPLACE_WITH_APPLE_ID",
+        "appleTeamId": "REPLACE_WITH_APPLE_TEAM_ID"
+      },
+      "android": {
+        "serviceAccountKeyPath": "./secrets/play-store-service-account.json",
+        "track": "internal",
+        "releaseStatus": "draft"
+      }
+    }
+  }
+}

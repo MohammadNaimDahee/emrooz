@@ -1,0 +1,42 @@
+# Supabase local project configuration.
+# See https://supabase.com/docs/guides/cli/config
+
+project_id = "emrooz"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+
+[inbucket]
+enabled = true
+port = 54324
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+
+[auth]
+enabled = true
+site_url = "http://localhost:3005"
+additional_redirect_urls = ["http://localhost:3005/auth/callback"]
+jwt_expiry = 3600
+enable_signup = true
+enable_confirmations = true
+enable_anonymous_sign_ins = true
+
+[auth.email]
+enable_signup = true
+enable_confirmations = true
+double_confirm_changes = true

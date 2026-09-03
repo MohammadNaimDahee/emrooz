@@ -1,0 +1,7 @@
+{
+  "extends": "@emrooz/config/tsconfig/base",
+  "include": ["src"],
+  "compilerOptions": {
+    "noEmit": true
+  }
+}
