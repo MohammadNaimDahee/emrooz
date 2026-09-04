@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Emrooz mark — two overlapping open brackets.
+  Emrooz mark — two overlapping open brackets, dead-center on canvas.
 
   Composition:
     ⊓  top-left bracket:  top edge + two short verticals (no bottom)
@@ -8,27 +8,29 @@
     ○  hollow circle inside the lower rectangle, upper area
     all corners sharp — no rounding anywhere
 
+  Bounding-box: x = 165..860, y = 194..829, so the whole composition
+  is centered on (512.5, 511.5) — the canvas midpoint. Any tweak to
+  coordinates should preserve this centering.
+
   Palette:
     field   #FFF8ED  cream
     stroke  #254D32  deep green
-
-  Rendered by scripts/render-icons.mjs to every mobile + web target.
 -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
   <rect width="1024" height="1024" fill="#FFF8ED"/>
 
   <g stroke="#254D32" stroke-width="22" stroke-linecap="square" fill="none">
-    <!-- Top bracket ⊓ — shifted further right (+80 from previous) -->
-    <line x1="245" y1="210" x2="760" y2="210" />
-    <line x1="245" y1="210" x2="245" y2="380" />
-    <line x1="760" y1="210" x2="760" y2="380" />
+    <!-- Top bracket ⊓ (x 165..680, y 194..364) -->
+    <line x1="165" y1="194" x2="680" y2="194" />
+    <line x1="165" y1="194" x2="165" y2="364" />
+    <line x1="680" y1="194" x2="680" y2="364" />
 
-    <!-- Lower open rectangle ⊔ — shallower (bottom raised from y=945 to y=845) -->
-    <line x1="385" y1="340" x2="385" y2="845" />
-    <line x1="385" y1="845" x2="940" y2="845" />
-    <line x1="940" y1="340" x2="940" y2="845" />
+    <!-- Lower open rectangle ⊔ (x 305..860, y 324..829) -->
+    <line x1="305" y1="324" x2="305" y2="829" />
+    <line x1="305" y1="829" x2="860" y2="829" />
+    <line x1="860" y1="324" x2="860" y2="829" />
 
-    <!-- Hollow circle — dead-center of the lower rectangle (x 385..940, y 340..845) -->
-    <circle cx="662.5" cy="592.5" r="90" />
+    <!-- Hollow circle — dead-center of the lower rectangle (x 305..860, y 324..829) -->
+    <circle cx="582.5" cy="576.5" r="90" />
   </g>
 </svg>

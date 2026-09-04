@@ -342,18 +342,18 @@ function EmroozMark() {
   return (
     <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <g stroke="#254D32" strokeWidth="1" strokeLinecap="square">
-        {/* Top bracket ⊓ — shifted further right */}
-        <line x1="6" y1="6" x2="18" y2="6" />
-        <line x1="6" y1="6" x2="6" y2="10" />
-        <line x1="18" y1="6" x2="18" y2="10" />
+        {/* Top bracket ⊓ (x 4..16, y 6..10) */}
+        <line x1="4" y1="6" x2="16" y2="6" />
+        <line x1="4" y1="6" x2="4" y2="10" />
+        <line x1="16" y1="6" x2="16" y2="10" />
 
-        {/* Lower open rectangle ⊔ — shallower (bottom raised from 22 to 19) */}
-        <line x1="9" y1="9" x2="9" y2="19" />
-        <line x1="9" y1="19" x2="22" y2="19" />
-        <line x1="22" y1="9" x2="22" y2="19" />
+        {/* Lower open rectangle ⊔ (x 7..20, y 9..19) */}
+        <line x1="7" y1="9" x2="7" y2="19" />
+        <line x1="7" y1="19" x2="20" y2="19" />
+        <line x1="20" y1="9" x2="20" y2="19" />
 
-        {/* Hollow circle — dead-center of the lower rectangle (x 9..22, y 9..19) */}
-        <circle cx="15.5" cy="14" r="2" fill="none" />
+        {/* Hollow circle — dead-center of the lower rectangle (x 7..20, y 9..19) */}
+        <circle cx="13.5" cy="14" r="2" fill="none" />
       </g>
     </svg>
   );

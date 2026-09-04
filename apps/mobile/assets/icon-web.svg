@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Web-optimized Emrooz mark. Same two-brackets-plus-circle geometry as
-  the mobile master. Slightly thicker strokes so the outline survives at
-  browser favicon sizes (16px, 32px).
+  Web-optimized Emrooz mark. Same geometry as the mobile master, but
+  slightly thicker strokes so the outline survives at browser favicon
+  sizes (16px, 32px). Bounding box dead-center on canvas.
 -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
   <rect width="1024" height="1024" fill="#FFF8ED"/>
   <g stroke="#254D32" stroke-width="40" stroke-linecap="square" fill="none">
-    <line x1="245" y1="210" x2="760" y2="210" />
-    <line x1="245" y1="210" x2="245" y2="380" />
-    <line x1="760" y1="210" x2="760" y2="380" />
+    <line x1="165" y1="194" x2="680" y2="194" />
+    <line x1="165" y1="194" x2="165" y2="364" />
+    <line x1="680" y1="194" x2="680" y2="364" />
 
-    <line x1="385" y1="340" x2="385" y2="845" />
-    <line x1="385" y1="845" x2="940" y2="845" />
-    <line x1="940" y1="340" x2="940" y2="845" />
+    <line x1="305" y1="324" x2="305" y2="829" />
+    <line x1="305" y1="829" x2="860" y2="829" />
+    <line x1="860" y1="324" x2="860" y2="829" />
 
-    <circle cx="662.5" cy="592.5" r="100" />
+    <circle cx="582.5" cy="576.5" r="100" />
   </g>
 </svg>
