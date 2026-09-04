@@ -11,5 +11,8 @@ export const dynamic = 'force-dynamic';
 export async function GET() {
   const auth = await requireStaff();
   if (auth instanceof NextResponse) return auth;
-  return NextResponse.json({ providers: listProviders() }, { headers: { 'cache-control': 'no-store' } });
+  return NextResponse.json(
+    { providers: listProviders() },
+    { headers: { 'cache-control': 'no-store' } },
+  );
 }

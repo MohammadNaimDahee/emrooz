@@ -65,12 +65,13 @@ async function loadRecipe(id: string): Promise<RecipeRow | null> {
 async function loadTaxonomies() {
   const supabase = await getServerSupabase();
   if (!supabase) return { cuisines: [], regions: [], countries: [], ingredients: [] };
-  const [{ data: cuisines }, { data: regions }, { data: countries }, { data: ingredients }] = await Promise.all([
-    supabase.from('cuisines').select('id, name_en').order('name_en'),
-    supabase.from('regions').select('id, name_en, country_id').order('name_en'),
-    supabase.from('countries').select('id, code, name_en').order('name_en'),
-    supabase.from('ingredients').select('id, name_en, slug').order('name_en'),
-  ]);
+  const [{ data: cuisines }, { data: regions }, { data: countries }, { data: ingredients }] =
+    await Promise.all([
+      supabase.from('cuisines').select('id, name_en').order('name_en'),
+      supabase.from('regions').select('id, name_en, country_id').order('name_en'),
+      supabase.from('countries').select('id, code, name_en').order('name_en'),
+      supabase.from('ingredients').select('id, name_en, slug').order('name_en'),
+    ]);
   return {
     cuisines: cuisines ?? [],
     regions: regions ?? [],
@@ -88,12 +89,27 @@ async function loadVersions(id: string) {
     .eq('recipe_id', id)
     .order('version', { ascending: false })
     .limit(20);
-  return (data as { id: string; version: number; change_reason: string | null; editor_id: string | null; created_at: string; snapshot: unknown }[] | null) ?? [];
+  return (
+    (data as
+      | {
+          id: string;
+          version: number;
+          change_reason: string | null;
+          editor_id: string | null;
+          created_at: string;
+          snapshot: unknown;
+        }[]
+      | null) ?? []
+  );
 }
 
 export default async function EditRecipe({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const [recipe, tax, versions] = await Promise.all([loadRecipe(id), loadTaxonomies(), loadVersions(id)]);
+  const [recipe, tax, versions] = await Promise.all([
+    loadRecipe(id),
+    loadTaxonomies(),
+    loadVersions(id),
+  ]);
   if (!recipe) notFound();
 
   const initial = {
@@ -149,7 +165,10 @@ export default async function EditRecipe({ params }: { params: Promise<{ id: str
           <div className="text-xs uppercase tracking-widest text-ink-400">Editing</div>
           <h1 className="font-display text-4xl text-ink-900 mt-1">{recipe.title_en}</h1>
           <div className="text-sm text-ink-500 mt-1 flex flex-wrap gap-3">
-            <span>state · <strong className="capitalize">{recipe.editorial_state.replace('_', ' ')}</strong></span>
+            <span>
+              state ·{' '}
+              <strong className="capitalize">{recipe.editorial_state.replace('_', ' ')}</strong>
+            </span>
             <span>version {recipe.version}</span>
             <Link
               href={`/recipes/${recipe.slug}`}

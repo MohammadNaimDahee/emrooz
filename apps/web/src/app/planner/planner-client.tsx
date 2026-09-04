@@ -142,8 +142,12 @@ export default function PlannerClient() {
     <div className="mx-auto max-w-6xl px-4 pt-10 pb-16">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <div>
-          <div className="text-xs uppercase tracking-widest text-ink-400">{t('planner.eyebrow')}</div>
-          <h1 className="font-display text-4xl md:text-5xl text-ink-900 mt-1">{t('planner.title')}</h1>
+          <div className="text-xs uppercase tracking-widest text-ink-400">
+            {t('planner.eyebrow')}
+          </div>
+          <h1 className="font-display text-4xl md:text-5xl text-ink-900 mt-1">
+            {t('planner.title')}
+          </h1>
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -174,10 +178,7 @@ export default function PlannerClient() {
         >
           {t('planner.addWeekMissing')}
         </button>
-        <Link
-          href="/shopping-list"
-          className="text-sm text-emerald-700 hover:underline focus-ring"
-        >
+        <Link href="/shopping-list" className="text-sm text-emerald-700 hover:underline focus-ring">
           {t('planner.viewShoppingList')}
         </Link>
         {addedToList !== null && (
@@ -195,8 +196,12 @@ export default function PlannerClient() {
           <div />
           {days.map((d, i) => (
             <div key={d} className="text-center">
-              <div className="text-xs text-ink-400 uppercase tracking-widest">{t(DAY_KEYS[i]!)}</div>
-              <div className="text-sm font-medium text-ink-700 tabular-nums mt-0.5">{d.slice(5)}</div>
+              <div className="text-xs text-ink-400 uppercase tracking-widest">
+                {t(DAY_KEYS[i]!)}
+              </div>
+              <div className="text-sm font-medium text-ink-700 tabular-nums mt-0.5">
+                {d.slice(5)}
+              </div>
             </div>
           ))}
           {MEALS.map((meal) => (
@@ -265,14 +270,23 @@ function MealRow({
               aria-label={t('planner.slot.addLabel', { meal: mealLabel, date: d })}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                <path
+                  d="M12 5v14M5 12h14"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                />
               </svg>
             </button>
           );
         }
         return (
           <div key={d} className="relative h-24 rounded-2xl overflow-hidden card group">
-            <CuisineArt seed={recipe.cuisineIds[0] ?? recipe.slug} size="sm" className="h-full rounded-none" />
+            <CuisineArt
+              seed={recipe.cuisineIds[0] ?? recipe.slug}
+              size="sm"
+              className="h-full rounded-none"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
             <div className="absolute inset-0 p-2 flex flex-col justify-end">
               <div className="text-[10px] uppercase tracking-widest text-white/70">{mealLabel}</div>
@@ -288,7 +302,13 @@ function MealRow({
                 title={t('planner.replace')}
               >
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 8h11a5 5 0 010 10h-2M8 4L4 8l4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path
+                    d="M4 8h11a5 5 0 010 10h-2M8 4L4 8l4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
               <button
@@ -298,7 +318,12 @@ function MealRow({
                 title={t('planner.remove')}
               >
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M6 6l12 12M6 18L18 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                  <path
+                    d="M6 6l12 12M6 18L18 6"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                  />
                 </svg>
               </button>
             </div>
@@ -395,7 +420,10 @@ function RecipePicker({
           )}
         </div>
         <div className="p-3 border-t border-ink-100 flex justify-end">
-          <button onClick={onCancel} className="text-sm text-ink-500 px-3 py-2 hover:text-emerald-700 focus-ring rounded-lg">
+          <button
+            onClick={onCancel}
+            className="text-sm text-ink-500 px-3 py-2 hover:text-emerald-700 focus-ring rounded-lg"
+          >
             {t('action.cancel')}
           </button>
         </div>

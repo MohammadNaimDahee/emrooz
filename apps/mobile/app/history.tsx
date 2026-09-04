@@ -2,14 +2,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
 import React from 'react';
-import {
-  Alert,
-  FlatList,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Alert, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { toIsoDate } from '@emrooz/core';
@@ -36,7 +29,14 @@ export default function HistoryScreen() {
           .sort((a, b) => (a.cookedOn < b.cookedOn ? 1 : -1))
           .map(async (e) => ({ entry: e, recipe: await data.recipes.findById(e.recipeId) })),
       );
-      return withRecipe.filter((x): x is { entry: (typeof withRecipe)[number]['entry']; recipe: NonNullable<(typeof withRecipe)[number]['recipe']> } => Boolean(x.recipe));
+      return withRecipe.filter(
+        (
+          x,
+        ): x is {
+          entry: (typeof withRecipe)[number]['entry'];
+          recipe: NonNullable<(typeof withRecipe)[number]['recipe']>;
+        } => Boolean(x.recipe),
+      );
     },
   });
 
@@ -104,7 +104,9 @@ export default function HistoryScreen() {
         ListHeaderComponent={
           <View style={{ marginBottom: SPACING.sm }}>
             <Text style={styles.eyebrow}>{t('history.headerEyebrow')}</Text>
-            <Text style={styles.title}>{t('history.mealsCount', { count: q.data?.length ?? 0 })}</Text>
+            <Text style={styles.title}>
+              {t('history.mealsCount', { count: q.data?.length ?? 0 })}
+            </Text>
           </View>
         }
         renderItem={({ item }) => (
@@ -215,7 +217,12 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: 1.5,
   },
-  title: { fontFamily: FONTS.display, fontSize: FONT_SIZES.hero, color: COLORS.ink900, marginTop: 4 },
+  title: {
+    fontFamily: FONTS.display,
+    fontSize: FONT_SIZES.hero,
+    color: COLORS.ink900,
+    marginTop: 4,
+  },
   card: {
     backgroundColor: COLORS.white,
     borderRadius: RADIUS.card,

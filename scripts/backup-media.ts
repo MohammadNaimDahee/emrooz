@@ -23,7 +23,9 @@ import { createClient } from '@supabase/supabase-js';
 
 import { log, requireBackupEnv, requireCommand, run } from './lib/backup';
 
-const BUCKETS = (process.env.BACKUP_STORAGE_BUCKETS ?? 'recipe-images').split(',').map((s) => s.trim());
+const BUCKETS = (process.env.BACKUP_STORAGE_BUCKETS ?? 'recipe-images')
+  .split(',')
+  .map((s) => s.trim());
 
 interface StorageEntry {
   bucket: string;
@@ -31,7 +33,10 @@ interface StorageEntry {
   size: number;
 }
 
-async function listAll(client: ReturnType<typeof createClient>, bucket: string): Promise<StorageEntry[]> {
+async function listAll(
+  client: ReturnType<typeof createClient>,
+  bucket: string,
+): Promise<StorageEntry[]> {
   const entries: StorageEntry[] = [];
   async function walk(prefix: string) {
     const { data, error } = await client.storage.from(bucket).list(prefix, { limit: 1000 });
@@ -59,7 +64,9 @@ async function main(): Promise<void> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) {
-    throw new Error('NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are required for media backup.');
+    throw new Error(
+      'NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are required for media backup.',
+    );
   }
   const supabase = createClient(url, key, { auth: { persistSession: false } });
 
@@ -95,7 +102,14 @@ async function main(): Promise<void> {
         },
       );
 
-      const uploadArgs = ['s3', 'cp', '-', `s3://${env.BACKUP_S3_BUCKET}/${remoteKey}`, '--region', env.BACKUP_S3_REGION];
+      const uploadArgs = [
+        's3',
+        'cp',
+        '-',
+        `s3://${env.BACKUP_S3_BUCKET}/${remoteKey}`,
+        '--region',
+        env.BACKUP_S3_REGION,
+      ];
       if (process.env.BACKUP_S3_ENDPOINT) {
         uploadArgs.push('--endpoint-url', process.env.BACKUP_S3_ENDPOINT);
       }

@@ -57,7 +57,8 @@ export function stage(
     staged.stage = 'normalized';
 
     // Basic validation — everything more nuanced is handled by @emrooz/validation.
-    if (!candidate.title || candidate.title.trim().length === 0) staged.problems.push('missing title');
+    if (!candidate.title || candidate.title.trim().length === 0)
+      staged.problems.push('missing title');
     if (candidate.ingredientLines.length === 0) staged.problems.push('no ingredients');
     if (candidate.steps.length === 0) staged.problems.push('no steps');
     if (candidate.provenance.storagePermission === 'not_permitted') {
@@ -97,7 +98,14 @@ export async function runImport(
   opts: PipelineOptions,
 ): Promise<ImportRunResult> {
   if (!provider.hasCredentials()) {
-    return { provider: provider.key, fetched: 0, ready: 0, duplicate: 0, needsAttention: 0, candidates: [] };
+    return {
+      provider: provider.key,
+      fetched: 0,
+      ready: 0,
+      duplicate: 0,
+      needsAttention: 0,
+      candidates: [],
+    };
   }
   const raw = spec.area
     ? await provider.fetchByArea(spec.area)

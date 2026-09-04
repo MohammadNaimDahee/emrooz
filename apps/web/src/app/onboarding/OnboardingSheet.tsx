@@ -30,11 +30,26 @@ const CUISINES: Array<[string, string]> = [
 ];
 
 const DIETS: DietaryTag[] = [
-  'vegetarian', 'vegan', 'pescatarian', 'halal', 'kosher',
-  'gluten_free', 'dairy_free', 'egg_free', 'nut_free',
+  'vegetarian',
+  'vegan',
+  'pescatarian',
+  'halal',
+  'kosher',
+  'gluten_free',
+  'dairy_free',
+  'egg_free',
+  'nut_free',
 ];
 const ALLERGENS: Allergen[] = [
-  'gluten', 'dairy', 'egg', 'peanut', 'tree_nut', 'soy', 'sesame', 'fish', 'shellfish',
+  'gluten',
+  'dairy',
+  'egg',
+  'peanut',
+  'tree_nut',
+  'soy',
+  'sesame',
+  'fish',
+  'shellfish',
 ];
 
 const STEPS = ['Language', 'Cuisines', 'Household', 'Time', 'Diet', 'Allergies'] as const;
@@ -117,7 +132,10 @@ export default function OnboardingSheet({
               style={{ width: `${((step + 1) / STEPS.length) * 100}%` }}
             />
           </div>
-          <h2 id="onboarding-title" className="mt-4 font-display text-3xl text-ink-900 leading-tight">
+          <h2
+            id="onboarding-title"
+            className="mt-4 font-display text-3xl text-ink-900 leading-tight"
+          >
             {stepTitle(t, step)}
           </h2>
           <p className="text-ink-500 text-sm mt-1">{stepSubtitle(t, step)}</p>
@@ -167,7 +185,11 @@ export default function OnboardingSheet({
           {STEPS[step] === 'Cuisines' && (
             <div className="flex flex-wrap gap-2">
               {CUISINES.map(([id, label]) => (
-                <ChipButton key={id} active={cuisines.includes(id)} onClick={() => toggle(id, cuisines, setCuisines)}>
+                <ChipButton
+                  key={id}
+                  active={cuisines.includes(id)}
+                  onClick={() => toggle(id, cuisines, setCuisines)}
+                >
                   {label}
                 </ChipButton>
               ))}
@@ -222,7 +244,11 @@ export default function OnboardingSheet({
           {STEPS[step] === 'Diet' && (
             <div className="flex flex-wrap gap-2">
               {DIETS.map((d) => (
-                <ChipButton key={d} active={dietary.includes(d)} onClick={() => toggle(d, dietary, setDietary)}>
+                <ChipButton
+                  key={d}
+                  active={dietary.includes(d)}
+                  onClick={() => toggle(d, dietary, setDietary)}
+                >
                   {dietLabel(t, d)}
                 </ChipButton>
               ))}
@@ -231,12 +257,14 @@ export default function OnboardingSheet({
 
           {STEPS[step] === 'Allergies' && (
             <>
-              <p className="text-sm text-ink-500 mb-3">
-                {t('onboarding.web.allergiesHardFilter')}
-              </p>
+              <p className="text-sm text-ink-500 mb-3">{t('onboarding.web.allergiesHardFilter')}</p>
               <div className="flex flex-wrap gap-2">
                 {ALLERGENS.map((a) => (
-                  <ChipButton key={a} active={allergens.includes(a)} onClick={() => toggle(a, allergens, setAllergens)}>
+                  <ChipButton
+                    key={a}
+                    active={allergens.includes(a)}
+                    onClick={() => toggle(a, allergens, setAllergens)}
+                  >
                     {allergenLabel(t, a)}
                   </ChipButton>
                 ))}
@@ -260,7 +288,13 @@ export default function OnboardingSheet({
               >
                 {t('onboarding.web.continue')}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path
+                    d="M5 12h14M13 6l6 6-6 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
             ) : (
@@ -270,7 +304,13 @@ export default function OnboardingSheet({
               >
                 {t('onboarding.finish')}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path
+                    d="M5 12h14M13 6l6 6-6 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
             )}

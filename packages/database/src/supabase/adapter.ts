@@ -91,15 +91,17 @@ export class SupabaseEmroozData implements EmroozData {
       return (data ?? []).map(rowToIngredient);
     },
     byId: async (id) => {
-      const { data } = await this.supabase.from('ingredients').select('*').eq('id', id).maybeSingle();
+      const { data } = await this.supabase
+        .from('ingredients')
+        .select('*')
+        .eq('id', id)
+        .maybeSingle();
       return data ? rowToIngredient(data) : undefined;
     },
     search: async (query, limit = 30) => {
       const needle = query.trim();
       const q = this.supabase.from('ingredients').select('*').limit(limit).order('slug');
-      const request = needle
-        ? q.or(`name_en.ilike.%${needle}%,slug.ilike.%${needle}%`)
-        : q;
+      const request = needle ? q.or(`name_en.ilike.%${needle}%,slug.ilike.%${needle}%`) : q;
       const { data } = await request;
       return (data ?? []).map(rowToIngredient);
     },
@@ -111,7 +113,11 @@ export class SupabaseEmroozData implements EmroozData {
       return (data ?? []).map(rowToCuisine);
     },
     bySlug: async (slug) => {
-      const { data } = await this.supabase.from('cuisines').select('*').eq('slug', slug).maybeSingle();
+      const { data } = await this.supabase
+        .from('cuisines')
+        .select('*')
+        .eq('slug', slug)
+        .maybeSingle();
       return data ? rowToCuisine(data) : undefined;
     },
   };
@@ -122,7 +128,11 @@ export class SupabaseEmroozData implements EmroozData {
       return (data ?? []).map(rowToCountry);
     },
     byCode: async (code) => {
-      const { data } = await this.supabase.from('countries').select('*').eq('code', code).maybeSingle();
+      const { data } = await this.supabase
+        .from('countries')
+        .select('*')
+        .eq('code', code)
+        .maybeSingle();
       return data ? rowToCountry(data) : undefined;
     },
   };
@@ -155,14 +165,20 @@ export class SupabaseEmroozData implements EmroozData {
 
   profile: UserProfileRepo = {
     get: async (userId) => {
-      const { data } = await this.supabase.from('profiles').select('*').eq('id', userId).maybeSingle();
+      const { data } = await this.supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .maybeSingle();
       return data ? rowToProfile(data) : undefined;
     },
     createGuest: async () => {
       // Guest accounts are provisioned by anonymous auth (see @emrooz/database/supabase/session).
       // The app calls createGuest() only in demo mode; in Supabase mode the profile row is
       // created via a database trigger on auth.users insert, or by upsert on first login.
-      throw new Error('SupabaseEmroozData.profile.createGuest is not used — sign in anonymously instead.');
+      throw new Error(
+        'SupabaseEmroozData.profile.createGuest is not used — sign in anonymously instead.',
+      );
     },
     upsert: async (p) => {
       await this.supabase.from('profiles').upsert({
@@ -183,9 +199,9 @@ export class SupabaseEmroozData implements EmroozData {
       // Idempotent replace: clear then insert. RLS guarantees the delete is user-scoped.
       await this.supabase.from('pantry_items').delete().eq('user_id', userId);
       if (ingredientIds.length > 0) {
-        await this.supabase.from('pantry_items').insert(
-          ingredientIds.map((ingredient_id) => ({ user_id: userId, ingredient_id })),
-        );
+        await this.supabase
+          .from('pantry_items')
+          .insert(ingredientIds.map((ingredient_id) => ({ user_id: userId, ingredient_id })));
       }
     },
     add: async (item) => {
@@ -293,7 +309,11 @@ export class SupabaseEmroozData implements EmroozData {
       );
     },
     remove: async (userId, entryId) => {
-      await this.supabase.from('meal_plan_entries').delete().eq('user_id', userId).eq('id', entryId);
+      await this.supabase
+        .from('meal_plan_entries')
+        .delete()
+        .eq('user_id', userId)
+        .eq('id', entryId);
     },
   };
 
@@ -309,7 +329,11 @@ export class SupabaseEmroozData implements EmroozData {
       await this.supabase.from('shopping_list_items').upsert(shoppingItemToRow(item));
     },
     remove: async (userId, itemId) => {
-      await this.supabase.from('shopping_list_items').delete().eq('user_id', userId).eq('id', itemId);
+      await this.supabase
+        .from('shopping_list_items')
+        .delete()
+        .eq('user_id', userId)
+        .eq('id', itemId);
     },
     clear: async (userId, opts) => {
       const q = this.supabase.from('shopping_list_items').delete().eq('user_id', userId);
@@ -358,10 +382,7 @@ export class SupabaseEmroozData implements EmroozData {
   };
 
   private async queryRecipes(query: RecipeQuery | undefined): Promise<RecipeRow[]> {
-    let q = this.supabase
-      .from('recipes')
-      .select(RECIPE_SELECT)
-      .eq('editorial_state', 'published');
+    let q = this.supabase.from('recipes').select(RECIPE_SELECT).eq('editorial_state', 'published');
 
     if (query?.cuisineId) {
       // Filter through the join table via server-side inner select. The `!inner`

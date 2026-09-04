@@ -23,7 +23,16 @@ const TIME_BUCKETS: { key: string; max: number }[] = [
 ];
 
 const DIFFICULTIES: Difficulty[] = ['easy', 'medium', 'hard'];
-const MEALS: MealType[] = ['breakfast', 'lunch', 'dinner', 'snack', 'soup', 'salad', 'side', 'dessert'];
+const MEALS: MealType[] = [
+  'breakfast',
+  'lunch',
+  'dinner',
+  'snack',
+  'soup',
+  'salad',
+  'side',
+  'dessert',
+];
 const DIETS: DietaryTag[] = ['vegetarian', 'vegan', 'halal', 'gluten_free', 'dairy_free'];
 
 export default function DiscoverClient() {
@@ -123,14 +132,21 @@ export default function DiscoverClient() {
   return (
     <div className="mx-auto max-w-6xl px-4 pt-10 pb-16">
       <div className="text-xs uppercase tracking-widest text-ink-400">{t('discover.eyebrow')}</div>
-      <h1 className="font-display text-4xl md:text-5xl text-ink-900 leading-tight mt-1">{t('discover.title')}</h1>
-      <p className="text-ink-500 mt-2 max-w-xl">
-        {t('discover.subtitle')}
-      </p>
+      <h1 className="font-display text-4xl md:text-5xl text-ink-900 leading-tight mt-1">
+        {t('discover.title')}
+      </h1>
+      <p className="text-ink-500 mt-2 max-w-xl">{t('discover.subtitle')}</p>
 
       {/* Search */}
       <div className="mt-6 relative max-w-xl">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-400" aria-hidden="true">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-400"
+          aria-hidden="true"
+        >
           <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
           <path d="M20 20l-3.5-3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
         </svg>
@@ -150,7 +166,12 @@ export default function DiscoverClient() {
           aria-expanded={filtersOpen}
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+            <path
+              d="M4 6h16M7 12h10M10 18h4"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
           </svg>
           {t('discover.filters')}
           {activeFilterCount > 0 && (
@@ -160,7 +181,9 @@ export default function DiscoverClient() {
           )}
         </button>
 
-        <label htmlFor="sort" className="text-sm text-ink-500 ml-2">{t('discover.sortBy')}</label>
+        <label htmlFor="sort" className="text-sm text-ink-500 ml-2">
+          {t('discover.sortBy')}
+        </label>
         <select
           id="sort"
           value={sort}
@@ -209,7 +232,11 @@ export default function DiscoverClient() {
           </FilterGroup>
           <FilterGroup label={t('discover.filter.mealType')}>
             {MEALS.map((m) => (
-              <Chip key={m} active={meal === m} onClick={() => setMeal((cur) => (cur === m ? null : m))}>
+              <Chip
+                key={m}
+                active={meal === m}
+                onClick={() => setMeal((cur) => (cur === m ? null : m))}
+              >
                 {translateMealType(t, m)}
               </Chip>
             ))}
@@ -281,7 +308,15 @@ function FilterGroup({ label, children }: { label: string; children: React.React
   );
 }
 
-function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
+function Chip({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
   return (
     <button
       onClick={onClick}

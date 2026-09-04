@@ -112,7 +112,12 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: 1.5,
   },
-  title: { fontFamily: FONTS.display, fontSize: FONT_SIZES.hero, color: COLORS.ink900, marginTop: 4 },
+  title: {
+    fontFamily: FONTS.display,
+    fontSize: FONT_SIZES.hero,
+    color: COLORS.ink900,
+    marginTop: 4,
+  },
   subtitle: { fontFamily: FONTS.body, fontSize: FONT_SIZES.md, color: COLORS.ink500, marginTop: 6 },
   label: {
     marginTop: SPACING.md,

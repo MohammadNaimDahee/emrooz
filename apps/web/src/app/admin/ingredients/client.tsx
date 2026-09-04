@@ -26,9 +26,43 @@ const CATEGORIES = [
   'other',
 ] as const;
 
-const UNITS = ['g', 'kg', 'ml', 'l', 'tsp', 'tbsp', 'cup', 'piece', 'clove', 'slice', 'pinch', 'to_taste'] as const;
-const ALLERGENS = ['gluten', 'wheat', 'dairy', 'egg', 'peanut', 'tree_nut', 'soy', 'sesame', 'fish', 'shellfish'] as const;
-const DIETS = ['vegetarian', 'vegan', 'pescatarian', 'halal', 'kosher', 'gluten_free', 'dairy_free', 'egg_free', 'nut_free'] as const;
+const UNITS = [
+  'g',
+  'kg',
+  'ml',
+  'l',
+  'tsp',
+  'tbsp',
+  'cup',
+  'piece',
+  'clove',
+  'slice',
+  'pinch',
+  'to_taste',
+] as const;
+const ALLERGENS = [
+  'gluten',
+  'wheat',
+  'dairy',
+  'egg',
+  'peanut',
+  'tree_nut',
+  'soy',
+  'sesame',
+  'fish',
+  'shellfish',
+] as const;
+const DIETS = [
+  'vegetarian',
+  'vegan',
+  'pescatarian',
+  'halal',
+  'kosher',
+  'gluten_free',
+  'dairy_free',
+  'egg_free',
+  'nut_free',
+] as const;
 const COMPAT = ['compatible', 'incompatible', 'unknown'] as const;
 
 const EMPTY: IngredientPayload = {
@@ -75,7 +109,8 @@ export function IngredientsClient({ rows }: { rows: (IngredientPayload & { id: s
   }
 
   function remove(id: string) {
-    if (!confirm('Delete this ingredient? Recipes that reference it will fail on next save.')) return;
+    if (!confirm('Delete this ingredient? Recipes that reference it will fail on next save.'))
+      return;
     setError(null);
     startTransition(() => {
       void (async () => {
@@ -109,7 +144,10 @@ export function IngredientsClient({ rows }: { rows: (IngredientPayload & { id: s
       </div>
 
       {error && (
-        <p role="alert" className="text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-lg px-3 py-2">
+        <p
+          role="alert"
+          className="text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-lg px-3 py-2"
+        >
           {error}
         </p>
       )}
@@ -132,7 +170,9 @@ export function IngredientsClient({ rows }: { rows: (IngredientPayload & { id: s
                   <div className="font-medium text-ink-900">{row.name_en}</div>
                   <div className="text-xs text-ink-400">/{row.slug}</div>
                 </td>
-                <td className="px-4 py-3 text-ink-500 capitalize">{row.category.replace('_', ' ')}</td>
+                <td className="px-4 py-3 text-ink-500 capitalize">
+                  {row.category.replace('_', ' ')}
+                </td>
                 <td className="px-4 py-3 text-ink-500 text-xs">{row.aliases.join(', ') || '—'}</td>
                 <td className="px-4 py-3 text-xs">
                   {row.allergens.length === 0 ? (
@@ -297,9 +337,7 @@ function EditorDialog({
                   <span className="w-28 capitalize text-ink-700">{tag.replace('_', ' ')}</span>
                   <select
                     value={compat[tag] ?? 'unknown'}
-                    onChange={(e) =>
-                      setCompat((prev) => ({ ...prev, [tag]: e.target.value }))
-                    }
+                    onChange={(e) => setCompat((prev) => ({ ...prev, [tag]: e.target.value }))}
                     className="rounded-md border border-ink-100 bg-white px-2 py-1 focus-ring text-xs capitalize"
                   >
                     {COMPAT.map((c) => (

@@ -129,9 +129,7 @@ function baseSnapshot(): UserSnapshot {
       { id: 'p1', userId: 'guest-abc', ingredientId: 'rice', addedAt: NOW },
       { id: 'p2', userId: 'guest-abc', ingredientId: 'onion', addedAt: NOW },
     ],
-    favorites: [
-      { id: 'f1', userId: 'guest-abc', recipeId: 'qabuli-palaw', favoritedAt: NOW },
-    ],
+    favorites: [{ id: 'f1', userId: 'guest-abc', recipeId: 'qabuli-palaw', favoritedAt: NOW }],
     history: [
       {
         id: 'h1',
@@ -240,7 +238,12 @@ describe('migrateUserData', () => {
   it('skips items that already exist in the target (partial pre-existing state)', async () => {
     // Pre-populate the target with a matching pantry item, a different favorite,
     // and a matching history entry.
-    await target.pantry.add({ id: 'existing-1', userId: TARGET, ingredientId: 'rice', addedAt: NOW });
+    await target.pantry.add({
+      id: 'existing-1',
+      userId: TARGET,
+      ingredientId: 'rice',
+      addedAt: NOW,
+    });
     await target.favorites.add({
       id: 'existing-fav',
       userId: TARGET,

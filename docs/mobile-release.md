@@ -51,4 +51,3 @@ delete that script (or remove its call sites in
 
 Android is unaffected — its equivalent capabilities are declared in
 `AndroidManifest.xml` and do not require paid team enrollment.
-

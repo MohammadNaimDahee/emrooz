@@ -36,7 +36,10 @@ export async function POST(request: NextRequest) {
 
   if (body.dryRun === false) {
     return NextResponse.json(
-      { error: 'Persisted imports require the admin CRUD interface (coming in §3). Send dryRun: true.' },
+      {
+        error:
+          'Persisted imports require the admin CRUD interface (coming in §3). Send dryRun: true.',
+      },
       { status: 501 },
     );
   }
@@ -57,10 +60,7 @@ export async function POST(request: NextRequest) {
     );
     return NextResponse.json(result, { headers: { 'cache-control': 'no-store' } });
   } catch (err) {
-    return NextResponse.json(
-      { error: 'Import failed.', detail: String(err) },
-      { status: 502 },
-    );
+    return NextResponse.json({ error: 'Import failed.', detail: String(err) }, { status: 502 });
   }
 }
 

@@ -6,12 +6,13 @@ export const dynamic = 'force-dynamic';
 async function loadTaxonomies() {
   const supabase = await getServerSupabase();
   if (!supabase) return { cuisines: [], regions: [], countries: [], ingredients: [] };
-  const [{ data: cuisines }, { data: regions }, { data: countries }, { data: ingredients }] = await Promise.all([
-    supabase.from('cuisines').select('id, name_en').order('name_en'),
-    supabase.from('regions').select('id, name_en, country_id').order('name_en'),
-    supabase.from('countries').select('id, code, name_en').order('name_en'),
-    supabase.from('ingredients').select('id, name_en, slug').order('name_en'),
-  ]);
+  const [{ data: cuisines }, { data: regions }, { data: countries }, { data: ingredients }] =
+    await Promise.all([
+      supabase.from('cuisines').select('id, name_en').order('name_en'),
+      supabase.from('regions').select('id, name_en, country_id').order('name_en'),
+      supabase.from('countries').select('id, code, name_en').order('name_en'),
+      supabase.from('ingredients').select('id, name_en, slug').order('name_en'),
+    ]);
   return {
     cuisines: cuisines ?? [],
     regions: regions ?? [],

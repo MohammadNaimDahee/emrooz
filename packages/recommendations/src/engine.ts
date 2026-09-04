@@ -1,10 +1,4 @@
-import {
-  checkDietarySafety,
-  dailySeed,
-  daysBetween,
-  mulberry32,
-  pantryMatch,
-} from '@emrooz/core';
+import { checkDietarySafety, dailySeed, daysBetween, mulberry32, pantryMatch } from '@emrooz/core';
 import type {
   CookingHistoryEntry,
   FavoriteEntry,
@@ -70,7 +64,9 @@ export function recommend(input: EngineInputs): RankedRecipe[] {
   const maxCookTime = resolveMaxCookTime(input.preferences.maxCookMinutes, quickFilter);
   const requireVegetarian = quickFilter === 'vegetarian';
   const requireCuisineId =
-    typeof quickFilter === 'object' && quickFilter.kind === 'cuisine' ? quickFilter.cuisineId : undefined;
+    typeof quickFilter === 'object' && quickFilter.kind === 'cuisine'
+      ? quickFilter.cuisineId
+      : undefined;
 
   const feedbackByRecipe = new Map<string, RecommendationFeedback[]>();
   for (const fb of input.feedback) {
@@ -111,7 +107,11 @@ export function recommend(input: EngineInputs): RankedRecipe[] {
   for (const recipe of input.recipes) {
     if (recipe.editorialState !== 'published') continue;
     if (maxCookTime !== undefined && recipe.totalMinutes > maxCookTime) continue;
-    if (requireVegetarian && !recipe.dietaryTags.includes('vegetarian') && !recipe.dietaryTags.includes('vegan'))
+    if (
+      requireVegetarian &&
+      !recipe.dietaryTags.includes('vegetarian') &&
+      !recipe.dietaryTags.includes('vegan')
+    )
       continue;
     if (requireCuisineId && !recipe.cuisineIds.includes(requireCuisineId)) continue;
 
@@ -147,7 +147,10 @@ export function recommend(input: EngineInputs): RankedRecipe[] {
   }
 
   candidates.sort((a, b) => b.score - a.score);
-  const chosen = quickFilter === 'surprise_me' ? shuffleTopN(candidates, rng, limit * 3, limit) : candidates.slice(0, limit);
+  const chosen =
+    quickFilter === 'surprise_me'
+      ? shuffleTopN(candidates, rng, limit * 3, limit)
+      : candidates.slice(0, limit);
   return chosen;
 }
 
@@ -207,7 +210,8 @@ function scoreRecipe(s: ScoringInputs): ScoreBreakdown {
     if (fb.feedback === 'not_today') feedbackAdjustment -= ADJUSTMENTS.notTodayPenalty;
     else if (fb.feedback === 'do_not_like') feedbackAdjustment -= ADJUSTMENTS.doNotLikePenalty;
     else if (fb.feedback === 'too_difficult') feedbackAdjustment -= ADJUSTMENTS.tooDifficultPenalty;
-    else if (fb.feedback === 'takes_too_long') feedbackAdjustment -= ADJUSTMENTS.takesTooLongPenalty;
+    else if (fb.feedback === 'takes_too_long')
+      feedbackAdjustment -= ADJUSTMENTS.takesTooLongPenalty;
   }
 
   const householdFit =
@@ -222,7 +226,8 @@ function scoreRecipe(s: ScoringInputs): ScoreBreakdown {
 
   // Meal-type fit favors dinner recipes in the evening, breakfast in the morning, etc.
   const hour = new Date().getHours();
-  const preferredMeal = hour < 10 ? 'breakfast' : hour < 15 ? 'lunch' : hour < 22 ? 'dinner' : 'snack';
+  const preferredMeal =
+    hour < 10 ? 'breakfast' : hour < 15 ? 'lunch' : hour < 22 ? 'dinner' : 'snack';
   const mealTypeFit = s.recipe.mealTypes.includes(preferredMeal) ? ADJUSTMENTS.mealTypeFitBoost : 0;
 
   const exposurePenalty = Math.min(s.exposures, 3) * (ADJUSTMENTS.recentExposurePenalty / 3);

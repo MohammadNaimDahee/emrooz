@@ -1,11 +1,7 @@
 'use client';
 import { useMemo } from 'react';
 
-import {
-  createDemoData,
-  SupabaseEmroozData,
-  type EmroozData,
-} from '@emrooz/database';
+import { createDemoData, SupabaseEmroozData, type EmroozData } from '@emrooz/database';
 
 import { getBrowserSupabase } from './supabase-browser';
 import { useSupabaseSession } from './session';

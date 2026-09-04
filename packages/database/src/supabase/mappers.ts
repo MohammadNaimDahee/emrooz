@@ -302,7 +302,8 @@ export function rowToRecipe(r: RecipeRow): Recipe {
       url: m.url ?? m.storage_path,
       license: m.license ?? undefined,
       attribution: m.attribution ?? undefined,
-      storagePermission: (m.storage_permission ?? undefined) as Recipe['images'][number]['storagePermission'],
+      storagePermission: (m.storage_permission ??
+        undefined) as Recipe['images'][number]['storagePermission'],
     })),
     provenance: {
       contentOwner: r.content_owner,
@@ -317,7 +318,8 @@ export function rowToRecipe(r: RecipeRow): Recipe {
       attributionText: r.attribution_text ?? undefined,
       attributionUrl: r.attribution_url ?? undefined,
       storagePermission: r.storage_permission as Recipe['provenance']['storagePermission'],
-      imageStoragePermission: (r.image_storage_permission ?? undefined) as Recipe['provenance']['imageStoragePermission'],
+      imageStoragePermission: (r.image_storage_permission ??
+        undefined) as Recipe['provenance']['imageStoragePermission'],
       importedAt: r.imported_at ?? undefined,
       lastSyncedAt: r.last_synced_at ?? undefined,
       contentHash: r.content_hash ?? undefined,
@@ -346,7 +348,8 @@ export function rowToRecipeSummary(r: RecipeRow): RecipeSummary {
     images: (r.media_assets ?? []).map((m) => ({
       id: m.id,
       url: m.url ?? m.storage_path,
-      storagePermission: (m.storage_permission ?? undefined) as RecipeSummary['images'][number]['storagePermission'],
+      storagePermission: (m.storage_permission ??
+        undefined) as RecipeSummary['images'][number]['storagePermission'],
     })),
   };
 }

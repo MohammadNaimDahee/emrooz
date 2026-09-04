@@ -27,11 +27,13 @@ export default function ForgotPasswordClient() {
 
   return (
     <div className="mx-auto max-w-md px-4 pt-10 pb-16">
-      <div className="text-xs uppercase tracking-widest text-ink-400">{t('auth.forgotPassword.eyebrow')}</div>
-      <h1 className="font-display text-4xl text-ink-900 mt-1">{t('auth.forgotPassword.titleShort')}</h1>
-      <p className="text-ink-500 mt-2">
-        {t('auth.forgotPassword.subtitleWeb')}
-      </p>
+      <div className="text-xs uppercase tracking-widest text-ink-400">
+        {t('auth.forgotPassword.eyebrow')}
+      </div>
+      <h1 className="font-display text-4xl text-ink-900 mt-1">
+        {t('auth.forgotPassword.titleShort')}
+      </h1>
+      <p className="text-ink-500 mt-2">{t('auth.forgotPassword.subtitleWeb')}</p>
 
       {supabaseDisabled && (
         <div className="mt-6 rounded-xl border border-ink-100 bg-white p-4 text-sm text-ink-500">
@@ -53,12 +55,18 @@ export default function ForgotPasswordClient() {
         </label>
 
         {error && (
-          <p role="alert" className="text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-lg px-3 py-2">
+          <p
+            role="alert"
+            className="text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-lg px-3 py-2"
+          >
             {error}
           </p>
         )}
         {sent && (
-          <p role="status" className="text-sm text-emerald-700 bg-emerald-50 border border-emerald-100 rounded-lg px-3 py-2">
+          <p
+            role="status"
+            className="text-sm text-emerald-700 bg-emerald-50 border border-emerald-100 rounded-lg px-3 py-2"
+          >
             {t('auth.forgotPassword.checkInbox')}
           </p>
         )}

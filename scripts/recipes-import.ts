@@ -65,7 +65,12 @@ async function main(): Promise<void> {
     throw new Error('THEMEALDB_API_KEY is not set on the environment.');
   }
 
-  log('import.start', { provider: args.provider, area: args.area, query: args.query, commit: args.commit });
+  log('import.start', {
+    provider: args.provider,
+    area: args.area,
+    query: args.query,
+    commit: args.commit,
+  });
 
   const candidates = args.area
     ? await provider.fetchByArea(args.area)
@@ -88,6 +93,11 @@ async function main(): Promise<void> {
 void runImport;
 
 main().catch((err) => {
-  console.error(JSON.stringify({ event: 'import.failed', message: err instanceof Error ? err.message : String(err) }));
+  console.error(
+    JSON.stringify({
+      event: 'import.failed',
+      message: err instanceof Error ? err.message : String(err),
+    }),
+  );
   process.exit(1);
 });

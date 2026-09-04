@@ -57,9 +57,13 @@ async function main(): Promise<void> {
   const pgToGpg = new PassThrough();
   const gpgToAws = new PassThrough();
 
-  const dump = run('pg_dump', ['--format=plain', '--no-owner', '--no-privileges', env.DATABASE_URL], {
-    stdoutTo: pgToGpg,
-  });
+  const dump = run(
+    'pg_dump',
+    ['--format=plain', '--no-owner', '--no-privileges', env.DATABASE_URL],
+    {
+      stdoutTo: pgToGpg,
+    },
+  );
 
   const encrypt = run(
     'gpg',
@@ -80,14 +84,7 @@ async function main(): Promise<void> {
     },
   );
 
-  const uploadArgs = [
-    's3',
-    'cp',
-    '-',
-    bucketUrl,
-    '--region',
-    env.BACKUP_S3_REGION,
-  ];
+  const uploadArgs = ['s3', 'cp', '-', bucketUrl, '--region', env.BACKUP_S3_REGION];
   if (process.env.BACKUP_S3_ENDPOINT) {
     uploadArgs.push('--endpoint-url', process.env.BACKUP_S3_ENDPOINT);
   }

@@ -25,7 +25,10 @@ export async function GET() {
     );
   }
   const health = await provider.health();
-  return NextResponse.json({ provider: 'themealdb', health }, { headers: { 'cache-control': 'no-store' } });
+  return NextResponse.json(
+    { provider: 'themealdb', health },
+    { headers: { 'cache-control': 'no-store' } },
+  );
 }
 
 function tooMany(retryAfterMs: number): NextResponse {

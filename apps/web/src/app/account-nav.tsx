@@ -83,7 +83,9 @@ export function AccountNav() {
         >
           {(email?.[0] ?? '?').toUpperCase()}
         </span>
-        <span className="hidden sm:inline max-w-[10rem] truncate">{email ?? t('accountNav.account')}</span>
+        <span className="hidden sm:inline max-w-[10rem] truncate">
+          {email ?? t('accountNav.account')}
+        </span>
       </button>
 
       {open && (

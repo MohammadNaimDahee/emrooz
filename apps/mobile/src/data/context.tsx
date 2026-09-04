@@ -1,10 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  createDemoData,
-  SupabaseEmroozData,
-  type EmroozData,
-} from '@emrooz/database';
+import { createDemoData, SupabaseEmroozData, type EmroozData } from '@emrooz/database';
 import { migrateUserData } from '@emrooz/core';
 import type { Locale, UserPreferences, UserProfile } from '@emrooz/types';
 

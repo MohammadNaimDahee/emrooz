@@ -34,11 +34,17 @@ export function requireBackupEnv(): BackupEnv {
   if (missing.length > 0) {
     throw new Error(`Missing env vars for backup: ${missing.join(', ')}`);
   }
-  return Object.fromEntries(required.map((key) => [key, process.env[key]!])) as unknown as BackupEnv;
+  return Object.fromEntries(
+    required.map((key) => [key, process.env[key]!]),
+  ) as unknown as BackupEnv;
 }
 
 /** Log a structured event to stdout so the caller can pipe to a log stream. */
-export function log(level: 'info' | 'warn' | 'error', event: string, extra: Record<string, unknown> = {}): void {
+export function log(
+  level: 'info' | 'warn' | 'error',
+  event: string,
+  extra: Record<string, unknown> = {},
+): void {
   const entry = { timestamp: new Date().toISOString(), level, event, ...extra };
   console.log(JSON.stringify(entry));
 }
@@ -50,7 +56,11 @@ export function log(level: 'info' | 'warn' | 'error', event: string, extra: Reco
 export function run(
   command: string,
   args: string[],
-  options: { env?: NodeJS.ProcessEnv; stdinFrom?: NodeJS.ReadableStream; stdoutTo?: NodeJS.WritableStream } = {},
+  options: {
+    env?: NodeJS.ProcessEnv;
+    stdinFrom?: NodeJS.ReadableStream;
+    stdoutTo?: NodeJS.WritableStream;
+  } = {},
 ): Promise<void> {
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, {

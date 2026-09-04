@@ -31,7 +31,7 @@ supabase/migrations  Versioned Postgres schema + RLS policies
 ## Why this shape
 
 - **Portability**: nothing in `packages/*` depends on React, React Native, Next.js, or Supabase. This satisfies CLAUDE.md §43 — Emrooz can move to another Postgres provider without rewriting business logic.
-- **Explainability**: the recommendation engine returns a `ScoreBreakdown` and a human-readable reason, so the UI can show *why* it's suggesting a recipe.
+- **Explainability**: the recommendation engine returns a `ScoreBreakdown` and a human-readable reason, so the UI can show _why_ it's suggesting a recipe.
 - **Safety by construction**: dietary and allergy filters live in `@emrooz/core/dietary` and are applied before scoring. There is no code path that can produce a recommendation which fails safety.
 
 See also: [`data-model.md`](./data-model.md), [`recommendation-engine.md`](./recommendation-engine.md), [`recipe-sourcing-and-licensing.md`](./recipe-sourcing-and-licensing.md).

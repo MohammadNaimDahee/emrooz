@@ -216,7 +216,7 @@ const ps = {
   'planner.pickTitle': 'یو خوراک وټاکه',
   'planner.pickSubtitle': '{meal} · {date}',
   'planner.pickSearch': 'لټون',
-  'ok': 'سم دی',
+  ok: 'سم دی',
 
   // -- Favorites --------------------------------------------------------
   'favorites.title': 'خوښې',
@@ -231,7 +231,8 @@ const ps = {
   'history.cookAgain': 'بیا یې پخ کړه',
   'history.addToPlanner': 'پلان ته یې ورزیات کړه',
   'history.remove': 'له تاریخچې لرې کړه',
-  'history.empty': 'تر اوسه څه پاخه شوي ندي. هغه خواړه چې د پاخه په توګه یې نښه کړې دلته به څرګند شي.',
+  'history.empty':
+    'تر اوسه څه پاخه شوي ندي. هغه خواړه چې د پاخه په توګه یې نښه کړې دلته به څرګند شي.',
   'history.confirmRemove.title': 'له تاریخچې لرې کړم؟',
   'history.confirmRemove.subtitle':
     'دا به دا خوراک ستاسو له خوښو څخه ونه لري او په راتلونکو وړاندیزونو اغیز نه کوي.',
@@ -299,7 +300,8 @@ const ps = {
   'onboarding.step.language': 'خپله ژبه وټاکه',
   'onboarding.step.language.subtitle': 'دا کولی شې د تنظیماتو له لارې هر وخت بدله کړې.',
   'onboarding.step.cuisines': 'کوم خواړه خوښوې؟',
-  'onboarding.step.cuisines.subtitle': 'څومره چې غواړې وټاکه — موږ به یې ستا په وړاندیزونو کې ورګډ کړو.',
+  'onboarding.step.cuisines.subtitle':
+    'څومره چې غواړې وټاکه — موږ به یې ستا په وړاندیزونو کې ورګډ کړو.',
   'onboarding.step.household': 'ستاسو په مېز معمولاً څو کسان خوري؟',
   'onboarding.step.household.subtitle': 'د موادو اندازه به یې سره برابره کړو.',
   'onboarding.step.time': 'معمولاً څومره وخت لرې؟',
@@ -403,8 +405,10 @@ const ps = {
   'auth.signUp.header': 'حساب جوړ کړه',
   'auth.signUp.eyebrow': 'پیل کړه',
   'auth.signUp.titleShort': 'خپل حساب جوړ کړه',
-  'auth.signUp.subtitleShort': 'ستاسو د مېلمه معلومات به کله چې حساب جوړ کړې ستاسو په حساب کې یوځای شي.',
-  'auth.signUp.disabledHint': 'حساب جوړول به هغه وخت فعال شي کله چې د Supabase اعتبارنامې تنظیم شي.',
+  'auth.signUp.subtitleShort':
+    'ستاسو د مېلمه معلومات به کله چې حساب جوړ کړې ستاسو په حساب کې یوځای شي.',
+  'auth.signUp.disabledHint':
+    'حساب جوړول به هغه وخت فعال شي کله چې د Supabase اعتبارنامې تنظیم شي.',
   'auth.signUp.passwordHint': 'لږ تر لږه ۸ توري.',
   'auth.signUp.confirmationSent': 'موږ {email} ته د تایید لینک ولېږه. په همدې وسیله یې کېکاږه.',
   'auth.signUp.alreadyHavePrefix': 'مخکې دې حساب لري؟ ',
@@ -445,9 +449,11 @@ const ps = {
   'landing.cta.browseRecipes': 'د خواړو لیدنه',
   'landing.features.title': 'واړه پرېکړې، خوندورې شوې',
   'landing.features.pantry.title': 'د ذخیرې خبرتیا',
-  'landing.features.pantry.body': 'له هغه څه چې لرې کار واخله — Emrooz خواړه د ستا د پخلنځي په اساس درجه بندي کوي.',
+  'landing.features.pantry.body':
+    'له هغه څه چې لرې کار واخله — Emrooz خواړه د ستا د پخلنځي په اساس درجه بندي کوي.',
   'landing.features.time.title': 'د وخت خبرتیا',
-  'landing.features.time.body': 'موږ ته ووایه چې څو دقیقې لرې؛ یوازې هغه څه چې مناسب وي وړاندیز کوو.',
+  'landing.features.time.body':
+    'موږ ته ووایه چې څو دقیقې لرې؛ یوازې هغه څه چې مناسب وي وړاندیز کوو.',
   'landing.features.safe.title': 'د طرحې له مخې خوندي',
   'landing.features.safe.body': 'حساسیتونه او خوراکي اړتیاوې سخت فلټرونه دي، نه وړاندیزونه.',
   'landing.cuisines.title': 'د خواړو یوه نړۍ',
@@ -457,7 +463,8 @@ const ps = {
   'landing.afghan.body':
     'افغاني خواړه د ډېرو د پخلي په اپلیکېشنونو کې کم پام شوي دي. موږ هرچېرې ترټولو ژوره افغاني ټولګه جوړوو — د پخلي کوونکو له خوا کتل شوې، نه د لټون له پایلو څخه راټول شوې.',
   'landing.plan.title': 'یو آرام اونیز پلان',
-  'landing.plan.body': 'د څو ورځو مخکې پلان جوړ کړه، کم توکي خپل د پیرودلو لیست ته ولېږه، او د لږ ستونزو سره پخ کړه.',
+  'landing.plan.body':
+    'د څو ورځو مخکې پلان جوړ کړه، کم توکي خپل د پیرودلو لیست ته ولېږه، او د لږ ستونزو سره پخ کړه.',
   'landing.faq.title': 'ډېر پوښتل شوي',
   'landing.faq.free.q': 'ایا Emrooz وړیا دی؟',
   'landing.faq.free.a': 'هو. لومړۍ نسخه هېڅ اعلانونه، هېڅ تعقیبونکي، او هېڅ لګښت لري.',
@@ -490,7 +497,8 @@ const ps = {
   'shoppingList.clearEntire.title': 'ټول د پیرودلو لیست پاک کړم؟',
   'shoppingList.clearEntire.body': 'دا نه شي بېرته راګرځېدلی.',
   'shoppingList.empty.title': 'ستا په لیست کې څه نشته',
-  'shoppingList.empty.body': 'پورته یې په لاسي توګه ورزیات کړه، یا یو خوراک پرانیزه او "کم توکي د پیرودلو لیست ته ورزیات کړه" کېکاږه.',
+  'shoppingList.empty.body':
+    'پورته یې په لاسي توګه ورزیات کړه، یا یو خوراک پرانیزه او "کم توکي د پیرودلو لیست ته ورزیات کړه" کېکاږه.',
   'shoppingList.category.produce': 'تازه توکي',
   'shoppingList.category.vegetable': 'سبزیجات',
   'shoppingList.category.fruit': 'مېوه',
@@ -527,7 +535,8 @@ const ps = {
   'history.emptyBodyAlt': 'په هر خوراک باندې "ما دا پخ کړ" کېکاږه او دلته به څرګند شي.',
   'history.removeEntry.title': 'ننوتنه لرې کړم؟',
   'history.addedToPlanner.title': 'پلان ته ورزیات شو',
-  'history.addedToPlanner.body': 'د نن ماښام لپاره ټاکل شوی. کولی شې د پلان له تڼۍ څخه یې حرکت ورکړې.',
+  'history.addedToPlanner.body':
+    'د نن ماښام لپاره ټاکل شوی. کولی شې د پلان له تڼۍ څخه یې حرکت ورکړې.',
 
   // -- Auth error copy -------------------------------------------------
   'auth.error.needsBoth': 'خپل بریښنالیک او پاسورډ دواړه ولیکه.',
@@ -565,7 +574,8 @@ const ps = {
 
   // -- Settings (extended) ---------------------------------------------
   'settings.eyebrow': 'ته',
-  'settings.reminders.description': 'ستا په ټاکلي وخت یوه نرمه یادونه. د پش خبرتیاوو ته اړتیا نشته.',
+  'settings.reminders.description':
+    'ستا په ټاکلي وخت یوه نرمه یادونه. د پش خبرتیاوو ته اړتیا نشته.',
   'settings.household.people': 'کسان',
   'settings.time.noLimit': 'هېڅ حد نشته',
   'settings.household.title': 'د کورنۍ اندازه',
@@ -662,11 +672,12 @@ const ps = {
   'demo.banner': 'د سیمه ییز ډیمو حالت کې چلي — یوازې بسته شوي خواړه.',
   'offline.banner': 'ته آفلاین یې. هغه څه ښیو چې لا مو لري.',
   'error.generic': 'یو څه سم نه شو. مهرباني وکړه بیا هڅه وکړه.',
-  'loading': 'بارېږي…',
+  loading: 'بارېږي…',
   'empty.tryAgain': 'هڅه وکړه فلټرونه پاک کړې یا یو بل لټون وکړې.',
 
   // -- Today (web) -----------------------------------------------------
-  'today.web.subtitle': 'د نن ورځې انتخاب، ستاسو د ذخیرې، وخت، او غوره توبونو سره برابر. لاندې څو نور هم دي.',
+  'today.web.subtitle':
+    'د نن ورځې انتخاب، ستاسو د ذخیرې، وخت، او غوره توبونو سره برابر. لاندې څو نور هم دي.',
   'today.web.orTryTheseTitle': 'یا له دې څخه یو هڅه کړه',
 
   // -- Metadata (web page titles) --------------------------------------
@@ -687,9 +698,11 @@ const ps = {
   'meta.cuisines.notFound': 'خواړه ونه موندل شول',
 
   // -- Discover (web extras) -------------------------------------------
-  'discover.subtitle': 'د پخلي لپاره نوی څه پیدا کړه. د نوم یا مادې له مخې لټون وکړه، یا د فلټرونو له لارې تنګ کړه.',
+  'discover.subtitle':
+    'د پخلي لپاره نوی څه پیدا کړه. د نوم یا مادې له مخې لټون وکړه، یا د فلټرونو له لارې تنګ کړه.',
   'discover.sort.quickest': 'لومړی ترټولو چټک',
-  'discover.pantryOnly.checkbox': 'یوازې هغه خواړه وښیه چې د زما له لرلو څخه کار اخلي (≥۶۰٪ د ذخیرې سمون)',
+  'discover.pantryOnly.checkbox':
+    'یوازې هغه خواړه وښیه چې د زما له لرلو څخه کار اخلي (≥۶۰٪ د ذخیرې سمون)',
   'discover.empty.tryLoose': 'هڅه وکړه یو فلټر ورو کړې یا ټول یې پاک کړې.',
 
   // -- Planner (web extras) --------------------------------------------
@@ -709,7 +722,8 @@ const ps = {
 
   // -- Pantry (web extras) ---------------------------------------------
   'pantry.searchPlaceholder.long': 'د موادو لټون — پیاز، د زیتونو تیل، نخود…',
-  'pantry.subtitle.long': 'Emrooz ته ووایه چې څه دې لا لري او موږ به داسې خواړه ښکاره کړو چې دا مواد وکاروي — یا هغه چې یوازې یو دوه نور موادو ته اړتیا لري.',
+  'pantry.subtitle.long':
+    'Emrooz ته ووایه چې څه دې لا لري او موږ به داسې خواړه ښکاره کړو چې دا مواد وکاروي — یا هغه چې یوازې یو دوه نور موادو ته اړتیا لري.',
 
   // -- Settings (web extras) -------------------------------------------
   'settings.eyebrow.preferences': 'غوره توبونه',
@@ -717,7 +731,8 @@ const ps = {
   'settings.hint.household': 'موږ د موادو اندازه ستاسو د مېز سره برابروو.',
   'settings.hint.time': 'له دې کړکۍ بهر به هېڅ وړاندیز نه کوو.',
   'settings.hint.diet': 'سخت محدودیتونه د سختو فلټرونو په توګه پلي کیږي.',
-  'settings.hint.allergies': 'هغه خواړه چې د ستا لپاره یې خوندي والی نه شو په مثبته توګه تایید کولی، هېڅکله نه ښکاریږي.',
+  'settings.hint.allergies':
+    'هغه خواړه چې د ستا لپاره یې خوندي والی نه شو په مثبته توګه تایید کولی، هېڅکله نه ښکاریږي.',
   'settings.hint.data': 'د JSON یو نقل صادر کړه یا هرڅه چې په محلي توګه خوندي دي ړنګ کړه.',
   'settings.household.person': 'کس',
   'settings.time.minutes': '{minutes} دقیقې',
@@ -726,7 +741,8 @@ const ps = {
   'settings.reminder.enableLabel': 'یادونه فعاله کړه',
   'settings.reminder.localHint': 'محلي خبرتیاوې ستاسو په وسیله کې د موبایل اپلیکېشن له خوا رسیږي.',
   'settings.account.signedInHint2': 'ننوتی. ستاسو معلومات په هره کارېدونکې وسیله کې همغږي کیږي.',
-  'settings.account.guestHint2': 'ته مېلمه یې. د خپلې ذخیرې، خوښو، او تاریخچې د همغږۍ لپاره حساب جوړ کړه.',
+  'settings.account.guestHint2':
+    'ته مېلمه یې. د خپلې ذخیرې، خوښو، او تاریخچې د همغږۍ لپاره حساب جوړ کړه.',
   'settings.account.signedInBadge': 'ننوتی',
   'settings.saved.short': 'خوندي شو.',
   'settings.exportFailed.alert': 'صادرات ناکام شول ({status}). مهرباني وکړه بیا هڅه وکړه.',
@@ -739,7 +755,8 @@ const ps = {
 
   // -- Shopping list (web extras) --------------------------------------
   'shoppingList.subtitle.active': '{active} د پیرودلو لپاره · {done} ترسره شول',
-  'shoppingList.subtitle.empty': 'اوس د پیرودلو لپاره څه نشته. له هر خوراک یا د پلان له اونۍ څخه کم مواد ورزیات کړه.',
+  'shoppingList.subtitle.empty':
+    'اوس د پیرودلو لپاره څه نشته. له هر خوراک یا د پلان له اونۍ څخه کم مواد ورزیات کړه.',
   'shoppingList.add.placeholder.long': 'څه چې غواړې ورزیات کړه — شیدې، د زیتونو تیل، د لوښو اسفنج…',
   'shoppingList.add.button': 'ورزیات کړه',
   'shoppingList.clearAllShort': 'ټول پاک کړه',
@@ -791,21 +808,26 @@ const ps = {
   'auth.signIn.magicLink.sentInbox': 'موږ {email} ته د ننوتلو لینک ولېږه. خپل ایمیل صندوق وګوره.',
   'auth.signUp.subtitleWeb':
     'ستاسو د مېلمه ذخیره، خوښې، او د پخلي تاریخچه ستاسو سره په اتومات ډول حرکت کوي — همدا حساب ساتې، یوازې بریښنالیک ورسره تړل کیږي.',
-  'auth.signUp.disabledHint.web': 'حساب جوړول به هغه وخت فعال شي کله چې د Supabase اعتبارنامې تنظیم شي. {code} وګوره.',
-  'auth.signUp.confirmSentLong': 'موږ {email} ته د تایید لینک ولېږه. د خپل حساب د جوړولو د بشپړولو لپاره یې کېکاږه.',
+  'auth.signUp.disabledHint.web':
+    'حساب جوړول به هغه وخت فعال شي کله چې د Supabase اعتبارنامې تنظیم شي. {code} وګوره.',
+  'auth.signUp.confirmSentLong':
+    'موږ {email} ته د تایید لینک ولېږه. د خپل حساب د جوړولو د بشپړولو لپاره یې کېکاږه.',
   'auth.signUp.terms.prefix': 'د دوام په منلو سره ته زموږ د',
   'auth.signUp.terms.terms': 'شرایطو',
   'auth.signUp.terms.and': 'او',
   'auth.signUp.terms.privacy': 'د محرمیت اعلامیې',
   'auth.signUp.terms.dot': 'سره موافق یې.',
   'auth.signUp.alreadyHave': 'مخکې دې حساب لري؟',
-  'auth.forgotPassword.subtitleWeb': 'خپل بریښنالیک ولیکه، موږ به د بیا تنظیم لینک درولېږو. په یو ساعت کې پای ته رسیږي.',
-  'auth.forgotPassword.disabledHint.web': 'بیا تنظیم به هغه وخت فعال شي کله چې د Supabase اعتبارنامې تنظیم شي.',
+  'auth.forgotPassword.subtitleWeb':
+    'خپل بریښنالیک ولیکه، موږ به د بیا تنظیم لینک درولېږو. په یو ساعت کې پای ته رسیږي.',
+  'auth.forgotPassword.disabledHint.web':
+    'بیا تنظیم به هغه وخت فعال شي کله چې د Supabase اعتبارنامې تنظیم شي.',
   'auth.forgotPassword.sending': 'لېږل کیږي…',
   'auth.forgotPassword.remembered': 'یاد دې شو؟',
   'auth.resetPassword.eyebrow': 'یو نوی پاسورډ وټاکه',
   'auth.resetPassword.title': 'پاسورډ بیا تنظیم کړه',
-  'auth.resetPassword.expiredIntro': 'دا لینک پای ته رسېدلی یا مخکې ترې کار اخیستل شوی. له سره پیل کړه له ',
+  'auth.resetPassword.expiredIntro':
+    'دا لینک پای ته رسېدلی یا مخکې ترې کار اخیستل شوی. له سره پیل کړه له ',
   'auth.resetPassword.expiredLink': 'هېر شوی پاسورډ',
   'auth.resetPassword.newPassword': 'نوی پاسورډ',
   'auth.resetPassword.saving': 'خوندي کیږي…',
@@ -847,9 +869,11 @@ const ps = {
   'onboarding.web.step.cuisines.subtitle':
     'څومره چې غواړې وټاکه. Emrooz به دې دې ته میلان ولري — خو هېڅکله د تنوع په ضایع کولو سره نه.',
   'onboarding.web.step.household.title': 'په مېز څو کسان دي؟',
-  'onboarding.web.step.household.subtitle': 'دا موږ ته مرسته کوي چې د خوراک د موادو اندازه سره برابره کړو.',
+  'onboarding.web.step.household.subtitle':
+    'دا موږ ته مرسته کوي چې د خوراک د موادو اندازه سره برابره کړو.',
   'onboarding.web.step.time.title': 'څومره وخت لرې؟',
-  'onboarding.web.step.time.subtitle': 'موږ به داسې څه وړاندیز نه کوو چې ستا له کړکۍ سره سمون ونه لري.',
+  'onboarding.web.step.time.subtitle':
+    'موږ به داسې څه وړاندیز نه کوو چې ستا له کړکۍ سره سمون ونه لري.',
   'onboarding.web.step.diet.title': 'کومې خوراکي غوره توبونه لرې؟',
   'onboarding.web.step.diet.subtitle': 'اختیاري. سخت محدودیتونه د سختو فلټرونو په توګه پلي کیږي.',
   'onboarding.web.step.allergies.title': 'کومې حساسیتونه لرې؟',

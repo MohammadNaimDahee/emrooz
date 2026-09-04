@@ -54,7 +54,20 @@ const MEAL_TYPES = [
 
 const DIFFICULTIES = ['easy', 'medium', 'hard'] as const;
 
-const UNITS = ['g', 'kg', 'ml', 'l', 'tsp', 'tbsp', 'cup', 'piece', 'clove', 'slice', 'pinch', 'to_taste'] as const;
+const UNITS = [
+  'g',
+  'kg',
+  'ml',
+  'l',
+  'tsp',
+  'tbsp',
+  'cup',
+  'piece',
+  'clove',
+  'slice',
+  'pinch',
+  'to_taste',
+] as const;
 
 const OWNERSHIP = [
   'emrooz_owned',
@@ -168,10 +181,7 @@ export function RecipeEditor({ initial, cuisines, regions, countries, ingredient
   }
 
   function addStep() {
-    setSteps((prev) => [
-      ...prev,
-      { step_order: prev.length, text_en: '', duration_minutes: null },
-    ]);
+    setSteps((prev) => [...prev, { step_order: prev.length, text_en: '', duration_minutes: null }]);
   }
 
   function moveStep(from: number, to: number) {
@@ -190,9 +200,7 @@ export function RecipeEditor({ initial, cuisines, regions, countries, ingredient
   }
 
   function removeStep(index: number) {
-    setSteps((prev) =>
-      prev.filter((_, i) => i !== index).map((s, i) => ({ ...s, step_order: i })),
-    );
+    setSteps((prev) => prev.filter((_, i) => i !== index).map((s, i) => ({ ...s, step_order: i })));
   }
 
   function submit(e: React.FormEvent) {
@@ -437,7 +445,10 @@ export function RecipeEditor({ initial, cuisines, regions, countries, ingredient
         )}
         <div className="space-y-2">
           {ing.map((row, index) => (
-            <div key={index} className="grid gap-2 md:grid-cols-[auto_2fr_1fr_1fr_2fr_auto_auto] items-center bg-ink-50/40 border border-ink-100 rounded-xl p-2">
+            <div
+              key={index}
+              className="grid gap-2 md:grid-cols-[auto_2fr_1fr_1fr_2fr_auto_auto] items-center bg-ink-50/40 border border-ink-100 rounded-xl p-2"
+            >
               <div className="flex flex-col">
                 <button
                   type="button"
@@ -494,9 +505,7 @@ export function RecipeEditor({ initial, cuisines, regions, countries, ingredient
               <input
                 placeholder="Note (optional)"
                 value={row.note_en ?? ''}
-                onChange={(e) =>
-                  updateIngredient(index, { note_en: e.target.value || null })
-                }
+                onChange={(e) => updateIngredient(index, { note_en: e.target.value || null })}
                 className="input"
               />
               <label className="text-xs text-ink-500 flex items-center gap-1">
@@ -532,7 +541,10 @@ export function RecipeEditor({ initial, cuisines, regions, countries, ingredient
         )}
         <div className="space-y-2">
           {steps.map((s, index) => (
-            <div key={index} className="grid gap-2 md:grid-cols-[auto_2rem_1fr_6rem_auto] items-start bg-ink-50/40 border border-ink-100 rounded-xl p-2">
+            <div
+              key={index}
+              className="grid gap-2 md:grid-cols-[auto_2rem_1fr_6rem_auto] items-start bg-ink-50/40 border border-ink-100 rounded-xl p-2"
+            >
               <div className="flex flex-col mt-1">
                 <button
                   type="button"
@@ -656,7 +668,10 @@ export function RecipeEditor({ initial, cuisines, regions, countries, ingredient
       </Panel>
 
       {error && (
-        <p role="alert" className="text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-lg px-3 py-2">
+        <p
+          role="alert"
+          className="text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-lg px-3 py-2"
+        >
           {error}
         </p>
       )}
@@ -670,7 +685,6 @@ export function RecipeEditor({ initial, cuisines, regions, countries, ingredient
           {pending ? 'Saving…' : initial?.id ? 'Save changes' : 'Create draft'}
         </button>
       </div>
-
     </form>
   );
 }

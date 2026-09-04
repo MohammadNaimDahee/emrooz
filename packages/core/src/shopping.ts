@@ -1,10 +1,4 @@
-import type {
-  Ingredient,
-  IngredientCategory,
-  Recipe,
-  ShoppingListItem,
-  Unit,
-} from '@emrooz/types';
+import type { Ingredient, IngredientCategory, Recipe, ShoppingListItem, Unit } from '@emrooz/types';
 
 /** Result of combining/normalizing a shopping list into a display list. */
 export interface CombinedShoppingItem {
@@ -41,7 +35,9 @@ export function combineShoppingList(
     const category: CombinedShoppingItem['category'] = ing?.category ?? 'other';
     // Group by (ingredient, unit) so `2 tsp salt` + `1 tsp salt` merge, but
     // `100 g sugar` + `1 cup sugar` stay separate — we don't know the density.
-    const bucketKey = item.ingredientId ? `${item.ingredientId}::${item.unit ?? ''}` : `label::${label.toLowerCase()}::${item.unit ?? ''}`;
+    const bucketKey = item.ingredientId
+      ? `${item.ingredientId}::${item.unit ?? ''}`
+      : `label::${label.toLowerCase()}::${item.unit ?? ''}`;
 
     const existing = buckets.get(bucketKey);
     if (existing) {

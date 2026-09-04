@@ -3,23 +3,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     },
-    "types": [
-      "react-native",
-      "expo-router"
-    ],
+    "types": ["react-native", "expo-router"],
     "jsx": "react-native",
     "noEmit": true,
     "allowJs": true
   },
-  "include": [
-    "src/**/*",
-    "app/**/*",
-    "app.json",
-    "expo-env.d.ts",
-    ".expo/types/**/*.ts"
-  ]
+  "include": ["src/**/*", "app/**/*", "app.json", "expo-env.d.ts", ".expo/types/**/*.ts"]
 }

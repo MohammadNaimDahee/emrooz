@@ -6,7 +6,9 @@ import { getTranslator } from '../../../lib/i18n-server';
 import { CuisineArt } from '../../../components/CuisineArt';
 import { RecipeCard } from '../../../components/RecipeCard';
 
-interface Params { slug: string }
+interface Params {
+  slug: string;
+}
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params;

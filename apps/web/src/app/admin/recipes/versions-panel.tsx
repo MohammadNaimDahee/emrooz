@@ -26,7 +26,8 @@ export function VersionsPanel({ versions }: { versions: VersionRow[] }) {
   const [error, setError] = useState<string | null>(null);
 
   function restore(id: string) {
-    if (!confirm('Restore this version? The current state will be saved as a new version first.')) return;
+    if (!confirm('Restore this version? The current state will be saved as a new version first.'))
+      return;
     setError(null);
     startTransition(() => {
       void (async () => {
@@ -55,7 +56,10 @@ export function VersionsPanel({ versions }: { versions: VersionRow[] }) {
     <section className="rounded-2xl bg-white border border-ink-100 shadow-card p-5 mt-6">
       <h2 className="font-display text-xl text-ink-900 mb-4">Version history</h2>
       {error && (
-        <p role="alert" className="text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-lg px-3 py-2 mb-3">
+        <p
+          role="alert"
+          className="text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-lg px-3 py-2 mb-3"
+        >
           {error}
         </p>
       )}
@@ -67,9 +71,7 @@ export function VersionsPanel({ versions }: { versions: VersionRow[] }) {
               <span className="text-xs text-ink-500 tabular-nums">
                 {new Date(v.created_at).toLocaleString()}
               </span>
-              <span className="text-xs text-ink-400 capitalize">
-                {v.change_reason ?? '—'}
-              </span>
+              <span className="text-xs text-ink-400 capitalize">{v.change_reason ?? '—'}</span>
               <div className="ml-auto flex items-center gap-3">
                 <button
                   onClick={() => setExpanded(expanded === v.id ? null : v.id)}

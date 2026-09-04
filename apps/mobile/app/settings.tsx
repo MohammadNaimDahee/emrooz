@@ -32,8 +32,28 @@ const LANGS: { code: Locale; label: string; dir: 'ltr' | 'rtl' }[] = [
   { code: 'fa-AF', label: 'دری', dir: 'rtl' },
   { code: 'ps', label: 'پښتو', dir: 'rtl' },
 ];
-const DIETS: DietaryTag[] = ['vegetarian', 'vegan', 'pescatarian', 'halal', 'kosher', 'gluten_free', 'dairy_free', 'egg_free', 'nut_free'];
-const ALLERGENS: Allergen[] = ['gluten', 'dairy', 'egg', 'peanut', 'tree_nut', 'soy', 'sesame', 'fish', 'shellfish'];
+const DIETS: DietaryTag[] = [
+  'vegetarian',
+  'vegan',
+  'pescatarian',
+  'halal',
+  'kosher',
+  'gluten_free',
+  'dairy_free',
+  'egg_free',
+  'nut_free',
+];
+const ALLERGENS: Allergen[] = [
+  'gluten',
+  'dairy',
+  'egg',
+  'peanut',
+  'tree_nut',
+  'soy',
+  'sesame',
+  'fish',
+  'shellfish',
+];
 
 export default function SettingsScreen() {
   const { data, profile, preferences, setPreferences, supabaseEnabled } = useData();
@@ -160,7 +180,10 @@ export default function SettingsScreen() {
             style: 'destructive',
             onPress: async (input) => {
               if (input !== 'DELETE') {
-                Alert.alert(t('settings.delete.cancelled.title'), t('settings.delete.cancelled.body'));
+                Alert.alert(
+                  t('settings.delete.cancelled.title'),
+                  t('settings.delete.cancelled.body'),
+                );
                 return;
               }
               const supabase = getSupabase();
@@ -184,7 +207,10 @@ export default function SettingsScreen() {
                 });
                 if (!res.ok) {
                   const body = await res.json().catch(() => ({}));
-                  Alert.alert(t('settings.delete.failed.title'), body.error ?? `HTTP ${res.status}`);
+                  Alert.alert(
+                    t('settings.delete.failed.title'),
+                    body.error ?? `HTTP ${res.status}`,
+                  );
                   return;
                 }
                 router.replace('/onboarding');
@@ -199,33 +225,36 @@ export default function SettingsScreen() {
       return;
     }
 
-    Alert.alert(
-      t('settings.delete.local.title'),
-      t('settings.delete.local.body'),
-      [
-        { text: t('action.cancel'), style: 'cancel' },
-        {
-          text: t('action.delete'),
-          style: 'destructive',
-          onPress: async () => {
-            await data.pantry.clear(profile.id);
-            await data.shoppingList.clear(profile.id);
-            for (const h of await data.history.list(profile.id)) await data.history.remove(profile.id, h.id);
-            for (const f of await data.favorites.list(profile.id)) await data.favorites.remove(profile.id, f.recipeId);
-            for (const p of await data.planner.listForRange(profile.id, '1970-01-01', '2999-12-31')) {
-              await data.planner.remove(profile.id, p.id);
-            }
-            router.replace('/onboarding');
-          },
+    Alert.alert(t('settings.delete.local.title'), t('settings.delete.local.body'), [
+      { text: t('action.cancel'), style: 'cancel' },
+      {
+        text: t('action.delete'),
+        style: 'destructive',
+        onPress: async () => {
+          await data.pantry.clear(profile.id);
+          await data.shoppingList.clear(profile.id);
+          for (const h of await data.history.list(profile.id))
+            await data.history.remove(profile.id, h.id);
+          for (const f of await data.favorites.list(profile.id))
+            await data.favorites.remove(profile.id, f.recipeId);
+          for (const p of await data.planner.listForRange(profile.id, '1970-01-01', '2999-12-31')) {
+            await data.planner.remove(profile.id, p.id);
+          }
+          router.replace('/onboarding');
         },
-      ],
-    );
+      },
+    ]);
   }
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <View style={styles.header}>
-        <Pressable onPress={() => router.back()} hitSlop={12} style={styles.backBtn} accessibilityLabel={t('action.back')}>
+        <Pressable
+          onPress={() => router.back()}
+          hitSlop={12}
+          style={styles.backBtn}
+          accessibilityLabel={t('action.back')}
+        >
           <Ionicons name={dirIcons.back} size={22} color={COLORS.ink900} />
         </Pressable>
         <Text style={styles.headerTitle}>{t('settings.title')}</Text>
@@ -240,9 +269,7 @@ export default function SettingsScreen() {
               <>
                 <View style={styles.accountRow}>
                   <View style={styles.avatar}>
-                    <Text style={styles.avatarText}>
-                      {(accountEmail[0] ?? '?').toUpperCase()}
-                    </Text>
+                    <Text style={styles.avatarText}>{(accountEmail[0] ?? '?').toUpperCase()}</Text>
                   </View>
                   <View style={{ flex: 1 }}>
                     <Text style={styles.accountEmail} numberOfLines={1}>
@@ -254,17 +281,21 @@ export default function SettingsScreen() {
                 <Pressable
                   style={styles.signOutBtn}
                   onPress={() =>
-                    Alert.alert(t('settings.account.signOut.title'), t('settings.account.signOut.body'), [
-                      { text: t('action.cancel'), style: 'cancel' },
-                      {
-                        text: t('action.signOut'),
-                        style: 'destructive',
-                        onPress: async () => {
-                          await signOut();
-                          router.replace('/onboarding');
+                    Alert.alert(
+                      t('settings.account.signOut.title'),
+                      t('settings.account.signOut.body'),
+                      [
+                        { text: t('action.cancel'), style: 'cancel' },
+                        {
+                          text: t('action.signOut'),
+                          style: 'destructive',
+                          onPress: async () => {
+                            await signOut();
+                            router.replace('/onboarding');
+                          },
                         },
-                      },
-                    ])
+                      ],
+                    )
                   }
                 >
                   <Text style={styles.signOutText}>{t('action.signOut')}</Text>
@@ -272,9 +303,7 @@ export default function SettingsScreen() {
               </>
             ) : (
               <>
-                <Text style={styles.accountHint}>
-                  {t('settings.account.guestHint')}
-                </Text>
+                <Text style={styles.accountHint}>{t('settings.account.guestHint')}</Text>
                 <View style={{ flexDirection: 'row', gap: SPACING.xs, marginTop: SPACING.sm }}>
                   <Pressable
                     style={styles.primarySmall}
@@ -297,7 +326,12 @@ export default function SettingsScreen() {
         <Section title={t('settings.language')}>
           <View style={styles.row}>
             {LANGS.map((l) => (
-              <Chip key={l.code} active={language === l.code} onPress={() => setLanguage(l.code)} label={l.label} />
+              <Chip
+                key={l.code}
+                active={language === l.code}
+                onPress={() => setLanguage(l.code)}
+                label={l.label}
+              />
             ))}
           </View>
         </Section>
@@ -375,9 +409,7 @@ export default function SettingsScreen() {
               style={[styles.input, !reminderOn && { opacity: 0.4 }]}
             />
           </View>
-          <Text style={styles.hint}>
-            {t('settings.reminders.permissionHint')}
-          </Text>
+          <Text style={styles.hint}>{t('settings.reminders.permissionHint')}</Text>
         </Section>
 
         <Pressable style={styles.saveBtn} onPress={apply}>
@@ -451,7 +483,12 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.sm,
     ...SHADOW.soft,
   },
-  sectionTitle: { fontFamily: FONTS.display, fontSize: FONT_SIZES.lg, color: COLORS.ink900, marginBottom: SPACING.sm },
+  sectionTitle: {
+    fontFamily: FONTS.display,
+    fontSize: FONT_SIZES.lg,
+    color: COLORS.ink900,
+    marginBottom: SPACING.sm,
+  },
   row: { flexDirection: 'row', flexWrap: 'wrap', gap: SPACING.xs },
   rowGap: { flexDirection: 'row', alignItems: 'center', gap: SPACING.md },
   input: {
@@ -466,7 +503,12 @@ const styles = StyleSheet.create({
     minWidth: 80,
   },
   dim: { color: COLORS.ink500, fontFamily: FONTS.body },
-  hint: { color: COLORS.ink500, fontFamily: FONTS.body, fontSize: FONT_SIZES.xs, marginTop: SPACING.xs },
+  hint: {
+    color: COLORS.ink500,
+    fontFamily: FONTS.body,
+    fontSize: FONT_SIZES.xs,
+    marginTop: SPACING.xs,
+  },
   chip: {
     borderRadius: RADIUS.pill,
     borderWidth: 1,
@@ -540,7 +582,11 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     backgroundColor: COLORS.white,
   },
-  secondarySmallText: { color: COLORS.ink900, fontFamily: FONTS.bodyMedium, fontSize: FONT_SIZES.sm },
+  secondarySmallText: {
+    color: COLORS.ink900,
+    fontFamily: FONTS.bodyMedium,
+    fontSize: FONT_SIZES.sm,
+  },
   saveBtn: {
     marginTop: SPACING.sm,
     backgroundColor: COLORS.emerald700,
@@ -561,7 +607,11 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     backgroundColor: COLORS.white,
   },
-  secondaryBtnText: { color: COLORS.emerald700, fontFamily: FONTS.bodyMedium, fontSize: FONT_SIZES.sm },
+  secondaryBtnText: {
+    color: COLORS.emerald700,
+    fontFamily: FONTS.bodyMedium,
+    fontSize: FONT_SIZES.sm,
+  },
   dangerBtn: {
     flexDirection: 'row',
     alignItems: 'center',

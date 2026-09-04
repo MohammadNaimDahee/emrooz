@@ -56,9 +56,7 @@ export async function saveIngredient(payload: IngredientPayload) {
   // Replace aliases wholesale — every alias belongs to exactly one ingredient
   // and the count is small.
   await supabase.from('ingredient_aliases').delete().eq('ingredient_id', id);
-  const trimmed = payload.aliases
-    .map((a) => a.trim())
-    .filter((a): a is string => Boolean(a));
+  const trimmed = payload.aliases.map((a) => a.trim()).filter((a): a is string => Boolean(a));
   if (trimmed.length > 0) {
     const { error } = await supabase
       .from('ingredient_aliases')

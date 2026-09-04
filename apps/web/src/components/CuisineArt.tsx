@@ -72,7 +72,9 @@ export function CuisineArt({
         </defs>
         <circle cx="90" cy="60" r="140" fill={`url(#g-${seedNum})`} />
         {dotSeed === 0 && <circle cx="320" cy="180" r="70" fill="white" opacity="0.10" />}
-        {dotSeed === 1 && <path d="M0,180 Q200,80 400,180 L400,240 L0,240 Z" fill="white" opacity="0.10" />}
+        {dotSeed === 1 && (
+          <path d="M0,180 Q200,80 400,180 L400,240 L0,240 Z" fill="white" opacity="0.10" />
+        )}
         {dotSeed === 2 && (
           <g fill="white" opacity="0.12">
             <circle cx="260" cy="80" r="30" />

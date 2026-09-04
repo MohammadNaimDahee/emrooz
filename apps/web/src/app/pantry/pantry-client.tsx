@@ -70,12 +70,17 @@ export default function PantryClient() {
     <div className="mx-auto max-w-4xl px-4 pt-10 pb-16">
       <div className="text-xs uppercase tracking-widest text-ink-400">{t('pantry.eyebrow')}</div>
       <h1 className="font-display text-4xl md:text-5xl text-ink-900 mt-1">{t('pantry.title')}</h1>
-      <p className="text-ink-500 mt-2 max-w-xl">
-        {t('pantry.subtitle.long')}
-      </p>
+      <p className="text-ink-500 mt-2 max-w-xl">{t('pantry.subtitle.long')}</p>
 
       <div className="mt-6 relative">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-400" aria-hidden="true">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-400"
+          aria-hidden="true"
+        >
           <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
           <path d="M20 20l-3.5-3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
         </svg>

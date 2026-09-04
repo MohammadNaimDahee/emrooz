@@ -2,7 +2,11 @@ import Link from 'next/link';
 import type { RecipeSummary } from '@emrooz/types';
 import { CuisineArt } from './CuisineArt';
 
-const DIFFICULTY_LABELS: Record<string, string> = { easy: 'Easy', medium: 'Medium', hard: 'Advanced' };
+const DIFFICULTY_LABELS: Record<string, string> = {
+  easy: 'Easy',
+  medium: 'Medium',
+  hard: 'Advanced',
+};
 
 export function RecipeCard({
   recipe,
@@ -62,7 +66,10 @@ export function RecipeCard({
           <span className="text-ink-200">·</span>
           <span>{DIFFICULTY_LABELS[recipe.difficulty] ?? recipe.difficulty}</span>
           {recipe.dietaryTags.slice(0, 1).map((t) => (
-            <span key={t} className="ml-auto rounded-full bg-emerald-50 text-emerald-700 px-2 py-0.5 text-xs font-medium">
+            <span
+              key={t}
+              className="ml-auto rounded-full bg-emerald-50 text-emerald-700 px-2 py-0.5 text-xs font-medium"
+            >
               {t.replace('_', ' ')}
             </span>
           ))}

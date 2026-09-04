@@ -167,7 +167,10 @@ export default function RecipeScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.cream }}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 120 }} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={{ paddingBottom: 120 }}
+        showsVerticalScrollIndicator={false}
+      >
         <View>
           <CuisineArt seed={recipe.cuisineIds[0] ?? recipe.slug} height={320} />
           <LinearGradient
@@ -217,13 +220,31 @@ export default function RecipeScreen() {
               : t('recipe.eyebrowFallback')}
           </Text>
           <Text style={styles.title}>{recipe.title.en}</Text>
-          {recipe.description?.en && <Text style={styles.description}>{recipe.description.en}</Text>}
+          {recipe.description?.en && (
+            <Text style={styles.description}>{recipe.description.en}</Text>
+          )}
 
           <View style={styles.metaRow}>
-            <Meta icon="time-outline" label={t('recipe.prepTime')} value={t('recipe.minutesShort', { count: recipe.prepMinutes })} />
-            <Meta icon="flame-outline" label={t('recipe.cookTime')} value={t('recipe.minutesShort', { count: recipe.cookMinutes })} />
-            <Meta icon="hourglass-outline" label={t('recipe.totalTime')} value={t('recipe.minutesShort', { count: recipe.totalMinutes })} />
-            <Meta icon="restaurant-outline" label={t('recipe.level')} value={t(`recipe.difficulty.${recipe.difficulty}` as never)} />
+            <Meta
+              icon="time-outline"
+              label={t('recipe.prepTime')}
+              value={t('recipe.minutesShort', { count: recipe.prepMinutes })}
+            />
+            <Meta
+              icon="flame-outline"
+              label={t('recipe.cookTime')}
+              value={t('recipe.minutesShort', { count: recipe.cookMinutes })}
+            />
+            <Meta
+              icon="hourglass-outline"
+              label={t('recipe.totalTime')}
+              value={t('recipe.minutesShort', { count: recipe.totalMinutes })}
+            />
+            <Meta
+              icon="restaurant-outline"
+              label={t('recipe.level')}
+              value={t(`recipe.difficulty.${recipe.difficulty}` as never)}
+            />
           </View>
 
           {/* Ingredients */}
@@ -260,7 +281,9 @@ export default function RecipeScreen() {
                   style={[styles.ingredientRow, i < scaled.length - 1 && styles.ingredientDivider]}
                 >
                   <Text style={styles.ingredientQty}>
-                    {ing.quantity ? `${ing.quantity} ${ing.unit ?? ''}`.trim() : t('recipe.toTaste')}
+                    {ing.quantity
+                      ? `${ing.quantity} ${ing.unit ?? ''}`.trim()
+                      : t('recipe.toTaste')}
                   </Text>
                   <Text style={[styles.ingredientName, inPantry && { color: COLORS.ink500 }]}>
                     {ingredient?.name.en ?? ing.ingredientId}
@@ -269,7 +292,14 @@ export default function RecipeScreen() {
                     <Ionicons name="checkmark" size={16} color={COLORS.emerald700} />
                   )}
                   {ing.optional && (
-                    <Text style={{ fontFamily: FONTS.body, fontSize: FONT_SIZES.xs, color: COLORS.ink400, fontStyle: 'italic' }}>
+                    <Text
+                      style={{
+                        fontFamily: FONTS.body,
+                        fontSize: FONT_SIZES.xs,
+                        color: COLORS.ink400,
+                        fontStyle: 'italic',
+                      }}
+                    >
                       {t('recipe.optional')}
                     </Text>
                   )}
@@ -281,7 +311,10 @@ export default function RecipeScreen() {
               <Pressable
                 style={[
                   styles.addToListBtn,
-                  addedToList && { backgroundColor: COLORS.emerald50, borderColor: COLORS.emerald100 },
+                  addedToList && {
+                    backgroundColor: COLORS.emerald50,
+                    borderColor: COLORS.emerald100,
+                  },
                 ]}
                 onPress={addMissingToList}
               >
@@ -330,7 +363,9 @@ export default function RecipeScreen() {
           )}
 
           {recipe.provenance.attributionText && (
-            <Text style={styles.attribution}>{t('recipe.attribution', { source: recipe.provenance.attributionText })}</Text>
+            <Text style={styles.attribution}>
+              {t('recipe.attribution', { source: recipe.provenance.attributionText })}
+            </Text>
           )}
         </View>
       </ScrollView>
@@ -343,7 +378,12 @@ export default function RecipeScreen() {
       </SafeAreaView>
 
       {/* Cook modal */}
-      <Modal transparent visible={cookModalOpen} animationType="fade" onRequestClose={() => setCookModalOpen(false)}>
+      <Modal
+        transparent
+        visible={cookModalOpen}
+        animationType="fade"
+        onRequestClose={() => setCookModalOpen(false)}
+      >
         <Pressable style={styles.modalBackdrop} onPress={() => setCookModalOpen(false)}>
           <Pressable style={styles.modalCard} onPress={(e) => e.stopPropagation()}>
             <Text style={styles.modalTitle}>{t('recipe.log.title')}</Text>
@@ -498,7 +538,10 @@ const styles = StyleSheet.create({
     gap: SPACING.md,
     alignItems: 'baseline',
   },
-  ingredientDivider: { borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: COLORS.ink100 },
+  ingredientDivider: {
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: COLORS.ink100,
+  },
   ingredientQty: {
     fontVariant: ['tabular-nums'],
     color: COLORS.ink400,
@@ -506,7 +549,12 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.body,
     fontSize: FONT_SIZES.sm,
   },
-  ingredientName: { color: COLORS.ink900, flex: 1, fontFamily: FONTS.body, fontSize: FONT_SIZES.md },
+  ingredientName: {
+    color: COLORS.ink900,
+    flex: 1,
+    fontFamily: FONTS.body,
+    fontSize: FONT_SIZES.md,
+  },
   step: { flexDirection: 'row', gap: SPACING.md, paddingVertical: SPACING.sm },
   stepIndex: {
     width: 30,
@@ -539,7 +587,12 @@ const styles = StyleSheet.create({
   },
   addToListText: { color: COLORS.emerald700, fontFamily: FONTS.bodySemi, fontSize: FONT_SIZES.sm },
   tagRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginTop: SPACING.md },
-  tag: { borderRadius: RADIUS.pill, paddingHorizontal: SPACING.sm, paddingVertical: 5, borderWidth: 1 },
+  tag: {
+    borderRadius: RADIUS.pill,
+    paddingHorizontal: SPACING.sm,
+    paddingVertical: 5,
+    borderWidth: 1,
+  },
   tagOk: { backgroundColor: COLORS.emerald50, borderColor: COLORS.emerald100 },
   tagOkText: { color: COLORS.emerald700 },
   tagWarn: { backgroundColor: 'rgba(234,144,66,0.10)', borderColor: 'rgba(234,144,66,0.20)' },
@@ -601,7 +654,12 @@ const styles = StyleSheet.create({
     color: COLORS.ink900,
     backgroundColor: COLORS.white,
   },
-  modalActions: { flexDirection: 'row', justifyContent: 'flex-end', gap: SPACING.sm, marginTop: SPACING.md },
+  modalActions: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    gap: SPACING.sm,
+    marginTop: SPACING.md,
+  },
   modalGhost: { paddingHorizontal: SPACING.md, paddingVertical: SPACING.sm },
   modalGhostText: { color: COLORS.ink500, fontFamily: FONTS.bodyMedium },
   modalPrimary: {

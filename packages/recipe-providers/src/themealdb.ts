@@ -36,7 +36,12 @@ export class TheMealDbProvider implements RecipeProvider {
       const res = await this.request(`/list.php?a=list`);
       const latencyMs = Date.now() - start;
       if (!res.ok) {
-        return { reachable: false, latencyMs, lastError: `HTTP ${res.status}`, checkedAt: new Date().toISOString() };
+        return {
+          reachable: false,
+          latencyMs,
+          lastError: `HTTP ${res.status}`,
+          checkedAt: new Date().toISOString(),
+        };
       }
       return { reachable: true, latencyMs, checkedAt: new Date().toISOString() };
     } catch (err) {

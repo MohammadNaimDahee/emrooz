@@ -64,11 +64,7 @@ describe('TheMealDbProvider', () => {
     expect(result!.cuisineHints).toEqual(['Afghan']);
     expect(result!.countryHints).toEqual(['Afghan']);
     expect(result!.imageUrl).toBe('https://example.com/qabuli.jpg');
-    expect(result!.steps).toEqual([
-      'Brown the lamb.',
-      'Add rice.',
-      'Steam for 25 minutes.',
-    ]);
+    expect(result!.steps).toEqual(['Brown the lamb.', 'Add rice.', 'Steam for 25 minutes.']);
   });
 
   it('parses measure units and quantities per line', async () => {
@@ -147,16 +143,16 @@ describe('TheMealDbProvider', () => {
     expect(result!.provenance.sourceProvider).toBe('themealdb');
     expect(result!.provenance.sourceRecipeId).toBe('52772');
     expect(result!.provenance.sourceUrl).toBe('https://example.com/qabuli');
-    expect(result!.provenance.sourceTermsUrl).toBe(
-      'https://www.themealdb.com/terms_of_use.php',
-    );
+    expect(result!.provenance.sourceTermsUrl).toBe('https://www.themealdb.com/terms_of_use.php');
     expect(result!.provenance.storagePermission).toBe('permanent');
   });
 
   it('search by query returns an array of canonical candidates', async () => {
     const provider = new TheMealDbProvider(
       'test',
-      mockFetch({ '/search.php?s=palaw': { meals: [meal(), meal({ idMeal: 'x', strMeal: 'Other' })] } }),
+      mockFetch({
+        '/search.php?s=palaw': { meals: [meal(), meal({ idMeal: 'x', strMeal: 'Other' })] },
+      }),
     );
     const results = await provider.search({ query: 'palaw' });
     expect(results).toHaveLength(2);

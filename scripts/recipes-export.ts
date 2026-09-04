@@ -37,19 +37,24 @@ function log(event: string, extra: Record<string, unknown> = {}): void {
 }
 
 async function loadFromSupabase(supabase: SupabaseClient) {
-  const [{ data: recipes }, { data: cuisines }, { data: countries }, { data: regions }, { data: ingredients }] =
-    await Promise.all([
-      supabase
-        .from('recipes')
-        .select(
-          '*, recipe_cuisines(cuisine_id), recipe_regions(region_id), recipe_ingredients(*), recipe_steps(*), media_assets(*)',
-        )
-        .eq('editorial_state', 'published'),
-      supabase.from('cuisines').select('*'),
-      supabase.from('countries').select('*'),
-      supabase.from('regions').select('*'),
-      supabase.from('ingredients').select('*'),
-    ]);
+  const [
+    { data: recipes },
+    { data: cuisines },
+    { data: countries },
+    { data: regions },
+    { data: ingredients },
+  ] = await Promise.all([
+    supabase
+      .from('recipes')
+      .select(
+        '*, recipe_cuisines(cuisine_id), recipe_regions(region_id), recipe_ingredients(*), recipe_steps(*), media_assets(*)',
+      )
+      .eq('editorial_state', 'published'),
+    supabase.from('cuisines').select('*'),
+    supabase.from('countries').select('*'),
+    supabase.from('regions').select('*'),
+    supabase.from('ingredients').select('*'),
+  ]);
   return {
     recipes: recipes ?? [],
     cuisines: cuisines ?? [],
@@ -100,6 +105,11 @@ async function main(): Promise<void> {
 }
 
 main().catch((err) => {
-  console.error(JSON.stringify({ event: 'export.failed', message: err instanceof Error ? err.message : String(err) }));
+  console.error(
+    JSON.stringify({
+      event: 'export.failed',
+      message: err instanceof Error ? err.message : String(err),
+    }),
+  );
   process.exit(1);
 });

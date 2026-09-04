@@ -2,15 +2,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
 import React, { useMemo, useState } from 'react';
-import {
-  Alert,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { combineShoppingList, groupShoppingByCategory } from '@emrooz/core';
@@ -154,7 +146,9 @@ export default function ShoppingListScreen() {
       <ScrollView contentContainerStyle={{ padding: SPACING.lg, paddingBottom: SPACING.xxl }}>
         <Text style={styles.eyebrow}>{t('shoppingList.headerEyebrow')}</Text>
         <Text style={styles.title}>
-          {activeCount === 0 ? t('shoppingList.allDone') : t('shoppingList.toBuy', { count: activeCount })}
+          {activeCount === 0
+            ? t('shoppingList.allDone')
+            : t('shoppingList.toBuy', { count: activeCount })}
         </Text>
         {doneCount > 0 && (
           <Text style={styles.subtitle}>{t('shoppingList.completed', { count: doneCount })}</Text>
@@ -201,72 +195,75 @@ export default function ShoppingListScreen() {
 
         {grouped.map(({ category, items }) => {
           const isKnown = (CATEGORY_KEYS as readonly string[]).includes(category);
-          const sectionLabel = isKnown
-            ? t(`shoppingList.category.${category}` as never)
-            : category;
+          const sectionLabel = isKnown ? t(`shoppingList.category.${category}` as never) : category;
           return (
-          <View key={category} style={{ marginTop: SPACING.lg }}>
-            <Text style={styles.section}>{sectionLabel}</Text>
-            <View style={styles.card}>
-              {items.map((it, i) => (
-                <View
-                  key={it.key}
-                  style={[
-                    styles.row,
-                    i < items.length - 1 && styles.rowDivider,
-                    it.checked && { opacity: 0.55 },
-                  ]}
-                >
-                  <Pressable
-                    onPress={() => toggleGroup(it, !it.checked)}
-                    accessibilityLabel={it.checked ? t('shoppingList.uncheck') : t('shoppingList.check')}
-                    style={[styles.checkbox, it.checked && styles.checkboxOn]}
-                    hitSlop={8}
+            <View key={category} style={{ marginTop: SPACING.lg }}>
+              <Text style={styles.section}>{sectionLabel}</Text>
+              <View style={styles.card}>
+                {items.map((it, i) => (
+                  <View
+                    key={it.key}
+                    style={[
+                      styles.row,
+                      i < items.length - 1 && styles.rowDivider,
+                      it.checked && { opacity: 0.55 },
+                    ]}
                   >
-                    {it.checked && <Ionicons name="checkmark" size={14} color={COLORS.cream} />}
-                  </Pressable>
+                    <Pressable
+                      onPress={() => toggleGroup(it, !it.checked)}
+                      accessibilityLabel={
+                        it.checked ? t('shoppingList.uncheck') : t('shoppingList.check')
+                      }
+                      style={[styles.checkbox, it.checked && styles.checkboxOn]}
+                      hitSlop={8}
+                    >
+                      {it.checked && <Ionicons name="checkmark" size={14} color={COLORS.cream} />}
+                    </Pressable>
 
-                  <View style={{ flex: 1 }}>
-                    <Text style={[styles.itemLabel, it.checked && { textDecorationLine: 'line-through' }]}>
-                      {it.label}
-                    </Text>
-                    {(it.quantity !== undefined || it.unit) && (
-                      <Text style={styles.itemQty}>
-                        {[it.quantity, it.unit].filter(Boolean).join(' ')}
+                    <View style={{ flex: 1 }}>
+                      <Text
+                        style={[
+                          styles.itemLabel,
+                          it.checked && { textDecorationLine: 'line-through' },
+                        ]}
+                      >
+                        {it.label}
                       </Text>
-                    )}
-                    {it.sourceRecipeIds.length > 0 && (
-                      <Text style={styles.itemFrom}>
-                        {t(
-                          it.sourceRecipeIds.length === 1
-                            ? 'shoppingList.itemFromRecipes.one'
-                            : 'shoppingList.itemFromRecipes.many',
-                          { count: it.sourceRecipeIds.length },
-                        )}
-                      </Text>
-                    )}
+                      {(it.quantity !== undefined || it.unit) && (
+                        <Text style={styles.itemQty}>
+                          {[it.quantity, it.unit].filter(Boolean).join(' ')}
+                        </Text>
+                      )}
+                      {it.sourceRecipeIds.length > 0 && (
+                        <Text style={styles.itemFrom}>
+                          {t(
+                            it.sourceRecipeIds.length === 1
+                              ? 'shoppingList.itemFromRecipes.one'
+                              : 'shoppingList.itemFromRecipes.many',
+                            { count: it.sourceRecipeIds.length },
+                          )}
+                        </Text>
+                      )}
+                    </View>
+
+                    <Pressable
+                      onPress={() => removeGroup(it)}
+                      accessibilityLabel={t('shoppingList.remove')}
+                      hitSlop={8}
+                    >
+                      <Ionicons name="trash-outline" size={18} color={COLORS.ink300} />
+                    </Pressable>
                   </View>
-
-                  <Pressable
-                    onPress={() => removeGroup(it)}
-                    accessibilityLabel={t('shoppingList.remove')}
-                    hitSlop={8}
-                  >
-                    <Ionicons name="trash-outline" size={18} color={COLORS.ink300} />
-                  </Pressable>
-                </View>
-              ))}
+                ))}
+              </View>
             </View>
-          </View>
           );
         })}
 
         {grouped.length === 0 && (
           <View style={[styles.card, { padding: SPACING.lg, marginTop: SPACING.lg }]}>
             <Text style={styles.emptyTitle}>{t('shoppingList.empty.title')}</Text>
-            <Text style={styles.emptyBody}>
-              {t('shoppingList.empty.body')}
-            </Text>
+            <Text style={styles.emptyBody}>{t('shoppingList.empty.body')}</Text>
           </View>
         )}
       </ScrollView>
@@ -292,7 +289,12 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: 1.5,
   },
-  title: { fontFamily: FONTS.display, fontSize: FONT_SIZES.hero, color: COLORS.ink900, marginTop: 4 },
+  title: {
+    fontFamily: FONTS.display,
+    fontSize: FONT_SIZES.hero,
+    color: COLORS.ink900,
+    marginTop: 4,
+  },
   subtitle: { fontFamily: FONTS.body, color: COLORS.ink500, marginTop: 2 },
   addRow: {
     flexDirection: 'row',

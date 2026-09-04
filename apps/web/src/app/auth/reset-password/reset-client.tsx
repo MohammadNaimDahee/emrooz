@@ -27,7 +27,9 @@ export default function ResetPasswordClient() {
 
   return (
     <div className="mx-auto max-w-md px-4 pt-10 pb-16">
-      <div className="text-xs uppercase tracking-widest text-ink-400">{t('auth.resetPassword.eyebrow')}</div>
+      <div className="text-xs uppercase tracking-widest text-ink-400">
+        {t('auth.resetPassword.eyebrow')}
+      </div>
       <h1 className="font-display text-4xl text-ink-900 mt-1">{t('auth.resetPassword.title')}</h1>
 
       {session.ready && !session.userId && (
@@ -67,7 +69,10 @@ export default function ResetPasswordClient() {
         </label>
 
         {error && (
-          <p role="alert" className="text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-lg px-3 py-2">
+          <p
+            role="alert"
+            className="text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-lg px-3 py-2"
+          >
             {error}
           </p>
         )}

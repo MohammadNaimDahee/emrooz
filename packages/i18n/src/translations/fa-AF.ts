@@ -144,7 +144,8 @@ const faAF: EnMessages = {
   'today.mealType.snack': 'خوراکی سبک',
   'today.mealType.soup': 'شوربا',
   'today.mealType.dessert': 'شیرینی',
-  'today.web.subtitle': 'انتخاب امروز، جور شده با ذخیره، وقت، و ترجیحات شما. چند پیشنهاد دیگر پایین.',
+  'today.web.subtitle':
+    'انتخاب امروز، جور شده با ذخیره، وقت، و ترجیحات شما. چند پیشنهاد دیگر پایین.',
   'today.web.orTryTheseTitle': 'یا یکی از این‌ها را امتحان کنید',
 
   // -- Discover screen --------------------------------------------------
@@ -163,7 +164,8 @@ const faAF: EnMessages = {
   'discover.filter.pantryMatch': 'مطابقت با ذخیره',
   'discover.filter.timeBucket': '≤{minutes} دقیقه',
   'discover.pantryOnly.label': 'از آنچه دارم استفاده کن',
-  'discover.pantryOnly.hint': 'تنها غذاهایی را نشان بده که چیز کمی دیگر نیاز دارند (۶۰٪ یا بیشتر مطابقت با ذخیره).',
+  'discover.pantryOnly.hint':
+    'تنها غذاهایی را نشان بده که چیز کمی دیگر نیاز دارند (۶۰٪ یا بیشتر مطابقت با ذخیره).',
   'discover.sortBy': 'ترتیب بر اساس',
   'discover.sort.relevance': 'مرتبط بودن',
   'discover.sort.time': 'اول سریع‌ترها',
@@ -186,7 +188,8 @@ const faAF: EnMessages = {
   // -- Pantry screen ----------------------------------------------------
   'pantry.title': 'ذخیره',
   'pantry.eyebrow': 'در آشپزخانه شما',
-  'pantry.subtitle': 'امروز از این استفاده می‌کند تا غذاهایی که همین حالا می‌توانید بپزید پیشنهاد کند.',
+  'pantry.subtitle':
+    'امروز از این استفاده می‌کند تا غذاهایی که همین حالا می‌توانید بپزید پیشنهاد کند.',
   'pantry.add': 'افزودن جز',
   'pantry.searchPlaceholder': 'جستجو — پیاز، روغن زیتون، نخود…',
   'pantry.empty': 'ذخیره شما خالی است. چند جز اساسی بیفزایید تا مطابقت بهتری پیدا شود.',
@@ -248,7 +251,7 @@ const faAF: EnMessages = {
   'planner.pickTitle': 'یک غذا انتخاب کنید',
   'planner.pickSubtitle': '{meal} · {date}',
   'planner.pickSearch': 'جستجو',
-  'ok': 'تایید',
+  ok: 'تایید',
 
   // -- Favorites --------------------------------------------------------
   'favorites.title': 'محبوب‌ها',
@@ -263,7 +266,8 @@ const faAF: EnMessages = {
   'history.cookAgain': 'دوباره بپزم',
   'history.addToPlanner': 'افزودن به برنامه',
   'history.remove': 'برداشتن از تاریخچه',
-  'history.empty': 'هنوز چیزی نپخته‌اید. غذاهایی که به عنوان پخته‌شده نشانی می‌کنید اینجا نشان داده می‌شوند.',
+  'history.empty':
+    'هنوز چیزی نپخته‌اید. غذاهایی که به عنوان پخته‌شده نشانی می‌کنید اینجا نشان داده می‌شوند.',
   'history.confirmRemove.title': 'از تاریخچه برداشته شود؟',
   'history.confirmRemove.subtitle':
     'این کار غذا را از محبوب‌های شما دور نمی‌کند و بالای پیشنهادهای آینده اثر نمی‌گذارد.',
@@ -331,7 +335,8 @@ const faAF: EnMessages = {
   'onboarding.step.language': 'زبان خود را انتخاب کنید',
   'onboarding.step.language.subtitle': 'هر وقت بخواهید می‌توانید از تنظیمات آن را تغییر بدهید.',
   'onboarding.step.cuisines': 'کدام آشپزی‌ها را خوش دارید؟',
-  'onboarding.step.cuisines.subtitle': 'هر تعداد که بخواهید انتخاب کنید — ما آن‌ها را در پیشنهادهای شما می‌آمیزیم.',
+  'onboarding.step.cuisines.subtitle':
+    'هر تعداد که بخواهید انتخاب کنید — ما آن‌ها را در پیشنهادهای شما می‌آمیزیم.',
   'onboarding.step.household': 'معمولاً چند نفر سر دسترخوان شما می‌نشیند؟',
   'onboarding.step.household.subtitle': 'ما مقدار اجزا را با آن جور می‌سازیم.',
   'onboarding.step.time': 'معمولاً چقدر وقت دارید؟',
@@ -477,9 +482,11 @@ const faAF: EnMessages = {
   'landing.cta.browseRecipes': 'دیدن غذاها',
   'landing.features.title': 'تصمیم‌های کوچک، دل‌پذیر شده',
   'landing.features.pantry.title': 'هوشیار به ذخیره',
-  'landing.features.pantry.body': 'از آنچه دارید استفاده کنید — امروز غذاها را بر اساس این که چقدر با آشپزخانه شما جور می‌آیند رده‌بندی می‌کند.',
+  'landing.features.pantry.body':
+    'از آنچه دارید استفاده کنید — امروز غذاها را بر اساس این که چقدر با آشپزخانه شما جور می‌آیند رده‌بندی می‌کند.',
   'landing.features.time.title': 'هوشیار به وقت',
-  'landing.features.time.body': 'بگویید چند دقیقه وقت دارید؛ ما تنها آنچه را جور بیاید پیشنهاد می‌کنیم.',
+  'landing.features.time.body':
+    'بگویید چند دقیقه وقت دارید؛ ما تنها آنچه را جور بیاید پیشنهاد می‌کنیم.',
   'landing.features.safe.title': 'مصون از بنیاد',
   'landing.features.safe.body': 'حساسیت‌ها و صرفیه‌های غذایی فیلترهای سخت هستند، نه پیشنهاد.',
   'landing.cuisines.title': 'یک دنیا از آشپزی‌ها',
@@ -489,7 +496,8 @@ const faAF: EnMessages = {
   'landing.afghan.body':
     'اکثر اپلیکیشن‌های آشپزی به غذای افغانی توجه کافی نکرده‌اند. ما در حال ساختن ژرف‌ترین مجموعه افغانی هستیم — بازبینی‌شده توسط آشپزها، نه گرفته‌شده از نتایج جستجو.',
   'landing.plan.title': 'یک برنامه هفتگی آرام',
-  'landing.plan.body': 'چند روز پیش‌تر برنامه‌ریزی کنید، اجزای کم را به فهرست خرید بفرستید، و با آسانی بیشتر بپزید.',
+  'landing.plan.body':
+    'چند روز پیش‌تر برنامه‌ریزی کنید، اجزای کم را به فهرست خرید بفرستید، و با آسانی بیشتر بپزید.',
   'landing.faq.title': 'پرسش‌های معمول',
   'landing.faq.free.q': 'آیا امروز رایگان است؟',
   'landing.faq.free.a': 'بله. نسخه ۱ اعلانات، ردیاب، و طبقه پولی ندارد.',
@@ -522,7 +530,8 @@ const faAF: EnMessages = {
   'shoppingList.clearEntire.title': 'تمام فهرست خرید پاک شود؟',
   'shoppingList.clearEntire.body': 'این کار غیر قابل بازگشت است.',
   'shoppingList.empty.title': 'چیزی در فهرست شما نیست',
-  'shoppingList.empty.body': 'از بالا دستی اضافه کنید، یا یک غذا را باز کنید و روی «افزودن اجزای کم به فهرست خرید» بزنید.',
+  'shoppingList.empty.body':
+    'از بالا دستی اضافه کنید، یا یک غذا را باز کنید و روی «افزودن اجزای کم به فهرست خرید» بزنید.',
   'shoppingList.category.produce': 'میوه و سبزی',
   'shoppingList.category.vegetable': 'سبزیجات',
   'shoppingList.category.fruit': 'میوه',
@@ -597,14 +606,16 @@ const faAF: EnMessages = {
 
   // -- Settings (extended) ---------------------------------------------
   'settings.eyebrow': 'شما',
-  'settings.reminders.description': 'یک یادآوری آرام در وقتی که خود انتخاب کنید. به اطلاعیه‌های پوش ضرورت ندارد.',
+  'settings.reminders.description':
+    'یک یادآوری آرام در وقتی که خود انتخاب کنید. به اطلاعیه‌های پوش ضرورت ندارد.',
   'settings.household.people': 'نفر',
   'settings.time.noLimit': 'بدون محدودیت',
   'settings.household.title': 'اندازه فامیل',
   'settings.time.title': 'وقتی که معمولاً دارید',
   'settings.account.signedInHint': 'وارد شده — معلومات میان دستگاه‌ها همگام‌سازی می‌شود.',
   'settings.account.signOut.bodyShort': 'هر وقت خواستید می‌توانید دوباره وارد شوید.',
-  'settings.reminders.permissionHint': 'اولین بار که این را فعال کنید، از شما اجازه اطلاعیه می‌خواهیم.',
+  'settings.reminders.permissionHint':
+    'اولین بار که این را فعال کنید، از شما اجازه اطلاعیه می‌خواهیم.',
   'settings.save': 'ذخیره تغییرات',
   'settings.data.exportBtn': 'برون‌سپاری معلومات',
   'settings.data.deleteBtn': 'حذف معلومات',
@@ -634,7 +645,8 @@ const faAF: EnMessages = {
   'landing.hero.eyebrow': 'یک همیار شخصی آشپزی',
   'landing.hero.exampleTitle': 'امروز برای شما',
   'landing.section.previews.title': 'در گوشی و در مرورگر شما',
-  'landing.section.previews.body': 'یک بار وارد شوید، همه جا همگام‌سازی شود. یا مهمان بمانید — همه چیز روی دستگاه.',
+  'landing.section.previews.body':
+    'یک بار وارد شوید، همه جا همگام‌سازی شود. یا مهمان بمانید — همه چیز روی دستگاه.',
   'landing.footer.privacy': 'محرمیت',
   'landing.footer.terms': 'شرایط',
   'landing.footer.imprint': 'مشخصات ناشر',
@@ -694,7 +706,7 @@ const faAF: EnMessages = {
   'demo.banner': 'در حالت آزمایشی محلی در حال اجرا — تنها غذاهای همراه اپ.',
   'offline.banner': 'شما آفلاین هستید. آنچه از قبل داریم نشان می‌دهیم.',
   'error.generic': 'مشکلی پیش آمد. لطفاً دوباره کوشش کنید.',
-  'loading': 'در حال بارگذاری…',
+  loading: 'در حال بارگذاری…',
   'empty.tryAgain': 'کوشش کنید فیلترها را پاک کنید یا جستجوی دیگری کنید.',
 
   // -- Web-specific additions ------------------------------------------
@@ -716,9 +728,11 @@ const faAF: EnMessages = {
   'meta.cuisines.notFound': 'آشپزی پیدا نشد',
 
   // Discover (web)
-  'discover.subtitle': 'چیز نوی برای پختن پیدا کنید. با نام یا جز جستجو کنید، یا با فیلترها محدود کنید.',
+  'discover.subtitle':
+    'چیز نوی برای پختن پیدا کنید. با نام یا جز جستجو کنید، یا با فیلترها محدود کنید.',
   'discover.sort.quickest': 'اول سریع‌ترها',
-  'discover.pantryOnly.checkbox': 'تنها غذاهایی را نشان بده که از آنچه دارم استفاده می‌کنند (۶۰٪ یا بیشتر مطابقت با ذخیره)',
+  'discover.pantryOnly.checkbox':
+    'تنها غذاهایی را نشان بده که از آنچه دارم استفاده می‌کنند (۶۰٪ یا بیشتر مطابقت با ذخیره)',
   'discover.empty.tryLoose': 'کوشش کنید یک فیلتر را کم‌سخت‌تر کنید یا همه را پاک کنید.',
 
   // Planner (web)
@@ -738,7 +752,8 @@ const faAF: EnMessages = {
 
   // Pantry (web)
   'pantry.searchPlaceholder.long': 'جستجوی اجزا — پیاز، روغن زیتون، نخود…',
-  'pantry.subtitle.long': 'به امروز بگویید چه چیزی از قبل دارید و ما غذاهایی را که از آن استفاده می‌کنند — یا آن‌هایی که فقط به یک یا دو جز دیگر نیاز دارند — پیش روی شما می‌گذاریم.',
+  'pantry.subtitle.long':
+    'به امروز بگویید چه چیزی از قبل دارید و ما غذاهایی را که از آن استفاده می‌کنند — یا آن‌هایی که فقط به یک یا دو جز دیگر نیاز دارند — پیش روی شما می‌گذاریم.',
 
   // Settings (web extras)
   'settings.eyebrow.preferences': 'ترجیحات',
@@ -746,16 +761,20 @@ const faAF: EnMessages = {
   'settings.hint.household': 'ما مقدار اجزا را با اندازه دسترخوان شما جور می‌سازیم.',
   'settings.hint.time': 'چیزی خارج از این وقت پیشنهاد نمی‌کنیم.',
   'settings.hint.diet': 'محدودیت‌های سخت به عنوان فیلترهای سخت اعمال می‌شوند.',
-  'settings.hint.allergies': 'غذاهایی که مصون بودن‌شان را برای شما تایید کرده نتوانیم هرگز نشان داده نمی‌شوند.',
+  'settings.hint.allergies':
+    'غذاهایی که مصون بودن‌شان را برای شما تایید کرده نتوانیم هرگز نشان داده نمی‌شوند.',
   'settings.hint.data': 'یک نسخه JSON برون‌سپاری کنید یا هر چیزی که محلی ذخیره شده را حذف کنید.',
   'settings.household.person': 'نفر',
   'settings.time.minutes': '{minutes} دقیقه',
   'settings.time.noLimitShort': 'بدون محدودیت',
   'settings.reminder.quote': '«مطمئن نیستید چه بپزید؟ امروز ایده‌های امروز را آماده دارد.»',
   'settings.reminder.enableLabel': 'فعال کردن یادآوری',
-  'settings.reminder.localHint': 'اطلاعیه‌های محلی توسط اپ موبایل روی دستگاه شما تحویل داده می‌شوند.',
-  'settings.account.signedInHint2': 'وارد شده. معلومات شما میان هر دستگاهی که استفاده می‌کنید همگام‌سازی می‌شود.',
-  'settings.account.guestHint2': 'شما مهمان هستید. برای همگام‌سازی ذخیره، محبوب‌ها، و تاریخچه، یک حساب بسازید.',
+  'settings.reminder.localHint':
+    'اطلاعیه‌های محلی توسط اپ موبایل روی دستگاه شما تحویل داده می‌شوند.',
+  'settings.account.signedInHint2':
+    'وارد شده. معلومات شما میان هر دستگاهی که استفاده می‌کنید همگام‌سازی می‌شود.',
+  'settings.account.guestHint2':
+    'شما مهمان هستید. برای همگام‌سازی ذخیره، محبوب‌ها، و تاریخچه، یک حساب بسازید.',
   'settings.account.signedInBadge': 'وارد شده',
   'settings.saved.short': 'ذخیره شد.',
   'settings.exportFailed.alert': 'برون‌سپاری ناکام شد ({status}). لطفاً دوباره کوشش کنید.',
@@ -768,7 +787,8 @@ const faAF: EnMessages = {
 
   // Shopping list (web extras)
   'shoppingList.subtitle.active': '{active} برای خرید · {done} تمام شد',
-  'shoppingList.subtitle.empty': 'حالا چیزی برای خرید نیست. اجزای کم را از هر غذا یا هفته برنامه اضافه کنید.',
+  'shoppingList.subtitle.empty':
+    'حالا چیزی برای خرید نیست. اجزای کم را از هر غذا یا هفته برنامه اضافه کنید.',
   'shoppingList.add.placeholder.long': 'هر چه می‌خواهید بنویسید — شیر، روغن زیتون، اسفنج ظرف‌شویی…',
   'shoppingList.add.button': 'افزودن',
   'shoppingList.clearAllShort': 'پاک کردن همه',
@@ -813,23 +833,29 @@ const faAF: EnMessages = {
   // Auth (web extras)
   'auth.working': 'در حال کار…',
   'auth.signIn.methodLabel': 'روش ورود',
-  'auth.signIn.subtitleWeb': 'ذخیره، محبوب‌ها، و تاریخچه آشپزی خود را میان دستگاه‌ها همگام‌سازی کنید.',
+  'auth.signIn.subtitleWeb':
+    'ذخیره، محبوب‌ها، و تاریخچه آشپزی خود را میان دستگاه‌ها همگام‌سازی کنید.',
   'auth.signIn.disabledHint.web':
     'ورود پس از پیکربندی اعتبارنامه‌های سوپابیس فعال می‌شود. {code} را ببینید. تا آن وقت، امروز به صورت مهمان کامل کار می‌کند.',
   'auth.signIn.newHereShort': 'اولین بار است؟',
-  'auth.signIn.magicLink.sentInbox': 'یک لینک ورود به {email} فرستادیم. صندوق دریافتی خود را بررسی کنید.',
+  'auth.signIn.magicLink.sentInbox':
+    'یک لینک ورود به {email} فرستادیم. صندوق دریافتی خود را بررسی کنید.',
   'auth.signUp.subtitleWeb':
     'ذخیره مهمان، محبوب‌ها، و تاریخچه آشپزی شما به صورت خودکار با شما می‌آیند — همان حساب است، فقط با یک ایمیل پیوست.',
-  'auth.signUp.disabledHint.web': 'ثبت‌نام پس از پیکربندی اعتبارنامه‌های سوپابیس فعال می‌شود. {code} را ببینید.',
-  'auth.signUp.confirmSentLong': 'یک لینک تایید به {email} فرستادیم. برای تمام کردن ساختن حساب روی آن کلیک کنید.',
+  'auth.signUp.disabledHint.web':
+    'ثبت‌نام پس از پیکربندی اعتبارنامه‌های سوپابیس فعال می‌شود. {code} را ببینید.',
+  'auth.signUp.confirmSentLong':
+    'یک لینک تایید به {email} فرستادیم. برای تمام کردن ساختن حساب روی آن کلیک کنید.',
   'auth.signUp.terms.prefix': 'با ادامه دادن، شما با ',
   'auth.signUp.terms.terms': 'شرایط',
   'auth.signUp.terms.and': ' و ',
   'auth.signUp.terms.privacy': 'اعلامیه محرمیت',
   'auth.signUp.terms.dot': ' ما موافقت می‌کنید.',
   'auth.signUp.alreadyHave': 'قبلاً حساب دارید؟',
-  'auth.forgotPassword.subtitleWeb': 'ایمیل خود را وارد کنید و ما یک لینک بازنشانی می‌فرستیم. بعد از یک ساعت نامعتبر می‌شود.',
-  'auth.forgotPassword.disabledHint.web': 'بازنشانی پس از پیکربندی اعتبارنامه‌های سوپابیس فعال می‌شود.',
+  'auth.forgotPassword.subtitleWeb':
+    'ایمیل خود را وارد کنید و ما یک لینک بازنشانی می‌فرستیم. بعد از یک ساعت نامعتبر می‌شود.',
+  'auth.forgotPassword.disabledHint.web':
+    'بازنشانی پس از پیکربندی اعتبارنامه‌های سوپابیس فعال می‌شود.',
   'auth.forgotPassword.sending': 'در حال فرستادن…',
   'auth.forgotPassword.remembered': 'آن را به یاد آوردید؟',
   'auth.resetPassword.eyebrow': 'یک رمز عبور نو تعیین کنید',
@@ -880,7 +906,8 @@ const faAF: EnMessages = {
   'onboarding.web.step.time.title': 'چقدر وقت دارید؟',
   'onboarding.web.step.time.subtitle': 'چیزی که با وقت شما جور نیاید پیشنهاد نمی‌کنیم.',
   'onboarding.web.step.diet.title': 'صرفیه غذایی خاصی دارید؟',
-  'onboarding.web.step.diet.subtitle': 'اختیاری. محدودیت‌های سخت به عنوان فیلترهای سخت اعمال می‌شوند.',
+  'onboarding.web.step.diet.subtitle':
+    'اختیاری. محدودیت‌های سخت به عنوان فیلترهای سخت اعمال می‌شوند.',
   'onboarding.web.step.allergies.title': 'حساسیت غذایی دارید؟',
   'onboarding.web.step.allergies.subtitle':
     'این‌ها فیلترهای سخت هستند — هرگز چیزی که برای شما مصون نباشد پیشنهاد نمی‌کنیم.',

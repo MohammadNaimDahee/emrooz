@@ -54,10 +54,14 @@ export interface RecipeProvider {
    * Whether canonical content returned by this provider is allowed to be
    * stored permanently in the Emrooz database. See CLAUDE.md §27, §31.
    */
-  readonly storageMode: 'permanent' | 'subscription_only' | 'temporary_cache' | 'metadata_only' | 'not_permitted';
+  readonly storageMode:
+    'permanent' | 'subscription_only' | 'temporary_cache' | 'metadata_only' | 'not_permitted';
   hasCredentials(): boolean;
   health(): Promise<ProviderHealth>;
   search(params: ProviderSearchParams): Promise<CanonicalImportCandidate[]>;
   fetchById(id: string): Promise<CanonicalImportCandidate | undefined>;
-  fetchByArea(area: string, opts?: { page?: number; pageSize?: number }): Promise<CanonicalImportCandidate[]>;
+  fetchByArea(
+    area: string,
+    opts?: { page?: number; pageSize?: number },
+  ): Promise<CanonicalImportCandidate[]>;
 }

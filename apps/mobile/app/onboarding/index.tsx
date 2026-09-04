@@ -2,13 +2,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import React, { useMemo, useState } from 'react';
-import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { SUPPORTED_LOCALES } from '@emrooz/types';
@@ -47,12 +41,27 @@ const TIME_OPTION_META: { value: number; labelKey: MessageKey; subKey: MessageKe
 ];
 
 const DIET_OPTIONS: DietaryTag[] = [
-  'vegetarian', 'vegan', 'pescatarian', 'halal', 'kosher',
-  'gluten_free', 'dairy_free', 'egg_free', 'nut_free',
+  'vegetarian',
+  'vegan',
+  'pescatarian',
+  'halal',
+  'kosher',
+  'gluten_free',
+  'dairy_free',
+  'egg_free',
+  'nut_free',
 ];
 
 const ALLERGEN_OPTIONS: Allergen[] = [
-  'gluten', 'dairy', 'egg', 'peanut', 'tree_nut', 'soy', 'sesame', 'fish', 'shellfish',
+  'gluten',
+  'dairy',
+  'egg',
+  'peanut',
+  'tree_nut',
+  'soy',
+  'sesame',
+  'fish',
+  'shellfish',
 ];
 
 const LANG_OPTIONS: { code: Locale; label: string; dir: 'ltr' | 'rtl' }[] = [
@@ -253,7 +262,9 @@ export default function Onboarding() {
             onPress={() => (step === 0 ? finish() : setStep(step - 1))}
             style={styles.ghost}
           >
-            <Text style={styles.ghostText}>{step === 0 ? t('onboarding.skip') : t('onboarding.back')}</Text>
+            <Text style={styles.ghostText}>
+              {step === 0 ? t('onboarding.skip') : t('onboarding.back')}
+            </Text>
           </Pressable>
           {!isLast ? (
             <Pressable onPress={() => setStep(step + 1)} style={styles.primary}>
@@ -261,8 +272,13 @@ export default function Onboarding() {
               <Ionicons name={dirIcons.arrowForward} size={18} color={COLORS.cream} />
             </Pressable>
           ) : (
-            <Pressable onPress={finish} style={[styles.primary, { backgroundColor: COLORS.saffron500 }]}>
-              <Text style={[styles.primaryText, { color: COLORS.ink900 }]}>{t('onboarding.finish')}</Text>
+            <Pressable
+              onPress={finish}
+              style={[styles.primary, { backgroundColor: COLORS.saffron500 }]}
+            >
+              <Text style={[styles.primaryText, { color: COLORS.ink900 }]}>
+                {t('onboarding.finish')}
+              </Text>
               <Ionicons name={dirIcons.arrowForward} size={18} color={COLORS.ink900} />
             </Pressable>
           )}
@@ -293,15 +309,7 @@ function ChoiceCard({
   );
 }
 
-function Chip({
-  label,
-  active,
-  onPress,
-}: {
-  label: string;
-  active: boolean;
-  onPress: () => void;
-}) {
+function Chip({ label, active, onPress }: { label: string; active: boolean; onPress: () => void }) {
   return (
     <Pressable
       onPress={onPress}

@@ -123,7 +123,8 @@ const de: EnMessages = {
   'today.mealType.snack': 'SNACK',
   'today.mealType.soup': 'SUPPE',
   'today.mealType.dessert': 'DESSERT',
-  'today.web.subtitle': 'Der Vorschlag für heute — abgestimmt auf deinen Vorrat, deine Zeit und deine Vorlieben. Weitere Ideen darunter.',
+  'today.web.subtitle':
+    'Der Vorschlag für heute — abgestimmt auf deinen Vorrat, deine Zeit und deine Vorlieben. Weitere Ideen darunter.',
   'today.web.orTryTheseTitle': 'Oder probier eines davon',
 
   // -- Discover screen --------------------------------------------------
@@ -241,7 +242,8 @@ const de: EnMessages = {
   'onboarding.step.language': 'Wähle deine Sprache',
   'onboarding.step.language.subtitle': 'Du kannst das jederzeit in den Einstellungen ändern.',
   'onboarding.step.cuisines': 'Welche Küchen magst du?',
-  'onboarding.step.cuisines.subtitle': 'Wähle so viele du möchtest — wir mischen sie in deine Vorschläge.',
+  'onboarding.step.cuisines.subtitle':
+    'Wähle so viele du möchtest — wir mischen sie in deine Vorschläge.',
   'onboarding.step.household': 'Für wie viele Personen kochst du meistens?',
   'onboarding.step.household.subtitle': 'Wir passen die Zutatenmengen entsprechend an.',
   'onboarding.step.time': 'Wie viel Zeit hast du üblicherweise?',
@@ -273,7 +275,8 @@ const de: EnMessages = {
   // -- Settings ---------------------------------------------------------
   'settings.title': 'Einstellungen',
   'settings.account.title': 'Konto',
-  'settings.account.guestHint': 'Du bist als Gast unterwegs. Erstelle ein Konto, um deine Daten zu synchronisieren.',
+  'settings.account.guestHint':
+    'Du bist als Gast unterwegs. Erstelle ein Konto, um deine Daten zu synchronisieren.',
   'settings.account.signInHint': 'Angemeldet als {email}',
   'settings.account.signOut.title': 'Abmelden?',
   'settings.account.signOut.body':
@@ -323,7 +326,8 @@ const de: EnMessages = {
   'auth.orDivider': 'oder',
   'auth.noAccount': 'Noch kein Konto?',
   'auth.hasAccount': 'Schon ein Konto?',
-  'auth.magicLink.sent': 'Wir haben einen Anmeldelink an {email} geschickt. Öffne ihn auf diesem Gerät.',
+  'auth.magicLink.sent':
+    'Wir haben einen Anmeldelink an {email} geschickt. Öffne ihn auf diesem Gerät.',
   'auth.resetLink.sent':
     'Falls ein Konto für {email} existiert, haben wir eine Anleitung zum Zurücksetzen des Passworts geschickt.',
   'auth.error.invalidEmail': 'Bitte gib eine gültige E-Mail-Adresse ein.',
@@ -361,11 +365,14 @@ const de: EnMessages = {
   'landing.cta.browseRecipes': 'Rezepte entdecken',
   'landing.features.title': 'Kleine Entscheidungen, angenehm gemacht',
   'landing.features.pantry.title': 'Vorrat im Blick',
-  'landing.features.pantry.body': 'Nutze, was du schon hast — Emrooz sortiert Rezepte danach, wie gut sie zu deiner Küche passen.',
+  'landing.features.pantry.body':
+    'Nutze, was du schon hast — Emrooz sortiert Rezepte danach, wie gut sie zu deiner Küche passen.',
   'landing.features.time.title': 'Zeit im Blick',
-  'landing.features.time.body': 'Sag uns, wie viele Minuten du hast; wir schlagen nur Passendes vor.',
+  'landing.features.time.body':
+    'Sag uns, wie viele Minuten du hast; wir schlagen nur Passendes vor.',
   'landing.features.safe.title': 'Sicher konzipiert',
-  'landing.features.safe.body': 'Allergien und Ernährungsvorgaben sind harte Filter, keine Empfehlungen.',
+  'landing.features.safe.body':
+    'Allergien und Ernährungsvorgaben sind harte Filter, keine Empfehlungen.',
   'landing.cuisines.title': 'Eine Welt voller Küchen',
   'landing.cuisines.body':
     'Italienisch, japanisch, mexikanisch, indisch, afghanisch und mehr — jede Küche zählt gleichermaßen.',
@@ -373,10 +380,12 @@ const de: EnMessages = {
   'landing.afghan.body':
     'Afghanische Küche kommt in den meisten Koch-Apps zu kurz. Wir bauen die tiefste afghanische Kollektion überhaupt — geprüft von Köchinnen und Köchen, nicht aus Suchergebnissen zusammengesammelt.',
   'landing.plan.title': 'Ein entspannter Wochenplan',
-  'landing.plan.body': 'Plane ein paar Tage voraus, schicke fehlende Zutaten auf deine Einkaufsliste und koche mit weniger Aufwand.',
+  'landing.plan.body':
+    'Plane ein paar Tage voraus, schicke fehlende Zutaten auf deine Einkaufsliste und koche mit weniger Aufwand.',
   'landing.faq.title': 'Häufige Fragen',
   'landing.faq.free.q': 'Ist Emrooz kostenlos?',
-  'landing.faq.free.a': 'Ja. Version 1 hat keine Werbung, keine Tracker und keine kostenpflichtigen Stufen.',
+  'landing.faq.free.a':
+    'Ja. Version 1 hat keine Werbung, keine Tracker und keine kostenpflichtigen Stufen.',
   'landing.faq.dietary.q': 'Werden Ernährungsvorgaben respektiert?',
   'landing.faq.dietary.a':
     'Allergien und strenge Ernährungsregeln sind harte Filter. Rezepte, die im Konflikt stehen könnten, werden ausgeblendet. Prüfe beim Kochen dennoch immer die Etiketten.',
@@ -392,7 +401,7 @@ const de: EnMessages = {
   'demo.banner': 'Lokaler Demo-Modus — nur mitgelieferte Rezepte.',
   'offline.banner': 'Du bist offline. Wir zeigen, was bereits vorhanden ist.',
   'error.generic': 'Etwas ist schiefgelaufen. Bitte versuche es erneut.',
-  'loading': 'Lädt…',
+  loading: 'Lädt…',
   'empty.tryAgain': 'Setze die Filter zurück oder probiere eine andere Suche.',
 
   // -- Discover screen (extended) --------------------------------------
@@ -407,7 +416,8 @@ const de: EnMessages = {
   'discover.mealType.salad': 'Salat',
   'discover.mealType.side': 'Beilage',
   'discover.row.subtitle': '{minutes} Min. · {difficulty}',
-  'discover.subtitle': 'Finde etwas Neues zum Kochen. Suche nach Name oder Zutat — oder nutze Filter, um einzugrenzen.',
+  'discover.subtitle':
+    'Finde etwas Neues zum Kochen. Suche nach Name oder Zutat — oder nutze Filter, um einzugrenzen.',
   'discover.sort.quickest': 'Am schnellsten zuerst',
   'discover.pantryOnly.checkbox': 'Nur Rezepte, die zu meinem Vorrat passen (≥60% Vorrats-Treffer)',
   'discover.empty.tryLoose': 'Lockere einen Filter oder setze alle zurück.',
@@ -433,7 +443,8 @@ const de: EnMessages = {
   'pantry.category.egg': 'Eier',
   'pantry.category.other': 'Sonstiges',
   'pantry.searchPlaceholder.long': 'Zutaten suchen — Zwiebel, Olivenöl, Kichererbse …',
-  'pantry.subtitle.long': 'Sag Emrooz, was du schon hast — wir bringen Rezepte nach vorn, die genau das nutzen. Oder solche, für die nur ein, zwei Zutaten fehlen.',
+  'pantry.subtitle.long':
+    'Sag Emrooz, was du schon hast — wir bringen Rezepte nach vorn, die genau das nutzen. Oder solche, für die nur ein, zwei Zutaten fehlen.',
 
   // -- Planner (extended) ----------------------------------------------
   'planner.eyebrow': 'Plane deine Woche',
@@ -470,13 +481,14 @@ const de: EnMessages = {
   'planner.picker.itemSubtitle': '{minutes} Min. · {difficulty}',
 
   // -- Generic OK ------------------------------------------------------
-  'ok': 'OK',
+  ok: 'OK',
 
   // -- Favorites (extended) --------------------------------------------
   'favorites.eyebrow': 'Gespeichert',
   'favorites.empty.title': 'Noch keine Favoriten',
   'favorites.empty.body': 'Tippe auf das Herz bei einem Rezept, das du magst.',
-  'favorites.emptyBody.long': 'Tippe auf das Herz bei einem Rezept, das du magst — dann landet es hier.',
+  'favorites.emptyBody.long':
+    'Tippe auf das Herz bei einem Rezept, das du magst — dann landet es hier.',
   'favorites.discoverCta': 'Rezepte entdecken',
 
   // -- Recipe detail (extended) ----------------------------------------
@@ -518,7 +530,8 @@ const de: EnMessages = {
   'auth.signIn.header': 'Anmelden',
   'auth.signIn.eyebrow': 'Willkommen zurück',
   'auth.signIn.subtitleShort': 'Vorrat, Favoriten und Verlauf synchronisieren.',
-  'auth.signIn.disabledHint': 'Die Anmeldung wird aktiv, sobald die Supabase-Zugangsdaten konfiguriert sind.',
+  'auth.signIn.disabledHint':
+    'Die Anmeldung wird aktiv, sobald die Supabase-Zugangsdaten konfiguriert sind.',
   'auth.signIn.mode.password': 'Passwort',
   'auth.signIn.mode.magic': 'Magic Link',
   'auth.signIn.newHerePrefix': 'Neu hier? ',
@@ -527,15 +540,18 @@ const de: EnMessages = {
   'auth.signUp.eyebrow': 'Loslegen',
   'auth.signUp.titleShort': 'Erstelle dein Konto',
   'auth.signUp.subtitleShort': 'Deine Gastdaten wandern beim Registrieren in dein Konto.',
-  'auth.signUp.disabledHint': 'Die Registrierung wird aktiv, sobald die Supabase-Zugangsdaten konfiguriert sind.',
+  'auth.signUp.disabledHint':
+    'Die Registrierung wird aktiv, sobald die Supabase-Zugangsdaten konfiguriert sind.',
   'auth.signUp.passwordHint': 'Mindestens 8 Zeichen.',
-  'auth.signUp.confirmationSent': 'Wir haben einen Bestätigungslink an {email} geschickt. Öffne ihn auf diesem Gerät.',
+  'auth.signUp.confirmationSent':
+    'Wir haben einen Bestätigungslink an {email} geschickt. Öffne ihn auf diesem Gerät.',
   'auth.signUp.alreadyHavePrefix': 'Schon ein Konto? ',
   'auth.signUp.signInLink': 'Anmelden',
   'auth.forgotPassword.header': 'Passwort vergessen',
   'auth.forgotPassword.eyebrow': 'Passwort zurücksetzen',
   'auth.forgotPassword.titleShort': 'Passwort vergessen',
-  'auth.forgotPassword.subtitleShort': 'Gib deine E-Mail ein und wir schicken einen Link zum Zurücksetzen.',
+  'auth.forgotPassword.subtitleShort':
+    'Gib deine E-Mail ein und wir schicken einen Link zum Zurücksetzen.',
   'auth.forgotPassword.checkInbox': 'Schau in deinem Posteingang nach dem Link zum Zurücksetzen.',
   'auth.error.needsBoth': 'Gib E-Mail und Passwort ein.',
   'auth.error.serverError': 'Bei uns ist etwas schiefgelaufen. Bitte versuche es erneut.',
@@ -547,24 +563,30 @@ const de: EnMessages = {
   'auth.signIn.disabledHint.web':
     'Die Anmeldung wird aktiv, sobald die Supabase-Zugangsdaten konfiguriert sind. Siehe {code}. In der Zwischenzeit funktioniert Emrooz vollständig als Gast.',
   'auth.signIn.newHereShort': 'Neu hier?',
-  'auth.signIn.magicLink.sentInbox': 'Wir haben einen Anmeldelink an {email} geschickt. Schau in deinem Posteingang.',
+  'auth.signIn.magicLink.sentInbox':
+    'Wir haben einen Anmeldelink an {email} geschickt. Schau in deinem Posteingang.',
   'auth.signUp.subtitleWeb':
     'Dein Gast-Vorrat, deine Favoriten und dein Koch-Verlauf wandern automatisch mit — dasselbe Konto, nur mit einer E-Mail verknüpft.',
-  'auth.signUp.disabledHint.web': 'Die Registrierung wird aktiv, sobald die Supabase-Zugangsdaten konfiguriert sind. Siehe {code}.',
-  'auth.signUp.confirmSentLong': 'Wir haben einen Bestätigungslink an {email} geschickt. Klick ihn an, um dein Konto fertigzustellen.',
+  'auth.signUp.disabledHint.web':
+    'Die Registrierung wird aktiv, sobald die Supabase-Zugangsdaten konfiguriert sind. Siehe {code}.',
+  'auth.signUp.confirmSentLong':
+    'Wir haben einen Bestätigungslink an {email} geschickt. Klick ihn an, um dein Konto fertigzustellen.',
   'auth.signUp.terms.prefix': 'Mit dem Fortfahren stimmst du unseren',
   'auth.signUp.terms.terms': 'Nutzungsbedingungen',
   'auth.signUp.terms.and': 'und dem',
   'auth.signUp.terms.privacy': 'Datenschutzhinweis',
   'auth.signUp.terms.dot': ' zu.',
   'auth.signUp.alreadyHave': 'Schon ein Konto?',
-  'auth.forgotPassword.subtitleWeb': 'Gib deine E-Mail ein und wir schicken einen Link zum Zurücksetzen. Er läuft nach einer Stunde ab.',
-  'auth.forgotPassword.disabledHint.web': 'Das Zurücksetzen wird aktiv, sobald die Supabase-Zugangsdaten konfiguriert sind.',
+  'auth.forgotPassword.subtitleWeb':
+    'Gib deine E-Mail ein und wir schicken einen Link zum Zurücksetzen. Er läuft nach einer Stunde ab.',
+  'auth.forgotPassword.disabledHint.web':
+    'Das Zurücksetzen wird aktiv, sobald die Supabase-Zugangsdaten konfiguriert sind.',
   'auth.forgotPassword.sending': 'Wird gesendet …',
   'auth.forgotPassword.remembered': 'Wieder eingefallen?',
   'auth.resetPassword.eyebrow': 'Neues Passwort setzen',
   'auth.resetPassword.title': 'Passwort zurücksetzen',
-  'auth.resetPassword.expiredIntro': 'Dieser Link ist abgelaufen oder wurde bereits verwendet. Starte erneut über ',
+  'auth.resetPassword.expiredIntro':
+    'Dieser Link ist abgelaufen oder wurde bereits verwendet. Starte erneut über ',
   'auth.resetPassword.expiredLink': 'Passwort vergessen',
   'auth.resetPassword.newPassword': 'Neues Passwort',
   'auth.resetPassword.saving': 'Wird gespeichert …',
@@ -589,7 +611,8 @@ const de: EnMessages = {
   'shoppingList.clearEntire.title': 'Ganze Einkaufsliste leeren?',
   'shoppingList.clearEntire.body': 'Das lässt sich nicht rückgängig machen.',
   'shoppingList.empty.title': 'Nichts auf deiner Liste',
-  'shoppingList.empty.body': 'Füge oben etwas hinzu oder öffne ein Rezept und tippe auf „Fehlendes zur Einkaufsliste“.',
+  'shoppingList.empty.body':
+    'Füge oben etwas hinzu oder öffne ein Rezept und tippe auf „Fehlendes zur Einkaufsliste“.',
   'shoppingList.category.produce': 'Obst & Gemüse',
   'shoppingList.category.vegetable': 'Gemüse',
   'shoppingList.category.fruit': 'Obst',
@@ -610,11 +633,13 @@ const de: EnMessages = {
   'shoppingList.category.beverage': 'Getränke',
   'shoppingList.category.other': 'Sonstiges',
   'shoppingList.subtitle.active': '{active} zu kaufen · {done} erledigt',
-  'shoppingList.subtitle.empty': 'Gerade nichts zu kaufen. Füge fehlende Zutaten aus einem Rezept oder deinem Wochenplan hinzu.',
+  'shoppingList.subtitle.empty':
+    'Gerade nichts zu kaufen. Füge fehlende Zutaten aus einem Rezept oder deinem Wochenplan hinzu.',
   'shoppingList.add.placeholder.long': 'Alles hinzufügen — Milch, Olivenöl, Spülschwamm …',
   'shoppingList.add.button': 'Hinzufügen',
   'shoppingList.clearAllShort': 'Alles leeren',
-  'shoppingList.clearAllPrompt': 'Ganze Einkaufsliste leeren? Das lässt sich nicht rückgängig machen.',
+  'shoppingList.clearAllPrompt':
+    'Ganze Einkaufsliste leeren? Das lässt sich nicht rückgängig machen.',
   'shoppingList.item.check': 'Abhaken',
   'shoppingList.item.uncheck': 'Häkchen entfernen',
   'shoppingList.item.removeAria': 'Entfernen',
@@ -640,8 +665,10 @@ const de: EnMessages = {
   'history.emptyBodyAlt': 'Tippe bei einem Rezept auf „Habe ich gekocht“ und es erscheint hier.',
   'history.removeEntry.title': 'Eintrag entfernen?',
   'history.addedToPlanner.title': 'Zum Wochenplan hinzugefügt',
-  'history.addedToPlanner.body': 'Für heute Abend eingeplant. Du kannst es im Wochenplan verschieben.',
-  'history.emptyBody.long': 'Sobald du bei einem Rezept auf „Habe ich gekocht“ tippst, landet es hier.',
+  'history.addedToPlanner.body':
+    'Für heute Abend eingeplant. Du kannst es im Wochenplan verschieben.',
+  'history.emptyBody.long':
+    'Sobald du bei einem Rezept auf „Habe ich gekocht“ tippst, landet es hier.',
   'history.servings.one': 'Portion',
   'history.servings.many': 'Portionen',
   'history.confirmRemove.prompt': 'Diesen Verlaufseintrag entfernen?',
@@ -679,14 +706,16 @@ const de: EnMessages = {
 
   // -- Settings (extended) ---------------------------------------------
   'settings.eyebrow': 'Du',
-  'settings.reminders.description': 'Ein sanfter Anstupser zu deiner Wunschzeit. Keine Push-Benachrichtigungen nötig.',
+  'settings.reminders.description':
+    'Ein sanfter Anstupser zu deiner Wunschzeit. Keine Push-Benachrichtigungen nötig.',
   'settings.household.people': 'Personen',
   'settings.time.noLimit': 'Kein Limit',
   'settings.household.title': 'Haushaltsgröße',
   'settings.time.title': 'Zeit, die du üblicherweise hast',
   'settings.account.signedInHint': 'Angemeldet — Daten synchronisieren über alle Geräte.',
   'settings.account.signOut.bodyShort': 'Du kannst dich jederzeit wieder anmelden.',
-  'settings.reminders.permissionHint': 'Wir fragen beim ersten Aktivieren nach der Benachrichtigungsberechtigung.',
+  'settings.reminders.permissionHint':
+    'Wir fragen beim ersten Aktivieren nach der Benachrichtigungsberechtigung.',
   'settings.save': 'Änderungen speichern',
   'settings.data.exportBtn': 'Daten exportieren',
   'settings.data.deleteBtn': 'Daten löschen',
@@ -712,16 +741,21 @@ const de: EnMessages = {
   'settings.hint.household': 'Wir skalieren Zutatenmengen auf deine Runde.',
   'settings.hint.time': 'Wir schlagen nichts außerhalb dieses Zeitfensters vor.',
   'settings.hint.diet': 'Strenge Vorgaben werden als harte Filter durchgesetzt.',
-  'settings.hint.allergies': 'Rezepte, die wir nicht sicher als unbedenklich einstufen können, erscheinen nie.',
+  'settings.hint.allergies':
+    'Rezepte, die wir nicht sicher als unbedenklich einstufen können, erscheinen nie.',
   'settings.hint.data': 'Exportiere einen JSON-Snapshot oder lösche alles lokal Gespeicherte.',
   'settings.household.person': 'Person',
   'settings.time.minutes': '{minutes} Min.',
   'settings.time.noLimitShort': 'Kein Limit',
-  'settings.reminder.quote': '„Nicht sicher, was du kochen sollst? Emrooz hat heute schon Ideen für dich.“',
+  'settings.reminder.quote':
+    '„Nicht sicher, was du kochen sollst? Emrooz hat heute schon Ideen für dich.“',
   'settings.reminder.enableLabel': 'Erinnerung aktivieren',
-  'settings.reminder.localHint': 'Lokale Benachrichtigungen werden von der mobilen App auf deinem Gerät geliefert.',
-  'settings.account.signedInHint2': 'Angemeldet. Deine Daten synchronisieren auf jedem Gerät, das du nutzt.',
-  'settings.account.guestHint2': 'Du bist als Gast unterwegs. Erstelle ein Konto, um Vorrat, Favoriten und Verlauf zu synchronisieren.',
+  'settings.reminder.localHint':
+    'Lokale Benachrichtigungen werden von der mobilen App auf deinem Gerät geliefert.',
+  'settings.account.signedInHint2':
+    'Angemeldet. Deine Daten synchronisieren auf jedem Gerät, das du nutzt.',
+  'settings.account.guestHint2':
+    'Du bist als Gast unterwegs. Erstelle ein Konto, um Vorrat, Favoriten und Verlauf zu synchronisieren.',
   'settings.account.signedInBadge': 'Angemeldet',
   'settings.saved.short': 'Gespeichert.',
   'settings.exportFailed.alert': 'Export fehlgeschlagen ({status}). Bitte versuche es erneut.',
@@ -740,7 +774,8 @@ const de: EnMessages = {
   'landing.hero.eyebrow': 'Ein persönlicher Kochassistent',
   'landing.hero.exampleTitle': 'Heute für dich',
   'landing.section.previews.title': 'Auf deinem Handy und in deinem Browser',
-  'landing.section.previews.body': 'Einmal anmelden, überall synchron. Oder bleib Gast — alles bleibt auf dem Gerät.',
+  'landing.section.previews.body':
+    'Einmal anmelden, überall synchron. Oder bleib Gast — alles bleibt auf dem Gerät.',
   'landing.footer.privacy': 'Datenschutz',
   'landing.footer.terms': 'Nutzungsbedingungen',
   'landing.footer.imprint': 'Impressum',
@@ -850,9 +885,11 @@ const de: EnMessages = {
   'onboarding.web.step.household.title': 'Wie viele sitzen am Tisch?',
   'onboarding.web.step.household.subtitle': 'So skalieren wir die Zutatenmengen der Rezepte.',
   'onboarding.web.step.time.title': 'Wie viel Zeit hast du?',
-  'onboarding.web.step.time.subtitle': 'Wir schlagen nichts vor, das nicht in dein Zeitfenster passt.',
+  'onboarding.web.step.time.subtitle':
+    'Wir schlagen nichts vor, das nicht in dein Zeitfenster passt.',
   'onboarding.web.step.diet.title': 'Ernährungsweisen?',
-  'onboarding.web.step.diet.subtitle': 'Optional. Strenge Vorgaben werden als harte Filter durchgesetzt.',
+  'onboarding.web.step.diet.subtitle':
+    'Optional. Strenge Vorgaben werden als harte Filter durchgesetzt.',
   'onboarding.web.step.allergies.title': 'Allergien?',
   'onboarding.web.step.allergies.subtitle':
     'Das sind harte Filter — wir schlagen nie etwas vor, das nicht sicher für dich ist.',

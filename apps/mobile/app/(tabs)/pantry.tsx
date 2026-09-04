@@ -95,9 +95,7 @@ export default function Pantry() {
                     accessibilityRole="button"
                     accessibilityState={{ selected: active }}
                   >
-                    {active && (
-                      <Ionicons name="checkmark" size={14} color={COLORS.cream} />
-                    )}
+                    {active && <Ionicons name="checkmark" size={14} color={COLORS.cream} />}
                     <Text style={[styles.chipText, active && styles.chipTextActive]}>
                       {ing.name.en}
                     </Text>
@@ -122,7 +120,12 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: 1.5,
   },
-  title: { fontFamily: FONTS.display, fontSize: FONT_SIZES.xxl, color: COLORS.ink900, marginTop: 4 },
+  title: {
+    fontFamily: FONTS.display,
+    fontSize: FONT_SIZES.xxl,
+    color: COLORS.ink900,
+    marginTop: 4,
+  },
   subtitle: {
     color: COLORS.ink500,
     fontFamily: FONTS.body,
@@ -148,7 +151,12 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.md,
     color: COLORS.ink900,
   },
-  count: { color: COLORS.ink500, fontFamily: FONTS.body, marginTop: SPACING.sm, fontSize: FONT_SIZES.sm },
+  count: {
+    color: COLORS.ink500,
+    fontFamily: FONTS.body,
+    marginTop: SPACING.sm,
+    fontSize: FONT_SIZES.sm,
+  },
   section: {
     color: COLORS.ink400,
     fontFamily: FONTS.bodyMedium,

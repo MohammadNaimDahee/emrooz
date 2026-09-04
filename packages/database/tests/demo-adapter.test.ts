@@ -49,7 +49,9 @@ describe('createDemoData / DemoEmroozData', () => {
     for (const r of byCuisine) expect(r.cuisineIds).toContain(afghan!.id);
 
     const bySearch = await data.recipes.listPublished({ search: 'pizza' });
-    expect(bySearch.every((r) => /pizza/i.test(r.title.en) || /pizza/i.test(r.description?.en ?? ''))).toBe(true);
+    expect(
+      bySearch.every((r) => /pizza/i.test(r.title.en) || /pizza/i.test(r.description?.en ?? '')),
+    ).toBe(true);
   });
 
   it('finds recipes by slug and by id', async () => {

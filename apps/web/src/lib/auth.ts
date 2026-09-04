@@ -55,8 +55,7 @@ export function useAuthActions() {
         // shopping_list_items row keyed to it — for free.
         const { data: existing } = await supabase.auth.getUser();
         const isAnonymous =
-          existing.user?.is_anonymous ??
-          (existing.user ? !existing.user.email : false);
+          existing.user?.is_anonymous ?? (existing.user ? !existing.user.email : false);
 
         if (existing.user && isAnonymous) {
           const { error } = await supabase.auth.updateUser({
@@ -126,10 +125,13 @@ function toResult(error: AuthError | null, needsVerification = false): AuthActio
 
 function friendlyMessage(error: AuthError): string {
   const msg = error.message ?? 'Something went wrong.';
-  if (/invalid login credentials/i.test(msg)) return 'That email and password combination isn\'t right.';
-  if (/user already registered/i.test(msg)) return 'An account already exists with that email. Try signing in instead.';
+  if (/invalid login credentials/i.test(msg))
+    return "That email and password combination isn't right.";
+  if (/user already registered/i.test(msg))
+    return 'An account already exists with that email. Try signing in instead.';
   if (/email rate limit/i.test(msg)) return 'Too many messages sent. Try again in a minute.';
-  if (/email not confirmed/i.test(msg)) return 'Please confirm your email address before signing in.';
+  if (/email not confirmed/i.test(msg))
+    return 'Please confirm your email address before signing in.';
   return msg;
 }
 

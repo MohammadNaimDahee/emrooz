@@ -32,7 +32,11 @@ export const messages: MessagesTree = {
   ps,
 };
 
-export function t(locale: Locale, key: MessageKey, params?: Record<string, string | number>): string {
+export function t(
+  locale: Locale,
+  key: MessageKey,
+  params?: Record<string, string | number>,
+): string {
   const dict = messages[locale] ?? en;
   const raw = dict[key] ?? en[key] ?? key;
   if (!params) return raw;
@@ -74,8 +78,20 @@ export const LOCALE_METADATA: Record<
     needsReview: boolean;
   }
 > = {
-  en: { code: 'en', displayName: 'English', nativeName: 'English', direction: 'ltr', needsReview: false },
-  de: { code: 'de', displayName: 'German', nativeName: 'Deutsch', direction: 'ltr', needsReview: true },
+  en: {
+    code: 'en',
+    displayName: 'English',
+    nativeName: 'English',
+    direction: 'ltr',
+    needsReview: false,
+  },
+  de: {
+    code: 'de',
+    displayName: 'German',
+    nativeName: 'Deutsch',
+    direction: 'ltr',
+    needsReview: true,
+  },
   'fa-AF': {
     code: 'fa-AF',
     displayName: 'Dari',
@@ -83,7 +99,13 @@ export const LOCALE_METADATA: Record<
     direction: 'rtl',
     needsReview: true,
   },
-  ps: { code: 'ps', displayName: 'Pashto', nativeName: 'پښتو', direction: 'rtl', needsReview: true },
+  ps: {
+    code: 'ps',
+    displayName: 'Pashto',
+    nativeName: 'پښتو',
+    direction: 'rtl',
+    needsReview: true,
+  },
 };
 
 export { SUPPORTED_LOCALES };

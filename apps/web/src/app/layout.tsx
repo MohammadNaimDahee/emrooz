@@ -127,7 +127,10 @@ function SiteHeader({ locale }: { locale: Locale }) {
           <span className="font-display text-2xl leading-none tracking-tight">{appName}</span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden md:flex items-center gap-1 text-sm text-ink-700">
+        <nav
+          aria-label="Primary"
+          className="hidden md:flex items-center gap-1 text-sm text-ink-700"
+        >
           <NavLink href="/app">{tr(locale, 'nav.today')}</NavLink>
           <NavLink href="/discover">{tr(locale, 'nav.discover')}</NavLink>
           <NavLink href="/cuisines">{tr(locale, 'nav.cuisines')}</NavLink>
@@ -193,7 +196,13 @@ function MoreMenu({ locale }: { locale: Locale }) {
       >
         {tr(locale, 'nav.more')}
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path
+            d="M6 9l6 6 6-6"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </summary>
       <div className="absolute right-0 mt-1 w-56 rounded-xl bg-white shadow-pop border border-ink-100 p-1 z-20 text-sm">
@@ -259,9 +268,21 @@ function SiteFooter({ locale }: { locale: Locale }) {
             {tr(locale, 'landing.footer.product')}
           </div>
           <ul className="mt-3 space-y-2 text-sm">
-            <li><Link href="/app" className="hover:text-emerald-700 focus-ring">{tr(locale, 'nav.openApp')}</Link></li>
-            <li><Link href="/discover" className="hover:text-emerald-700 focus-ring">{tr(locale, 'nav.discover')}</Link></li>
-            <li><Link href="/cuisines" className="hover:text-emerald-700 focus-ring">{tr(locale, 'nav.cuisines')}</Link></li>
+            <li>
+              <Link href="/app" className="hover:text-emerald-700 focus-ring">
+                {tr(locale, 'nav.openApp')}
+              </Link>
+            </li>
+            <li>
+              <Link href="/discover" className="hover:text-emerald-700 focus-ring">
+                {tr(locale, 'nav.discover')}
+              </Link>
+            </li>
+            <li>
+              <Link href="/cuisines" className="hover:text-emerald-700 focus-ring">
+                {tr(locale, 'nav.cuisines')}
+              </Link>
+            </li>
           </ul>
         </div>
         <div>
@@ -269,9 +290,21 @@ function SiteFooter({ locale }: { locale: Locale }) {
             {tr(locale, 'landing.footer.legal')}
           </div>
           <ul className="mt-3 space-y-2 text-sm">
-            <li><Link href="/privacy" className="hover:text-emerald-700 focus-ring">{tr(locale, 'landing.footer.privacy')}</Link></li>
-            <li><Link href="/terms" className="hover:text-emerald-700 focus-ring">{tr(locale, 'landing.footer.terms')}</Link></li>
-            <li><Link href="/imprint" className="hover:text-emerald-700 focus-ring">{tr(locale, 'landing.footer.imprint')}</Link></li>
+            <li>
+              <Link href="/privacy" className="hover:text-emerald-700 focus-ring">
+                {tr(locale, 'landing.footer.privacy')}
+              </Link>
+            </li>
+            <li>
+              <Link href="/terms" className="hover:text-emerald-700 focus-ring">
+                {tr(locale, 'landing.footer.terms')}
+              </Link>
+            </li>
+            <li>
+              <Link href="/imprint" className="hover:text-emerald-700 focus-ring">
+                {tr(locale, 'landing.footer.imprint')}
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

@@ -23,8 +23,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <aside className="md:sticky md:top-24 md:self-start rounded-2xl bg-white shadow-card border border-ink-100 p-3">
         <div className="px-3 pt-2 pb-3">
           <div className="text-xs uppercase tracking-widest text-ink-400">Admin</div>
-          <div className="mt-1 text-sm text-ink-900 font-medium truncate">{gate.email ?? gate.userId}</div>
-          <div className="text-xs text-emerald-700 mt-0.5 uppercase tracking-widest">{gate.role}</div>
+          <div className="mt-1 text-sm text-ink-900 font-medium truncate">
+            {gate.email ?? gate.userId}
+          </div>
+          <div className="text-xs text-emerald-700 mt-0.5 uppercase tracking-widest">
+            {gate.role}
+          </div>
         </div>
         <nav aria-label="Admin sections" className="flex flex-col gap-0.5">
           {NAV.map((item) => (
@@ -41,10 +45,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           ))}
         </nav>
         <div className="mt-4 border-t border-ink-100 pt-3 px-3">
-          <Link
-            href="/app"
-            className="text-sm text-ink-500 hover:text-emerald-700 focus-ring"
-          >
+          <Link href="/app" className="text-sm text-ink-500 hover:text-emerald-700 focus-ring">
             ← Back to the app
           </Link>
         </div>

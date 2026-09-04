@@ -18,7 +18,8 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   if (!recipe) return { title: t('meta.recipe.notFound') };
   return {
     title: recipe.title.en,
-    description: recipe.description?.en ?? t('meta.recipe.descFallback', { title: recipe.title.en }),
+    description:
+      recipe.description?.en ?? t('meta.recipe.descFallback', { title: recipe.title.en }),
     openGraph: {
       title: recipe.title.en,
       description: recipe.description?.en,
@@ -73,11 +74,7 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
 
       {/* Hero */}
       <section className="relative">
-        <CuisineArt
-          seed={recipe.cuisineIds[0] ?? recipe.slug}
-          size="hero"
-          className="w-full"
-        />
+        <CuisineArt seed={recipe.cuisineIds[0] ?? recipe.slug} size="hero" className="w-full" />
         <div className="absolute inset-0 bg-gradient-to-t from-cream via-cream/40 to-transparent" />
         <div className="absolute inset-0 flex items-end">
           <div className="mx-auto max-w-3xl w-full px-4 pb-8 md:pb-12">
@@ -92,7 +89,10 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
                 </Link>
               ))}
               {recipe.mealTypes.slice(0, 1).map((m) => (
-                <span key={m} className="rounded-pill bg-ink-900/70 backdrop-blur px-3 py-1 text-white">
+                <span
+                  key={m}
+                  className="rounded-pill bg-ink-900/70 backdrop-blur px-3 py-1 text-white"
+                >
                   {m}
                 </span>
               ))}
@@ -128,12 +128,10 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
           <Meta
             icon="chef"
             label={t('recipe.difficulty')}
-            value={
-              t(`recipe.difficulty.${recipe.difficulty}` as
-                | 'recipe.difficulty.easy'
-                | 'recipe.difficulty.medium'
-                | 'recipe.difficulty.hard')
-            }
+            value={t(
+              `recipe.difficulty.${recipe.difficulty}` as
+                'recipe.difficulty.easy' | 'recipe.difficulty.medium' | 'recipe.difficulty.hard',
+            )}
           />
         </div>
 
@@ -168,7 +166,10 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
               const key = `diet.${tag}` as const;
               const label = t(key as 'diet.vegetarian');
               return (
-                <span key={tag} className="rounded-pill bg-emerald-50 text-emerald-700 border border-emerald-100 px-3 py-1 text-xs font-medium">
+                <span
+                  key={tag}
+                  className="rounded-pill bg-emerald-50 text-emerald-700 border border-emerald-100 px-3 py-1 text-xs font-medium"
+                >
                   {label === key ? tag.replace('_', ' ') : label}
                 </span>
               );
@@ -178,7 +179,10 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
               const label = t(key as 'allergen.peanut');
               const display = label === key ? a.replace('_', ' ') : label;
               return (
-                <span key={a} className="rounded-pill bg-saffron-500/10 text-saffron-700 border border-saffron-500/20 px-3 py-1 text-xs font-medium">
+                <span
+                  key={a}
+                  className="rounded-pill bg-saffron-500/10 text-saffron-700 border border-saffron-500/20 px-3 py-1 text-xs font-medium"
+                >
                   {t('recipe.contains', { allergen: display })}
                 </span>
               );
@@ -218,17 +222,32 @@ function Meta({
         )}
         {icon === 'flame' && (
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 3s5 4 5 9a5 5 0 01-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-8z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
+            <path
+              d="M12 3s5 4 5 9a5 5 0 01-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-8z"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinejoin="round"
+            />
           </svg>
         )}
         {icon === 'sum' && (
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M6 4h12l-6 8 6 8H6l6-8-6-8z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+            <path
+              d="M6 4h12l-6 8 6 8H6l6-8-6-8z"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinejoin="round"
+            />
           </svg>
         )}
         {icon === 'chef' && (
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M6 14v5h12v-5M6 14a4 4 0 010-8c0-2 2-3 4-3s2 1 2 1 2-1 4 0 2 3 2 4a4 4 0 010 6" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
+            <path
+              d="M6 14v5h12v-5M6 14a4 4 0 010-8c0-2 2-3 4-3s2 1 2 1 2-1 4 0 2 3 2 4a4 4 0 010 6"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinejoin="round"
+            />
           </svg>
         )}
       </div>

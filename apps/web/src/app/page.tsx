@@ -43,7 +43,13 @@ export default async function LandingPage() {
               >
                 {t('landing.cta.openApp')}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path
+                    d="M5 12h14M13 6l6 6-6 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </Link>
               <Link
@@ -53,9 +59,7 @@ export default async function LandingPage() {
                 {t('landing.cta.browseRecipes')}
               </Link>
             </div>
-            <p className="mt-4 text-sm text-ink-400">
-              {t('landing.hero.footnote')}
-            </p>
+            <p className="mt-4 text-sm text-ink-400">{t('landing.hero.footnote')}</p>
           </div>
 
           {/* Hero collage */}
@@ -66,11 +70,19 @@ export default async function LandingPage() {
                   href={`/recipes/${featured[0].slug}`}
                   className="col-span-4 row-span-4 relative rounded-card overflow-hidden shadow-pop lift focus-ring group"
                 >
-                  <CuisineArt seed={featured[0].cuisineIds[0] ?? featured[0].slug} size="hero" className="rounded-card h-full" />
+                  <CuisineArt
+                    seed={featured[0].cuisineIds[0] ?? featured[0].slug}
+                    size="hero"
+                    className="rounded-card h-full"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
                   <div className="absolute bottom-5 left-5 right-5 text-white">
-                    <div className="text-xs uppercase tracking-widest opacity-80">{t('today.pick')}</div>
-                    <div className="font-display text-3xl mt-1 leading-tight">{featured[0].title.en}</div>
+                    <div className="text-xs uppercase tracking-widest opacity-80">
+                      {t('today.pick')}
+                    </div>
+                    <div className="font-display text-3xl mt-1 leading-tight">
+                      {featured[0].title.en}
+                    </div>
                     <div className="text-sm mt-1 opacity-90">
                       {t('landing.hero.recipeMinutes', {
                         minutes: featured[0].totalMinutes,
@@ -85,11 +97,17 @@ export default async function LandingPage() {
                   href={`/recipes/${featured[1].slug}`}
                   className="col-span-2 row-span-3 relative rounded-card overflow-hidden shadow-card lift focus-ring group"
                 >
-                  <CuisineArt seed={featured[1].cuisineIds[0] ?? featured[1].slug} size="lg" className="rounded-card h-full" />
+                  <CuisineArt
+                    seed={featured[1].cuisineIds[0] ?? featured[1].slug}
+                    size="lg"
+                    className="rounded-card h-full"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4 text-white">
                     <div className="font-display text-lg leading-tight">{featured[1].title.en}</div>
-                    <div className="text-xs mt-1 opacity-90">{t('today.timeMin', { count: featured[1].totalMinutes })}</div>
+                    <div className="text-xs mt-1 opacity-90">
+                      {t('today.timeMin', { count: featured[1].totalMinutes })}
+                    </div>
                   </div>
                 </Link>
               )}
@@ -98,18 +116,29 @@ export default async function LandingPage() {
                   href={`/recipes/${featured[2].slug}`}
                   className="col-span-2 row-span-3 relative rounded-card overflow-hidden shadow-card lift focus-ring group"
                 >
-                  <CuisineArt seed={featured[2].cuisineIds[0] ?? featured[2].slug} size="lg" className="rounded-card h-full" />
+                  <CuisineArt
+                    seed={featured[2].cuisineIds[0] ?? featured[2].slug}
+                    size="lg"
+                    className="rounded-card h-full"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4 text-white">
                     <div className="font-display text-lg leading-tight">{featured[2].title.en}</div>
-                    <div className="text-xs mt-1 opacity-90">{t('today.timeMin', { count: featured[2].totalMinutes })}</div>
+                    <div className="text-xs mt-1 opacity-90">
+                      {t('today.timeMin', { count: featured[2].totalMinutes })}
+                    </div>
                   </div>
                 </Link>
               )}
               <div className="col-span-4 row-span-2 rounded-card bg-white/80 backdrop-blur border border-ink-100 shadow-card p-5 flex items-center gap-4">
                 <div className="grid place-items-center w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 shrink-0">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M4 7h16M4 12h10M4 17h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                    <path
+                      d="M4 7h16M4 12h10M4 17h16"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                    />
                   </svg>
                 </div>
                 <div>
@@ -158,13 +187,14 @@ export default async function LandingPage() {
               {t('landing.cuisines.title')}
             </h2>
           </div>
-          <Link href="/cuisines" className="hidden md:inline text-sm text-emerald-700 hover:underline focus-ring">
+          <Link
+            href="/cuisines"
+            className="hidden md:inline text-sm text-emerald-700 hover:underline focus-ring"
+          >
             {t('landing.cuisines.viewAll')}
           </Link>
         </div>
-        <p className="text-ink-500 max-w-2xl">
-          {t('landing.cuisines.longBody')}
-        </p>
+        <p className="text-ink-500 max-w-2xl">{t('landing.cuisines.longBody')}</p>
         <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
           {cuisines.slice(0, 12).map((c) => (
             <Link
@@ -193,7 +223,10 @@ export default async function LandingPage() {
               {t('landing.popular.title')}
             </h2>
           </div>
-          <Link href="/discover" className="hidden md:inline text-sm text-emerald-700 hover:underline focus-ring">
+          <Link
+            href="/discover"
+            className="hidden md:inline text-sm text-emerald-700 hover:underline focus-ring"
+          >
             {t('landing.popular.browseAll')}
           </Link>
         </div>
@@ -207,7 +240,10 @@ export default async function LandingPage() {
       {/* Afghan flagship */}
       <section className="mx-auto max-w-6xl px-4 py-14 md:py-20">
         <div className="relative rounded-[28px] overflow-hidden bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-900 text-cream-50 p-8 md:p-14 shadow-pop">
-          <div className="absolute inset-0 bg-grain opacity-40 pointer-events-none" aria-hidden="true" />
+          <div
+            className="absolute inset-0 bg-grain opacity-40 pointer-events-none"
+            aria-hidden="true"
+          />
           <div className="relative grid md:grid-cols-5 gap-8 items-center">
             <div className="md:col-span-3">
               <div className="text-xs uppercase tracking-widest text-cream-50/70">
@@ -225,7 +261,13 @@ export default async function LandingPage() {
               >
                 {t('landing.afghan.exploreCta')}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path
+                    d="M5 12h14M13 6l6 6-6 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </Link>
             </div>
@@ -275,16 +317,20 @@ export default async function LandingPage() {
           <h2 className="font-display text-3xl md:text-5xl text-ink-900 leading-tight">
             {t('landing.cta.title')}
           </h2>
-          <p className="mt-3 text-ink-500 max-w-xl mx-auto">
-            {t('landing.cta.body')}
-          </p>
+          <p className="mt-3 text-ink-500 max-w-xl mx-auto">{t('landing.cta.body')}</p>
           <Link
             href="/app"
             className="mt-6 inline-flex items-center gap-2 rounded-pill bg-emerald-700 text-cream-50 px-7 py-4 text-base font-medium shadow-card hover:bg-emerald-600 transition focus-ring"
           >
             {t('landing.cta.openApp')}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path
+                d="M5 12h14M13 6l6 6-6 6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </Link>
         </div>
@@ -293,25 +339,49 @@ export default async function LandingPage() {
   );
 }
 
-function Feature({ icon, title, body }: { icon: 'pantry' | 'clock' | 'shield'; title: string; body: string }) {
+function Feature({
+  icon,
+  title,
+  body,
+}: {
+  icon: 'pantry' | 'clock' | 'shield';
+  title: string;
+  body: string;
+}) {
   return (
     <div className="card p-6 lift">
       <div className="grid place-items-center w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700">
         {icon === 'pantry' && (
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 9h16M6 9v11h12V9M9 5a3 3 0 016 0" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+            <path
+              d="M4 9h16M6 9v11h12V9M9 5a3 3 0 016 0"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+            />
           </svg>
         )}
         {icon === 'clock' && (
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6"/>
-            <path d="M12 7v5l3 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+            <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
+            <path d="M12 7v5l3 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
           </svg>
         )}
         {icon === 'shield' && (
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
-            <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+            <path
+              d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M9 12l2 2 4-4"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         )}
       </div>
@@ -334,7 +404,13 @@ function Faq({ q, children }: { q: string; children: React.ReactNode }) {
           className="transition-transform group-open:rotate-180 text-ink-400"
           aria-hidden="true"
         >
-          <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="M6 9l6 6 6-6"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </summary>
       <div className="px-6 pb-5 text-ink-500 leading-relaxed">{children}</div>

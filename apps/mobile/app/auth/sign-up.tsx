@@ -65,15 +65,11 @@ export default function SignUpScreen() {
         <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
           <Text style={styles.eyebrow}>{t('auth.signUp.eyebrow')}</Text>
           <Text style={styles.title}>{t('auth.signUp.titleShort')}</Text>
-          <Text style={styles.subtitle}>
-            {t('auth.signUp.subtitleShort')}
-          </Text>
+          <Text style={styles.subtitle}>{t('auth.signUp.subtitleShort')}</Text>
 
           {!supabaseEnabled && (
             <View style={styles.disabledCard}>
-              <Text style={styles.disabledText}>
-                {t('auth.signUp.disabledHint')}
-              </Text>
+              <Text style={styles.disabledText}>{t('auth.signUp.disabledHint')}</Text>
             </View>
           )}
 

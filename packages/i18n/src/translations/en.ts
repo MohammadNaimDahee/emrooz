@@ -84,7 +84,8 @@ const en = {
   'today.mealType.snack': 'SNACK',
   'today.mealType.soup': 'SOUP',
   'today.mealType.dessert': 'DESSERT',
-  'today.web.subtitle': "Today's pick, tailored to your pantry, time, and preferences. A few more below.",
+  'today.web.subtitle':
+    "Today's pick, tailored to your pantry, time, and preferences. A few more below.",
   'today.web.orTryTheseTitle': 'Or try one of these',
 
   // -- Discover screen --------------------------------------------------
@@ -188,7 +189,7 @@ const en = {
   'planner.pickTitle': 'Pick a recipe',
   'planner.pickSubtitle': '{meal} · {date}',
   'planner.pickSearch': 'Search',
-  'ok': 'OK',
+  ok: 'OK',
 
   // -- Favorites --------------------------------------------------------
   'favorites.title': 'Favorites',
@@ -203,7 +204,7 @@ const en = {
   'history.cookAgain': 'Cook again',
   'history.addToPlanner': 'Add to planner',
   'history.remove': 'Remove from history',
-  'history.empty': "Nothing cooked yet. Recipes you mark as cooked will show up here.",
+  'history.empty': 'Nothing cooked yet. Recipes you mark as cooked will show up here.',
   'history.confirmRemove.title': 'Remove from history?',
   'history.confirmRemove.subtitle':
     "This won't remove the recipe from your favorites or affect future recommendations.",
@@ -271,7 +272,8 @@ const en = {
   'onboarding.step.language': 'Choose your language',
   'onboarding.step.language.subtitle': 'You can change this any time from settings.',
   'onboarding.step.cuisines': 'Which cuisines do you love?',
-  'onboarding.step.cuisines.subtitle': 'Pick as many as you like — we mix them into your recommendations.',
+  'onboarding.step.cuisines.subtitle':
+    'Pick as many as you like — we mix them into your recommendations.',
   'onboarding.step.household': 'How many people usually eat at your table?',
   'onboarding.step.household.subtitle': 'We scale ingredient quantities to match.',
   'onboarding.step.time': 'How much time do you usually have?',
@@ -280,7 +282,7 @@ const en = {
   'onboarding.step.diet.subtitle': "We'll respect these every time.",
   'onboarding.step.allergies': 'Any allergies?',
   'onboarding.step.allergies.subtitle':
-    "Recipes that could contain these are hidden — always. Please double-check labels when you cook.",
+    'Recipes that could contain these are hidden — always. Please double-check labels when you cook.',
   'onboarding.step.dislikes': 'Anything you never want to see?',
   'onboarding.step.dislikes.subtitle': 'Ingredients on this list are excluded.',
   'onboarding.step.pantry': 'What do you usually keep at home?',
@@ -417,7 +419,8 @@ const en = {
   'landing.cta.browseRecipes': 'Browse recipes',
   'landing.features.title': 'Small decisions, made pleasant',
   'landing.features.pantry.title': 'Pantry-aware',
-  'landing.features.pantry.body': 'Use what you already have — Emrooz ranks recipes by how well they match your kitchen.',
+  'landing.features.pantry.body':
+    'Use what you already have — Emrooz ranks recipes by how well they match your kitchen.',
   'landing.features.time.title': 'Time-aware',
   'landing.features.time.body': 'Tell us how many minutes you have; we only suggest what fits.',
   'landing.features.safe.title': 'Safe by design',
@@ -429,7 +432,8 @@ const en = {
   'landing.afghan.body':
     "Afghan food is underserved by most cooking apps. We're building the deepest Afghan collection anywhere — reviewed by cooks, not scraped from search results.",
   'landing.plan.title': 'A calm weekly plan',
-  'landing.plan.body': 'Plan a few days ahead, send missing ingredients to your shopping list, and cook with less friction.',
+  'landing.plan.body':
+    'Plan a few days ahead, send missing ingredients to your shopping list, and cook with less friction.',
   'landing.faq.title': 'Frequently asked',
   'landing.faq.free.q': 'Is Emrooz free?',
   'landing.faq.free.a': 'Yes. Version 1 has no ads, no trackers, and no paid tiers.',
@@ -462,7 +466,8 @@ const en = {
   'shoppingList.clearEntire.title': 'Clear entire shopping list?',
   'shoppingList.clearEntire.body': 'This cannot be undone.',
   'shoppingList.empty.title': 'Nothing on your list',
-  'shoppingList.empty.body': 'Add manually above, or open a recipe and tap "Add missing to shopping list".',
+  'shoppingList.empty.body':
+    'Add manually above, or open a recipe and tap "Add missing to shopping list".',
   'shoppingList.category.produce': 'Produce',
   'shoppingList.category.vegetable': 'Vegetables',
   'shoppingList.category.fruit': 'Fruit',
@@ -537,14 +542,16 @@ const en = {
 
   // -- Settings (extended) ---------------------------------------------
   'settings.eyebrow': 'You',
-  'settings.reminders.description': "A gentle nudge at your chosen time. No push notifications required.",
+  'settings.reminders.description':
+    'A gentle nudge at your chosen time. No push notifications required.',
   'settings.household.people': 'people',
   'settings.time.noLimit': 'No limit',
   'settings.household.title': 'Household size',
   'settings.time.title': 'Time you usually have',
   'settings.account.signedInHint': 'Signed in — data syncs across devices.',
   'settings.account.signOut.bodyShort': 'You can sign back in any time.',
-  'settings.reminders.permissionHint': "We'll ask for notification permission the first time you enable this.",
+  'settings.reminders.permissionHint':
+    "We'll ask for notification permission the first time you enable this.",
   'settings.save': 'Save changes',
   'settings.data.exportBtn': 'Export data',
   'settings.data.deleteBtn': 'Delete data',
@@ -574,7 +581,8 @@ const en = {
   'landing.hero.eyebrow': 'A personal cooking assistant',
   'landing.hero.exampleTitle': 'Today for you',
   'landing.section.previews.title': 'On your phone and in your browser',
-  'landing.section.previews.body': 'Sign in once, sync everywhere. Or stay a guest — everything on-device.',
+  'landing.section.previews.body':
+    'Sign in once, sync everywhere. Or stay a guest — everything on-device.',
   'landing.footer.privacy': 'Privacy',
   'landing.footer.terms': 'Terms',
   'landing.footer.imprint': 'Imprint',
@@ -634,7 +642,7 @@ const en = {
   'demo.banner': 'Running in local demo mode — bundled recipes only.',
   'offline.banner': 'You are offline. Showing what we already have.',
   'error.generic': 'Something went wrong. Please try again.',
-  'loading': 'Loading…',
+  loading: 'Loading…',
   'empty.tryAgain': 'Try clearing filters or a different search.',
 
   // -- Web-specific additions ------------------------------------------
@@ -656,7 +664,8 @@ const en = {
   'meta.cuisines.notFound': 'Cuisine not found',
 
   // Discover
-  'discover.subtitle': 'Find something new to cook. Search by name or ingredient, or narrow down with filters.',
+  'discover.subtitle':
+    'Find something new to cook. Search by name or ingredient, or narrow down with filters.',
   'discover.sort.quickest': 'Quickest first',
   'discover.pantryOnly.checkbox': 'Only show recipes that use what I have (≥60% pantry match)',
   'discover.empty.tryLoose': 'Try loosening a filter or clearing them all.',
@@ -678,7 +687,8 @@ const en = {
 
   // Pantry
   'pantry.searchPlaceholder.long': 'Search ingredients — onion, olive oil, chickpea…',
-  'pantry.subtitle.long': "Tell Emrooz what you already have and we'll surface recipes that use it — or ones that need just one or two more ingredients.",
+  'pantry.subtitle.long':
+    "Tell Emrooz what you already have and we'll surface recipes that use it — or ones that need just one or two more ingredients.",
 
   // Settings (web extras)
   'settings.eyebrow.preferences': 'Preferences',
@@ -693,9 +703,11 @@ const en = {
   'settings.time.noLimitShort': 'No limit',
   'settings.reminder.quote': '"Not sure what to cook? Emrooz has today’s ideas ready."',
   'settings.reminder.enableLabel': 'Enable reminder',
-  'settings.reminder.localHint': 'Local notifications are delivered by the mobile app on your device.',
+  'settings.reminder.localHint':
+    'Local notifications are delivered by the mobile app on your device.',
   'settings.account.signedInHint2': 'Signed in. Your data syncs across every device you use.',
-  'settings.account.guestHint2': "You're a guest. Create an account to sync your pantry, favorites, and history.",
+  'settings.account.guestHint2':
+    "You're a guest. Create an account to sync your pantry, favorites, and history.",
   'settings.account.signedInBadge': 'Signed in',
   'settings.saved.short': 'Saved.',
   'settings.exportFailed.alert': 'Export failed ({status}). Please try again.',
@@ -708,7 +720,8 @@ const en = {
 
   // Shopping list (web extras)
   'shoppingList.subtitle.active': '{active} to buy · {done} done',
-  'shoppingList.subtitle.empty': 'Nothing to buy right now. Add missing ingredients from any recipe or planner week.',
+  'shoppingList.subtitle.empty':
+    'Nothing to buy right now. Add missing ingredients from any recipe or planner week.',
   'shoppingList.add.placeholder.long': 'Add anything — milk, olive oil, dish sponge…',
   'shoppingList.add.button': 'Add',
   'shoppingList.clearAllShort': 'Clear all',
@@ -760,16 +773,20 @@ const en = {
   'auth.signIn.magicLink.sentInbox': 'We sent a sign-in link to {email}. Check your inbox.',
   'auth.signUp.subtitleWeb':
     'Your guest pantry, favorites, and cooking history move with you automatically — you keep the same account, just with an email attached.',
-  'auth.signUp.disabledHint.web': 'Sign-up wires up once Supabase credentials are configured. See {code}.',
-  'auth.signUp.confirmSentLong': 'We sent a confirmation link to {email}. Click it to finish creating your account.',
+  'auth.signUp.disabledHint.web':
+    'Sign-up wires up once Supabase credentials are configured. See {code}.',
+  'auth.signUp.confirmSentLong':
+    'We sent a confirmation link to {email}. Click it to finish creating your account.',
   'auth.signUp.terms.prefix': 'By continuing, you agree to our',
   'auth.signUp.terms.terms': 'Terms',
   'auth.signUp.terms.and': 'and',
   'auth.signUp.terms.privacy': 'Privacy notice',
   'auth.signUp.terms.dot': '.',
   'auth.signUp.alreadyHave': 'Already have an account?',
-  'auth.forgotPassword.subtitleWeb': "Enter your email and we'll send a reset link. It expires after an hour.",
-  'auth.forgotPassword.disabledHint.web': 'Reset wires up once Supabase credentials are configured.',
+  'auth.forgotPassword.subtitleWeb':
+    "Enter your email and we'll send a reset link. It expires after an hour.",
+  'auth.forgotPassword.disabledHint.web':
+    'Reset wires up once Supabase credentials are configured.',
   'auth.forgotPassword.sending': 'Sending…',
   'auth.forgotPassword.remembered': 'Remembered it?',
   'auth.resetPassword.eyebrow': 'Set a new password',
@@ -820,7 +837,8 @@ const en = {
   'onboarding.web.step.time.title': 'How much time do you have?',
   'onboarding.web.step.time.subtitle': "We won't suggest anything that doesn't fit your window.",
   'onboarding.web.step.diet.title': 'Any dietary preferences?',
-  'onboarding.web.step.diet.subtitle': 'Optional. Strict restrictions are enforced as hard filters.',
+  'onboarding.web.step.diet.subtitle':
+    'Optional. Strict restrictions are enforced as hard filters.',
   'onboarding.web.step.allergies.title': 'Any allergies?',
   'onboarding.web.step.allergies.subtitle':
     "These are hard filters — we'll never suggest anything that isn't safe for you.",

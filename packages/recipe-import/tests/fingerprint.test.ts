@@ -70,10 +70,7 @@ describe('fingerprint', () => {
   it('differs when the ingredient set changes', () => {
     const a = candidate();
     const b = candidate({
-      ingredientLines: [
-        ...a.ingredientLines,
-        { raw: '2 pieces onion', ingredient: 'Onion' },
-      ],
+      ingredientLines: [...a.ingredientLines, { raw: '2 pieces onion', ingredient: 'Onion' }],
     });
     expect(fingerprint(a)).not.toBe(fingerprint(b));
   });

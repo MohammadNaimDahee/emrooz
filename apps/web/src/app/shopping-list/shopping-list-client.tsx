@@ -54,8 +54,7 @@ export default function ShoppingListClient() {
     onSuccess: () => client.invalidateQueries({ queryKey: ['shopping-list'] }),
   });
   const clear = useMutation({
-    mutationFn: (completedOnly: boolean) =>
-      data.shoppingList.clear(userId, { completedOnly }),
+    mutationFn: (completedOnly: boolean) => data.shoppingList.clear(userId, { completedOnly }),
     onSuccess: () => client.invalidateQueries({ queryKey: ['shopping-list'] }),
   });
 
@@ -91,8 +90,12 @@ export default function ShoppingListClient() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 pt-10 pb-16">
-      <div className="text-xs uppercase tracking-widest text-ink-400">{t('shoppingList.headerEyebrow')}</div>
-      <h1 className="font-display text-4xl md:text-5xl text-ink-900 mt-1">{t('shoppingList.title')}</h1>
+      <div className="text-xs uppercase tracking-widest text-ink-400">
+        {t('shoppingList.headerEyebrow')}
+      </div>
+      <h1 className="font-display text-4xl md:text-5xl text-ink-900 mt-1">
+        {t('shoppingList.title')}
+      </h1>
       <p className="text-ink-500 mt-2 max-w-xl">
         {activeCount === 0
           ? t('shoppingList.subtitle.empty')
@@ -133,7 +136,7 @@ export default function ShoppingListClient() {
               {t('shoppingList.clearCountCompleted', { count: doneCount })}
             </button>
           )}
-          {(activeCount + doneCount) > 0 && (
+          {activeCount + doneCount > 0 && (
             <button
               onClick={() => {
                 if (confirm(t('shoppingList.clearAllPrompt'))) clear.mutate(false);
@@ -163,20 +166,38 @@ export default function ShoppingListClient() {
                 >
                   <button
                     onClick={() => toggleGroup(it, !it.checked)}
-                    aria-label={it.checked ? t('shoppingList.item.uncheck') : t('shoppingList.item.check')}
+                    aria-label={
+                      it.checked ? t('shoppingList.item.uncheck') : t('shoppingList.item.check')
+                    }
                     className={`shrink-0 grid place-items-center w-6 h-6 rounded-full border-2 focus-ring ${
-                      it.checked ? 'bg-emerald-700 border-emerald-700 text-cream-50' : 'border-ink-200'
+                      it.checked
+                        ? 'bg-emerald-700 border-emerald-700 text-cream-50'
+                        : 'border-ink-200'
                     }`}
                   >
                     {it.checked && (
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <path d="M5 12l4 4L20 6" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M5 12l4 4L20 6"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
                       </svg>
                     )}
                   </button>
 
                   <div className="flex-1 min-w-0">
-                    <div className={`font-medium ${it.checked ? 'line-through text-ink-400' : 'text-ink-900'}`}>
+                    <div
+                      className={`font-medium ${it.checked ? 'line-through text-ink-400' : 'text-ink-900'}`}
+                    >
                       {it.label}
                     </div>
                     {(it.quantity !== undefined || it.unit) && (
@@ -188,7 +209,9 @@ export default function ShoppingListClient() {
                       <div className="text-xs text-ink-400 mt-1">
                         {it.sourceRecipeIds.length === 1
                           ? t('shoppingList.itemFromRecipes.one')
-                          : t('shoppingList.itemFromRecipes.many', { count: it.sourceRecipeIds.length })}
+                          : t('shoppingList.itemFromRecipes.many', {
+                              count: it.sourceRecipeIds.length,
+                            })}
                       </div>
                     )}
                   </div>
@@ -199,7 +222,13 @@ export default function ShoppingListClient() {
                     aria-label={t('shoppingList.item.removeAria')}
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M5 7h14M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6M7 7l1 12a2 2 0 002 2h4a2 2 0 002-2l1-12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path
+                        d="M5 7h14M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6M7 7l1 12a2 2 0 002 2h4a2 2 0 002-2l1-12"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   </button>
                 </li>

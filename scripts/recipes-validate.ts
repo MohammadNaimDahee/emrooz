@@ -40,7 +40,10 @@ function validateArray<T>(items: unknown[], schema: z.ZodType<T>): ValidateRepor
     if (parsed.success) report.ok += 1;
     else {
       report.failed += 1;
-      report.issues.push({ index, message: parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join(', ') });
+      report.issues.push({
+        index,
+        message: parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join(', '),
+      });
     }
   });
   return report;
@@ -61,7 +64,13 @@ async function main(): Promise<void> {
     pantryItems: parsed.pantryItems ? validateArray(parsed.pantryItems, PantryItemSchema) : null,
   };
 
-  console.log(JSON.stringify({ timestamp: new Date().toISOString(), event: 'validate.report', results }, null, 2));
+  console.log(
+    JSON.stringify(
+      { timestamp: new Date().toISOString(), event: 'validate.report', results },
+      null,
+      2,
+    ),
+  );
 
   const anyFailed = Object.values(results).some((r) => r && r.failed > 0);
   if (anyFailed) {
@@ -71,6 +80,11 @@ async function main(): Promise<void> {
 }
 
 main().catch((err) => {
-  console.error(JSON.stringify({ event: 'validate.failed', message: err instanceof Error ? err.message : String(err) }));
+  console.error(
+    JSON.stringify({
+      event: 'validate.failed',
+      message: err instanceof Error ? err.message : String(err),
+    }),
+  );
   process.exit(1);
 });

@@ -4,7 +4,15 @@ import { getServerSupabase } from '../../../lib/supabase-server';
 
 export const dynamic = 'force-dynamic';
 
-const STATES = ['draft', 'imported', 'needs_review', 'reviewed', 'published', 'rejected', 'archived'] as const;
+const STATES = [
+  'draft',
+  'imported',
+  'needs_review',
+  'reviewed',
+  'published',
+  'rejected',
+  'archived',
+] as const;
 type State = (typeof STATES)[number];
 
 interface Row {
@@ -79,7 +87,12 @@ export default async function AdminRecipesPage({
             aria-hidden="true"
           >
             <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
-            <path d="M20 20l-3.5-3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            <path
+              d="M20 20l-3.5-3.5"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
           </svg>
           <input
             name="q"
@@ -107,7 +120,10 @@ export default async function AdminRecipesPage({
           Filter
         </button>
         {(sp.q || sp.state) && (
-          <Link href="/admin/recipes" className="text-sm text-ink-500 hover:text-emerald-700 focus-ring">
+          <Link
+            href="/admin/recipes"
+            className="text-sm text-ink-500 hover:text-emerald-700 focus-ring"
+          >
             Clear
           </Link>
         )}
@@ -130,7 +146,10 @@ export default async function AdminRecipesPage({
             {rows.map((r) => (
               <tr key={r.id} className="hover:bg-emerald-50/40">
                 <td className="px-4 py-3">
-                  <Link href={`/admin/recipes/${r.id}`} className="font-medium text-emerald-700 focus-ring">
+                  <Link
+                    href={`/admin/recipes/${r.id}`}
+                    className="font-medium text-emerald-700 focus-ring"
+                  >
                     {r.title_en}
                   </Link>
                   <div className="text-xs text-ink-400 tabular-nums">/{r.slug}</div>
@@ -159,7 +178,10 @@ export default async function AdminRecipesPage({
               <tr>
                 <td colSpan={6} className="px-4 py-12 text-center text-ink-500">
                   No recipes match. Try clearing filters or{' '}
-                  <Link href="/admin/recipes/new" className="text-emerald-700 hover:underline focus-ring">
+                  <Link
+                    href="/admin/recipes/new"
+                    className="text-emerald-700 hover:underline focus-ring"
+                  >
                     create the first one
                   </Link>
                   .
@@ -184,7 +206,9 @@ function StateChip({ state }: { state: State }) {
     archived: 'bg-ink-50 text-ink-400 border-ink-100',
   };
   return (
-    <span className={`inline-block rounded-pill border px-2 py-0.5 text-xs font-medium capitalize ${tone[state]}`}>
+    <span
+      className={`inline-block rounded-pill border px-2 py-0.5 text-xs font-medium capitalize ${tone[state]}`}
+    >
       {state.replace('_', ' ')}
     </span>
   );

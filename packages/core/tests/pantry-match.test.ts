@@ -50,10 +50,7 @@ describe('pantryMatch', () => {
   });
 
   it('returns 100% for a recipe with only optional ingredients', () => {
-    const result = pantryMatch(
-      { ingredients: [{ ingredientId: 'a', optional: true }] },
-      new Set(),
-    );
+    const result = pantryMatch({ ingredients: [{ ingredientId: 'a', optional: true }] }, new Set());
     // No required ingredients ⇒ ratio 1 by definition.
     expect(result.ratio).toBe(1);
   });

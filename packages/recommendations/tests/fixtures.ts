@@ -11,11 +11,7 @@ import type {
 const now = '2026-09-03T09:00:00.000Z';
 const today = '2026-09-03';
 
-function ing(
-  id: string,
-  name: string,
-  opts: Partial<Ingredient> = {},
-): Ingredient {
+function ing(id: string, name: string, opts: Partial<Ingredient> = {}): Ingredient {
   return {
     id,
     slug: id,
@@ -30,10 +26,16 @@ function ing(
 }
 
 export const INGREDIENTS: Ingredient[] = [
-  ing('rice', 'Rice', { dietaryCompatibility: { vegan: 'compatible', vegetarian: 'compatible', halal: 'compatible' } }),
+  ing('rice', 'Rice', {
+    dietaryCompatibility: { vegan: 'compatible', vegetarian: 'compatible', halal: 'compatible' },
+  }),
   ing('lamb', 'Lamb', {
     allergens: [],
-    dietaryCompatibility: { vegetarian: 'incompatible', vegan: 'incompatible', halal: 'compatible' },
+    dietaryCompatibility: {
+      vegetarian: 'incompatible',
+      vegan: 'incompatible',
+      halal: 'compatible',
+    },
   }),
   ing('pork', 'Pork', {
     allergens: [],
@@ -112,21 +114,14 @@ export const R = {
     cookMinutes: 60,
     difficulty: 'medium',
     servings: 4,
-    ingredients: [
-      { ingredientId: 'rice' },
-      { ingredientId: 'lamb' },
-      { ingredientId: 'onion' },
-    ],
+    ingredients: [{ ingredientId: 'rice' }, { ingredientId: 'lamb' }, { ingredientId: 'onion' }],
     dietaryTags: ['halal'],
   }),
   bolaniKadu: recipe('bolani-kadu', {
     title: { en: 'Bolani Kadu' },
     cuisineIds: ['afghan'],
     totalMinutes: 45,
-    ingredients: [
-      { ingredientId: 'flour' },
-      { ingredientId: 'onion' },
-    ],
+    ingredients: [{ ingredientId: 'flour' }, { ingredientId: 'onion' }],
     dietaryTags: ['vegetarian', 'vegan'],
   }),
   margherita: recipe('margherita', {
@@ -145,18 +140,18 @@ export const R = {
     title: { en: 'Quick Tomato Rice' },
     cuisineIds: ['other'],
     totalMinutes: 20,
-    ingredients: [
-      { ingredientId: 'rice' },
-      { ingredientId: 'tomato' },
-      { ingredientId: 'onion' },
-    ],
+    ingredients: [{ ingredientId: 'rice' }, { ingredientId: 'tomato' }, { ingredientId: 'onion' }],
     dietaryTags: ['vegetarian', 'vegan', 'halal'],
   }),
   peanutStew: recipe('peanut-stew', {
     title: { en: 'Peanut Stew' },
     cuisineIds: ['west_african'],
     totalMinutes: 60,
-    ingredients: [{ ingredientId: 'peanut' }, { ingredientId: 'onion' }, { ingredientId: 'tomato' }],
+    ingredients: [
+      { ingredientId: 'peanut' },
+      { ingredientId: 'onion' },
+      { ingredientId: 'tomato' },
+    ],
     allergens: ['peanut'],
     dietaryTags: ['vegan', 'vegetarian', 'halal'],
   }),

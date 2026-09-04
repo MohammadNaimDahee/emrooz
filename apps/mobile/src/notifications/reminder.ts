@@ -68,8 +68,8 @@ export async function scheduleDailyReminder(time: string): Promise<void> {
   await Notifications.scheduleNotificationAsync({
     identifier: REMINDER_ID,
     content: {
-      title: "What should I cook today?",
-      body: 'Emrooz has today\'s ideas ready.',
+      title: 'What should I cook today?',
+      body: "Emrooz has today's ideas ready.",
       data: { route: '/(tabs)/today' },
     },
     trigger: {

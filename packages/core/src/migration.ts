@@ -120,9 +120,7 @@ export async function migrateUserData(
   }
 
   if (snapshot.favorites?.length) {
-    const existing = new Set(
-      (await target.favorites.list(targetUserId)).map((f) => f.recipeId),
-    );
+    const existing = new Set((await target.favorites.list(targetUserId)).map((f) => f.recipeId));
     for (const entry of snapshot.favorites) {
       if (existing.has(entry.recipeId)) {
         result.skipped.favorites += 1;
@@ -172,9 +170,7 @@ export async function migrateUserData(
   if (snapshot.shoppingList?.length) {
     // Shopping list: dedupe on (ingredientId||label). Existing checked state
     // wins, so we never re-check something the user has already ticked off.
-    const existing = new Set(
-      (await target.shoppingList.list(targetUserId)).map(shoppingKey),
-    );
+    const existing = new Set((await target.shoppingList.list(targetUserId)).map(shoppingKey));
     for (const item of snapshot.shoppingList) {
       const key = shoppingKey(item);
       if (existing.has(key)) {

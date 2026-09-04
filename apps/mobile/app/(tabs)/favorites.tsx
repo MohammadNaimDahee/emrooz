@@ -36,7 +36,9 @@ export default function Favorites() {
           renderItem={({ item }) => (
             <Pressable
               style={styles.row}
-              onPress={() => router.push({ pathname: '/recipe/[slug]', params: { slug: item.slug } })}
+              onPress={() =>
+                router.push({ pathname: '/recipe/[slug]', params: { slug: item.slug } })
+              }
             >
               <CuisineArt
                 seed={item.cuisineIds[0] ?? item.slug}
@@ -50,7 +52,9 @@ export default function Favorites() {
                     ? t(`discover.mealType.${item.mealTypes[0]}` as never)
                     : t('today.mealFallback')}
                 </Text>
-                <Text style={styles.rowTitle} numberOfLines={2}>{item.title.en}</Text>
+                <Text style={styles.rowTitle} numberOfLines={2}>
+                  {item.title.en}
+                </Text>
                 <Text style={styles.rowSub}>
                   {t('discover.row.subtitle', {
                     minutes: item.totalMinutes,
@@ -82,7 +86,12 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: 1.5,
   },
-  title: { fontFamily: FONTS.display, fontSize: FONT_SIZES.xxl, color: COLORS.ink900, marginTop: 4 },
+  title: {
+    fontFamily: FONTS.display,
+    fontSize: FONT_SIZES.xxl,
+    color: COLORS.ink900,
+    marginTop: 4,
+  },
   row: {
     flexDirection: 'row',
     gap: SPACING.sm,

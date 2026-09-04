@@ -68,11 +68,23 @@ async function main(): Promise<void> {
     const outPath = resolve(OUTPUT_DIR, target.filename);
     await mkdir(dirname(outPath), { recursive: true });
     await writeFile(outPath, composed);
-    console.log(JSON.stringify({ event: 'icon.written', target: target.filename, size: target.size, bytes: composed.byteLength }));
+    console.log(
+      JSON.stringify({
+        event: 'icon.written',
+        target: target.filename,
+        size: target.size,
+        bytes: composed.byteLength,
+      }),
+    );
   }
 }
 
 main().catch((err) => {
-  console.error(JSON.stringify({ event: 'icon.failed', message: err instanceof Error ? err.message : String(err) }));
+  console.error(
+    JSON.stringify({
+      event: 'icon.failed',
+      message: err instanceof Error ? err.message : String(err),
+    }),
+  );
   process.exit(1);
 });

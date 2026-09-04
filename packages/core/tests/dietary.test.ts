@@ -16,7 +16,9 @@ function ing(id: string, over: Partial<Ingredient> = {}): Ingredient {
   };
 }
 
-function baseRecipe(over: Partial<Recipe> = {}): Pick<Recipe, 'ingredients' | 'allergens' | 'dietaryTags'> {
+function baseRecipe(
+  over: Partial<Recipe> = {},
+): Pick<Recipe, 'ingredients' | 'allergens' | 'dietaryTags'> {
   return {
     ingredients: over.ingredients ?? [],
     allergens: over.allergens ?? [],
@@ -24,7 +26,9 @@ function baseRecipe(over: Partial<Recipe> = {}): Pick<Recipe, 'ingredients' | 'a
   };
 }
 
-function prefs(over: Partial<UserPreferences>): Pick<UserPreferences, 'allergens' | 'dietaryTags' | 'dislikedIngredientIds'> {
+function prefs(
+  over: Partial<UserPreferences>,
+): Pick<UserPreferences, 'allergens' | 'dietaryTags' | 'dislikedIngredientIds'> {
   return {
     allergens: over.allergens ?? [],
     dietaryTags: over.dietaryTags ?? [],

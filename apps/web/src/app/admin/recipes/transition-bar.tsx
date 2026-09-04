@@ -12,10 +12,20 @@ const TRANSITIONS: {
 }[] = [
   { from: ['draft', 'imported'], to: 'needs_review', label: 'Send for review', tone: 'ghost' },
   { from: ['needs_review'], to: 'reviewed', label: 'Mark reviewed', tone: 'ghost' },
-  { from: ['reviewed', 'needs_review', 'draft'], to: 'published', label: 'Publish', tone: 'primary' },
+  {
+    from: ['reviewed', 'needs_review', 'draft'],
+    to: 'published',
+    label: 'Publish',
+    tone: 'primary',
+  },
   { from: ['published'], to: 'draft', label: 'Unpublish', tone: 'ghost' },
   { from: ['draft', 'needs_review', 'imported'], to: 'rejected', label: 'Reject', tone: 'danger' },
-  { from: ['published', 'rejected', 'draft', 'reviewed', 'needs_review'], to: 'archived', label: 'Archive', tone: 'ghost' },
+  {
+    from: ['published', 'rejected', 'draft', 'reviewed', 'needs_review'],
+    to: 'archived',
+    label: 'Archive',
+    tone: 'ghost',
+  },
 ];
 
 const TONE_CLASSES = {

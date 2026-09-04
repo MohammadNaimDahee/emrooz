@@ -30,10 +30,7 @@ async function loadPersistedProviders() {
   if (!supabase) return { providers: [], reviews: [] as TermsReviewRow[] };
   const [{ data: providers }, { data: reviews }] = await Promise.all([
     supabase.from('providers').select('*').order('display_name'),
-    supabase
-      .from('provider_terms_reviews')
-      .select('*')
-      .order('reviewed_at', { ascending: false }),
+    supabase.from('provider_terms_reviews').select('*').order('reviewed_at', { ascending: false }),
   ]);
   return {
     providers: (providers as ProviderRow[] | null) ?? [],
@@ -99,7 +96,9 @@ export default async function AdminProvidersPage() {
                 <dl className="mt-3 grid gap-2 sm:grid-cols-2 text-sm">
                   <div>
                     <dt className="text-xs uppercase tracking-widest text-ink-400">Credentials</dt>
-                    <dd className={provider.hasCredentials ? 'text-emerald-700' : 'text-saffron-700'}>
+                    <dd
+                      className={provider.hasCredentials ? 'text-emerald-700' : 'text-saffron-700'}
+                    >
                       {provider.hasCredentials ? 'Configured' : 'Missing — set env var'}
                     </dd>
                   </div>
@@ -117,7 +116,9 @@ export default async function AdminProvidersPage() {
                   <div>
                     <dt className="text-xs uppercase tracking-widest text-ink-400">Health</dt>
                     <dd className={providerHealth.reachable ? 'text-emerald-700' : 'text-rose-400'}>
-                      {providerHealth.reachable ? 'Reachable' : providerHealth.lastError ?? 'Unreachable'}
+                      {providerHealth.reachable
+                        ? 'Reachable'
+                        : (providerHealth.lastError ?? 'Unreachable')}
                     </dd>
                   </div>
                 </dl>

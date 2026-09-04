@@ -25,7 +25,10 @@ type Filter =
 
 // Filter chips. Labels come from t() inside the component so they respect
 // the active locale — this array only carries the stable key metadata.
-const FILTERS: { key: Exclude<Filter, undefined>; labelKey: 'quick' | 'time20' | 'vegetarian' | 'useWhatIHave' | 'surpriseMe' }[] = [
+const FILTERS: {
+  key: Exclude<Filter, undefined>;
+  labelKey: 'quick' | 'time20' | 'vegetarian' | 'useWhatIHave' | 'surpriseMe';
+}[] = [
   { key: 'quick_meal', labelKey: 'quick' },
   { key: 'time_20', labelKey: 'time20' },
   { key: 'vegetarian', labelKey: 'vegetarian' },
@@ -33,7 +36,10 @@ const FILTERS: { key: Exclude<Filter, undefined>; labelKey: 'quick' | 'time20' |
   { key: 'surprise_me', labelKey: 'surpriseMe' },
 ];
 
-const FEEDBACK_OPTIONS: { kind: FeedbackType; labelKey: 'notToday' | 'doNotLike' | 'tooDifficult' | 'tooLong' }[] = [
+const FEEDBACK_OPTIONS: {
+  kind: FeedbackType;
+  labelKey: 'notToday' | 'doNotLike' | 'tooDifficult' | 'tooLong';
+}[] = [
   { kind: 'not_today', labelKey: 'notToday' },
   { kind: 'do_not_like', labelKey: 'doNotLike' },
   { kind: 'too_difficult', labelKey: 'tooDifficult' },
@@ -53,15 +59,16 @@ export default function TodayClient() {
     queryKey: ['today', userId, today, filter, prefs?.onboardedAt],
     enabled: Boolean(userId),
     queryFn: async () => {
-      const [recipes, ingredientsList, pantry, favorites, history, feedback, impressions] = await Promise.all([
-        data.recipes.listPublished({ limit: 200 }),
-        data.ingredients.all(),
-        data.pantry.list(userId),
-        data.favorites.list(userId),
-        data.history.list(userId),
-        data.feedback.list(userId),
-        data.impressions.list(userId),
-      ]);
+      const [recipes, ingredientsList, pantry, favorites, history, feedback, impressions] =
+        await Promise.all([
+          data.recipes.listPublished({ limit: 200 }),
+          data.ingredients.all(),
+          data.pantry.list(userId),
+          data.favorites.list(userId),
+          data.history.list(userId),
+          data.feedback.list(userId),
+          data.impressions.list(userId),
+        ]);
       const preferences: UserPreferences = prefs ?? {
         userId,
         language: 'en',
@@ -148,63 +155,72 @@ export default function TodayClient() {
           <div className="card p-8 text-center">
             <div className="mx-auto w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-700 grid place-items-center">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M4 4l16 16M4 20L20 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+                <path
+                  d="M4 4l16 16M4 20L20 4"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                />
               </svg>
             </div>
-            <h2 className="mt-4 font-display text-2xl text-ink-900">{t('today.emptyState.title')}</h2>
+            <h2 className="mt-4 font-display text-2xl text-ink-900">
+              {t('today.emptyState.title')}
+            </h2>
             <p className="text-ink-500 mt-2 max-w-md mx-auto">{t('today.emptyState.subtitle')}</p>
           </div>
         )}
-        {q.data && q.data.length > 0 && (() => {
-          // Pull the primary pick into a local so TS narrows the tuple access
-          // — indexing into q.data inline keeps its type as `T | undefined`.
-          const hero = q.data[0]!;
-          const rest = q.data.slice(1);
-          return (
-          <>
-            {/* Hero: today's single primary pick. Same visual weight as the
+        {q.data &&
+          q.data.length > 0 &&
+          (() => {
+            // Pull the primary pick into a local so TS narrows the tuple access
+            // — indexing into q.data inline keeps its type as `T | undefined`.
+            const hero = q.data[0]!;
+            const rest = q.data.slice(1);
+            return (
+              <>
+                {/* Hero: today's single primary pick. Same visual weight as the
                 mobile app's Today hero card so users get a clear "one meal
                 per day" moment before browsing the alternatives. */}
-            <HeroPick
-              slug={hero.recipe.slug}
-              title={hero.recipe.title.en}
-              mealType={hero.recipe.mealTypes[0] ?? 'meal'}
-              totalMinutes={hero.recipe.totalMinutes}
-              difficulty={hero.recipe.difficulty}
-              reason={hero.reason}
-              pantryMatch={hero.breakdown.pantryMatch}
-              missing={hero.missingIngredientIds.length}
-              dietaryTags={hero.recipe.dietaryTags}
-              cuisineSeed={hero.recipe.cuisineIds[0] ?? hero.recipe.slug}
-              onFeedback={(kind) => sendFeedback.mutate({ recipeId: hero.recipe.id, kind })}
-            />
+                <HeroPick
+                  slug={hero.recipe.slug}
+                  title={hero.recipe.title.en}
+                  mealType={hero.recipe.mealTypes[0] ?? 'meal'}
+                  totalMinutes={hero.recipe.totalMinutes}
+                  difficulty={hero.recipe.difficulty}
+                  reason={hero.reason}
+                  pantryMatch={hero.breakdown.pantryMatch}
+                  missing={hero.missingIngredientIds.length}
+                  dietaryTags={hero.recipe.dietaryTags}
+                  cuisineSeed={hero.recipe.cuisineIds[0] ?? hero.recipe.slug}
+                  onFeedback={(kind) => sendFeedback.mutate({ recipeId: hero.recipe.id, kind })}
+                />
 
-            {rest.length > 0 && (
-              <div className="mt-8">
-                <h2 className="text-xs uppercase tracking-widest text-ink-400">
-                  {t('today.web.orTryTheseTitle')}
-                </h2>
-                <div className="mt-3 space-y-3">
-                  {rest.map((rec, i) => (
-                    <SecondaryPick
-                      key={rec.recipe.id}
-                      index={i}
-                      slug={rec.recipe.slug}
-                      title={rec.recipe.title.en}
-                      mealType={rec.recipe.mealTypes[0] ?? 'meal'}
-                      totalMinutes={rec.recipe.totalMinutes}
-                      difficulty={rec.recipe.difficulty}
-                      pantryMatch={rec.breakdown.pantryMatch}
-                      missing={rec.missingIngredientIds.length}
-                      cuisineSeed={rec.recipe.cuisineIds[0] ?? rec.recipe.slug}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-          </>
-          );
-        })()}
+                {rest.length > 0 && (
+                  <div className="mt-8">
+                    <h2 className="text-xs uppercase tracking-widest text-ink-400">
+                      {t('today.web.orTryTheseTitle')}
+                    </h2>
+                    <div className="mt-3 space-y-3">
+                      {rest.map((rec, i) => (
+                        <SecondaryPick
+                          key={rec.recipe.id}
+                          index={i}
+                          slug={rec.recipe.slug}
+                          title={rec.recipe.title.en}
+                          mealType={rec.recipe.mealTypes[0] ?? 'meal'}
+                          totalMinutes={rec.recipe.totalMinutes}
+                          difficulty={rec.recipe.difficulty}
+                          pantryMatch={rec.breakdown.pantryMatch}
+                          missing={rec.missingIngredientIds.length}
+                          cuisineSeed={rec.recipe.cuisineIds[0] ?? rec.recipe.slug}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
+            );
+          })()}
       </div>
 
       <div className="mt-10 text-center text-xs text-ink-400">{t('demo.banner')}</div>
@@ -299,7 +315,9 @@ function HeroPick({
             <Chip>{difficulty}</Chip>
             {missing > 0 && <Chip tone="warn">{missing} missing</Chip>}
             {dietaryTags.slice(0, 2).map((t) => (
-              <Chip key={t} tone="soft">{t.replace('_', ' ')}</Chip>
+              <Chip key={t} tone="soft">
+                {t.replace('_', ' ')}
+              </Chip>
             ))}
           </div>
         </div>
@@ -354,12 +372,15 @@ function HeroPick({
       </div>
 
       {dismissed && (
-        <div
-          role="status"
-          className="mt-2 flex items-center gap-2 text-xs text-emerald-700"
-        >
+        <div role="status" className="mt-2 flex items-center gap-2 text-xs text-emerald-700">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M5 12l4 4L20 6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/>
+            <path
+              d="M5 12l4 4L20 6"
+              stroke="currentColor"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
           Thanks — we'll take "{dismissed}" into account for next time.
         </div>
@@ -427,7 +448,9 @@ function Chip({ children, tone }: { children: React.ReactNode; tone?: 'warn' | '
         ? 'bg-emerald-50 text-emerald-700 border-emerald-100'
         : 'bg-ink-50 text-ink-700 border-ink-100';
   return (
-    <span className={`inline-flex items-center gap-1 rounded-pill border px-2.5 py-1 font-medium ${cls}`}>
+    <span
+      className={`inline-flex items-center gap-1 rounded-pill border px-2.5 py-1 font-medium ${cls}`}
+    >
       {children}
     </span>
   );

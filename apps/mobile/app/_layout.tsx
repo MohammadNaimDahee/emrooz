@@ -52,7 +52,10 @@ function RootStack() {
       <Stack.Screen name="index" options={{ animation: 'none' }} />
       <Stack.Screen name="onboarding/index" />
       <Stack.Screen name="(tabs)" />
-      <Stack.Screen name="recipe/[slug]" options={{ presentation: 'card', animation: 'slide_from_bottom' }} />
+      <Stack.Screen
+        name="recipe/[slug]"
+        options={{ presentation: 'card', animation: 'slide_from_bottom' }}
+      />
       <Stack.Screen name="shopping-list" options={{ presentation: 'card' }} />
       <Stack.Screen name="settings" options={{ presentation: 'card' }} />
       <Stack.Screen name="history" options={{ presentation: 'card' }} />

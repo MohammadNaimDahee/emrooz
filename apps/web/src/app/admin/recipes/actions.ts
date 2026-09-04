@@ -50,21 +50,13 @@ export interface RecipeEditorInput {
   allergens: string[];
   content_owner: string;
   ownership_type:
-    | 'emrooz_owned'
-    | 'licensed'
-    | 'open_license'
-    | 'provider_hosted'
-    | 'external_link_only';
+    'emrooz_owned' | 'licensed' | 'open_license' | 'provider_hosted' | 'external_link_only';
   source_provider?: string | null;
   source_recipe_id?: string | null;
   source_url?: string | null;
   attribution_text?: string | null;
   storage_permission:
-    | 'permanent'
-    | 'subscription_only'
-    | 'temporary_cache'
-    | 'metadata_only'
-    | 'not_permitted';
+    'permanent' | 'subscription_only' | 'temporary_cache' | 'metadata_only' | 'not_permitted';
   cuisine_ids: string[];
   region_ids: string[];
   ingredients: Array<{
@@ -175,12 +167,7 @@ export async function saveRecipe(input: RecipeEditorInput): Promise<{ id: string
 }
 
 export type EditorialTransition =
-  | 'needs_review'
-  | 'reviewed'
-  | 'published'
-  | 'rejected'
-  | 'archived'
-  | 'draft';
+  'needs_review' | 'reviewed' | 'published' | 'rejected' | 'archived' | 'draft';
 
 const TRANSITION_UPDATES: Record<EditorialTransition, Record<string, unknown>> = {
   needs_review: { editorial_state: 'needs_review' },
@@ -232,14 +219,19 @@ async function snapshotRecipe(
   editorId: string,
   reason: 'edit' | 'restore',
 ): Promise<void> {
-  const [{ data: parent }, { data: cuisines }, { data: regions }, { data: ingredients }, { data: steps }] =
-    await Promise.all([
-      supabase.from('recipes').select('*').eq('id', recipeId).maybeSingle(),
-      supabase.from('recipe_cuisines').select('cuisine_id').eq('recipe_id', recipeId),
-      supabase.from('recipe_regions').select('region_id').eq('recipe_id', recipeId),
-      supabase.from('recipe_ingredients').select('*').eq('recipe_id', recipeId),
-      supabase.from('recipe_steps').select('*').eq('recipe_id', recipeId),
-    ]);
+  const [
+    { data: parent },
+    { data: cuisines },
+    { data: regions },
+    { data: ingredients },
+    { data: steps },
+  ] = await Promise.all([
+    supabase.from('recipes').select('*').eq('id', recipeId).maybeSingle(),
+    supabase.from('recipe_cuisines').select('cuisine_id').eq('recipe_id', recipeId),
+    supabase.from('recipe_regions').select('region_id').eq('recipe_id', recipeId),
+    supabase.from('recipe_ingredients').select('*').eq('recipe_id', recipeId),
+    supabase.from('recipe_steps').select('*').eq('recipe_id', recipeId),
+  ]);
   if (!parent) return;
   const snapshot: RecipeSnapshot = {
     parent: parent as Record<string, unknown>,
@@ -248,7 +240,7 @@ async function snapshotRecipe(
     ingredients: (ingredients as unknown[] | null) ?? [],
     steps: (steps as unknown[] | null) ?? [],
   };
-  const version = ((parent as { version?: number }).version ?? 1);
+  const version = (parent as { version?: number }).version ?? 1;
   await supabase.from('recipe_versions').insert({
     recipe_id: recipeId,
     version,

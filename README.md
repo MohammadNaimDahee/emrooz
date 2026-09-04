@@ -60,23 +60,23 @@ The app boots into **local demo mode** whenever Supabase credentials are missing
 > `--filter` (e.g. `pnpm --filter @emrooz/mobile dev`). Single-word commands like
 > `pnpm dev` / `pnpm test` / `pnpm build` don't need the prefix.
 
-| Command | What it does |
-| --- | --- |
-| `pnpm dev` | Web + mobile in parallel |
-| `pnpm run dev:web` / `pnpm run dev:mobile` | Just one app |
-| `pnpm --filter @emrooz/mobile dev` | Equivalent, bypasses turbo |
-| `pnpm lint` | ESLint across the workspace |
-| `pnpm typecheck` | `tsc --noEmit` across the workspace |
-| `pnpm test` | Vitest across packages + apps |
-| `pnpm test:e2e` | Playwright smoke tests for the web app |
-| `pnpm build` / `pnpm run build:web` | Production build |
-| `pnpm run supabase:start` | Boots local Supabase |
-| `pnpm run supabase:reset` | Reapplies migrations + seed |
-| `pnpm run recipes:import -- --area=Afghan` | Import recipes (requires provider key) |
-| `pnpm run recipes:validate` / `pnpm run recipes:export` | Validate / export the canonical recipe JSON |
-| `pnpm run backup:database` / `pnpm run backup:media` | Encrypted off-site backups |
-| `pnpm run mobile:icons` | Regenerate mobile PNG icons from the SVG mark |
-| `pnpm backup:database` / `pnpm backup:media` | Encrypted off-site backups |
+| Command                                                 | What it does                                  |
+| ------------------------------------------------------- | --------------------------------------------- |
+| `pnpm dev`                                              | Web + mobile in parallel                      |
+| `pnpm run dev:web` / `pnpm run dev:mobile`              | Just one app                                  |
+| `pnpm --filter @emrooz/mobile dev`                      | Equivalent, bypasses turbo                    |
+| `pnpm lint`                                             | ESLint across the workspace                   |
+| `pnpm typecheck`                                        | `tsc --noEmit` across the workspace           |
+| `pnpm test`                                             | Vitest across packages + apps                 |
+| `pnpm test:e2e`                                         | Playwright smoke tests for the web app        |
+| `pnpm build` / `pnpm run build:web`                     | Production build                              |
+| `pnpm run supabase:start`                               | Boots local Supabase                          |
+| `pnpm run supabase:reset`                               | Reapplies migrations + seed                   |
+| `pnpm run recipes:import -- --area=Afghan`              | Import recipes (requires provider key)        |
+| `pnpm run recipes:validate` / `pnpm run recipes:export` | Validate / export the canonical recipe JSON   |
+| `pnpm run backup:database` / `pnpm run backup:media`    | Encrypted off-site backups                    |
+| `pnpm run mobile:icons`                                 | Regenerate mobile PNG icons from the SVG mark |
+| `pnpm backup:database` / `pnpm backup:media`            | Encrypted off-site backups                    |
 
 ## Where to look next
 

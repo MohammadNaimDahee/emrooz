@@ -16,7 +16,8 @@ export function getSupabase(): SupabaseClient | null {
   const extra = (Constants.expoConfig?.extra ?? {}) as Record<string, string | undefined>;
   // Metro inlines process.env.EXPO_PUBLIC_* at build time. We access it via
   // globalThis to avoid pulling @types/node into the mobile compilation.
-  const env = (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env ?? {};
+  const env =
+    (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env ?? {};
   const url = extra.EXPO_PUBLIC_SUPABASE_URL ?? env.EXPO_PUBLIC_SUPABASE_URL;
   const anon = extra.EXPO_PUBLIC_SUPABASE_ANON_KEY ?? env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !anon) return null;

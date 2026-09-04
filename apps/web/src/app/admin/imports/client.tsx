@@ -139,14 +139,20 @@ export function ImportsClient() {
           </button>
         </div>
         {error && (
-          <p role="alert" className="mt-3 text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-lg px-3 py-2">
+          <p
+            role="alert"
+            className="mt-3 text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-lg px-3 py-2"
+          >
             {error}
           </p>
         )}
       </div>
 
       {promoteError && (
-        <p role="alert" className="text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-lg px-3 py-2">
+        <p
+          role="alert"
+          className="text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-lg px-3 py-2"
+        >
           {promoteError}
         </p>
       )}
@@ -189,9 +195,7 @@ export function ImportsClient() {
                     </td>
                     <td className="px-4 py-3 text-xs text-ink-500 font-mono">
                       {c.fingerprint}
-                      {c.duplicateOf && (
-                        <span className="ml-1 text-saffron-700">(dup)</span>
-                      )}
+                      {c.duplicateOf && <span className="ml-1 text-saffron-700">(dup)</span>}
                     </td>
                     <td className="px-4 py-3 text-xs">
                       {c.normalized ? (
@@ -202,7 +206,8 @@ export function ImportsClient() {
                           </div>
                           {c.normalized.unmatchedIngredientNames.length > 0 && (
                             <div className="text-saffron-700 mt-1">
-                              unmatched: {c.normalized.unmatchedIngredientNames.slice(0, 3).join(', ')}
+                              unmatched:{' '}
+                              {c.normalized.unmatchedIngredientNames.slice(0, 3).join(', ')}
                               {c.normalized.unmatchedIngredientNames.length > 3 && '…'}
                             </div>
                           )}
@@ -235,7 +240,8 @@ export function ImportsClient() {
                         title={
                           c.stage === 'duplicate'
                             ? 'Duplicate — already in the database'
-                            : (c.normalized?.resolvedIngredientIds.filter(Boolean).length ?? 0) === 0
+                            : (c.normalized?.resolvedIngredientIds.filter(Boolean).length ?? 0) ===
+                                0
                               ? 'Cannot promote — no ingredients matched the catalogue'
                               : 'Create a draft recipe from this candidate'
                         }
@@ -261,7 +267,15 @@ export function ImportsClient() {
   );
 }
 
-function Kpi({ label, value, tone }: { label: string; value: number; tone: 'emerald' | 'saffron' | 'ink' }) {
+function Kpi({
+  label,
+  value,
+  tone,
+}: {
+  label: string;
+  value: number;
+  tone: 'emerald' | 'saffron' | 'ink';
+}) {
   const cls = {
     emerald: 'bg-emerald-50 border-emerald-100 text-emerald-700',
     saffron: 'bg-saffron-500/10 border-saffron-500/20 text-saffron-700',
@@ -284,7 +298,9 @@ function StageChip({ stage }: { stage: StagedCandidate['stage'] }) {
     ready: 'bg-emerald-50 text-emerald-700 border-emerald-100',
   };
   return (
-    <span className={`inline-block rounded-pill border px-2 py-0.5 text-xs font-medium capitalize ${tone[stage]}`}>
+    <span
+      className={`inline-block rounded-pill border px-2 py-0.5 text-xs font-medium capitalize ${tone[stage]}`}
+    >
       {stage}
     </span>
   );

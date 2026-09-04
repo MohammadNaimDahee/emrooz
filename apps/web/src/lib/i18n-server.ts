@@ -1,7 +1,13 @@
 import 'server-only';
 import { cookies } from 'next/headers';
 
-import { LOCALE_COOKIE, normalizeLocale, translatorFor, type Locale, type Translator } from './i18n';
+import {
+  LOCALE_COOKIE,
+  normalizeLocale,
+  translatorFor,
+  type Locale,
+  type Translator,
+} from './i18n';
 
 /**
  * Server-only i18n helpers. Isolated from the client-safe `i18n.ts` so

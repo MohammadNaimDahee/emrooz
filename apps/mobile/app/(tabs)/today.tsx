@@ -29,7 +29,10 @@ import { COLORS, FONTS, FONT_SIZES, RADIUS, SHADOW, SPACING } from '../../src/th
 // because ActionSheetIOS resolves by index and Alert.alert renders buttons top-down.
 // Labels are looked up from t() inside the component so they respect the
 // active locale — this array only holds the stable metadata.
-const FEEDBACK_OPTIONS: { kind: FeedbackType; key: 'notToday' | 'doNotLike' | 'tooDifficult' | 'tooLong' }[] = [
+const FEEDBACK_OPTIONS: {
+  kind: FeedbackType;
+  key: 'notToday' | 'doNotLike' | 'tooDifficult' | 'tooLong';
+}[] = [
   { kind: 'not_today', key: 'notToday' },
   { kind: 'do_not_like', key: 'doNotLike' },
   { kind: 'too_difficult', key: 'tooDifficult' },
@@ -45,7 +48,10 @@ type QuickFilter =
   | 'use_what_i_have'
   | 'surprise_me';
 
-const FILTERS: { key: Exclude<QuickFilter, undefined>; labelKey: 'quick' | 'time20' | 'vegetarian' | 'fromPantry' | 'surpriseMe' }[] = [
+const FILTERS: {
+  key: Exclude<QuickFilter, undefined>;
+  labelKey: 'quick' | 'time20' | 'vegetarian' | 'fromPantry' | 'surpriseMe';
+}[] = [
   { key: 'quick_meal', labelKey: 'quick' },
   { key: 'time_20', labelKey: 'time20' },
   { key: 'vegetarian', labelKey: 'vegetarian' },
@@ -122,29 +128,29 @@ export default function TodayScreen() {
     queryKey: ['today', profile?.id, today, filter, preferences?.onboardedAt],
     enabled: !!profile,
     queryFn: async () => {
-      const [recipes, ingredientsList, pantry, favorites, history, feedback, impressions] = await Promise.all([
-        data.recipes.listPublished({ limit: 200 }),
-        data.ingredients.all(),
-        data.pantry.list(profile!.id),
-        data.favorites.list(profile!.id),
-        data.history.list(profile!.id),
-        data.feedback.list(profile!.id),
-        data.impressions.list(profile!.id),
-      ]);
+      const [recipes, ingredientsList, pantry, favorites, history, feedback, impressions] =
+        await Promise.all([
+          data.recipes.listPublished({ limit: 200 }),
+          data.ingredients.all(),
+          data.pantry.list(profile!.id),
+          data.favorites.list(profile!.id),
+          data.history.list(profile!.id),
+          data.feedback.list(profile!.id),
+          data.impressions.list(profile!.id),
+        ]);
       return recommend({
         today,
         userId: profile!.id,
-        preferences:
-          preferences ?? {
-            userId: profile!.id,
-            language: 'en',
-            cuisineIds: [],
-            householdSize: 2,
-            dietaryTags: [],
-            allergens: [],
-            dislikedIngredientIds: [],
-            pantrySeedIngredientIds: [],
-          },
+        preferences: preferences ?? {
+          userId: profile!.id,
+          language: 'en',
+          cuisineIds: [],
+          householdSize: 2,
+          dietaryTags: [],
+          allergens: [],
+          dislikedIngredientIds: [],
+          pantrySeedIngredientIds: [],
+        },
         pantry: new Set(pantry.map((p) => p.ingredientId)),
         favorites,
         history,
@@ -181,7 +187,9 @@ export default function TodayScreen() {
             <Pressable
               onPress={() => router.push(profile?.email ? '/settings' : '/auth/sign-in')}
               accessibilityRole="button"
-              accessibilityLabel={t(profile?.email ? 'today.accountAndSettings' : 'today.signInOrGuest')}
+              accessibilityLabel={t(
+                profile?.email ? 'today.accountAndSettings' : 'today.signInOrGuest',
+              )}
               hitSlop={12}
               style={({ pressed }) => [styles.profileBtn, pressed && { opacity: 0.7 }]}
             >
@@ -254,7 +262,9 @@ export default function TodayScreen() {
                   <View style={styles.heroBadge}>
                     <Ionicons name="leaf-outline" size={14} color="#fff" />
                     <Text style={styles.heroBadgeText}>
-                      {t('today.percentMatch', { percent: Math.round(featured.breakdown.pantryMatch * 100) })}
+                      {t('today.percentMatch', {
+                        percent: Math.round(featured.breakdown.pantryMatch * 100),
+                      })}
                     </Text>
                   </View>
                 </View>
@@ -298,7 +308,9 @@ export default function TodayScreen() {
               />
               <View style={styles.cardBody}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={styles.cardMeta}>{rec.recipe.mealTypes[0] ?? t('today.mealFallback')}</Text>
+                  <Text style={styles.cardMeta}>
+                    {rec.recipe.mealTypes[0] ?? t('today.mealFallback')}
+                  </Text>
                   <Pressable
                     onPress={(e) => {
                       e.stopPropagation();
@@ -314,7 +326,9 @@ export default function TodayScreen() {
                   {rec.recipe.title.en}
                 </Text>
                 <View style={styles.badgeRow}>
-                  <Badge icon="time-outline">{t('today.timeMin', { count: rec.recipe.totalMinutes })}</Badge>
+                  <Badge icon="time-outline">
+                    {t('today.timeMin', { count: rec.recipe.totalMinutes })}
+                  </Badge>
                   <Badge icon="leaf-outline">
                     {`${Math.round(rec.breakdown.pantryMatch * 100)}%`}
                   </Badge>

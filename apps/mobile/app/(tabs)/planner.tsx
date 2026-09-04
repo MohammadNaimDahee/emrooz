@@ -38,7 +38,10 @@ export default function Planner() {
   const [picker, setPicker] = useState<{ date: string; meal: Meal } | null>(null);
 
   const weekEnd = addDays(weekStart, 6);
-  const days = useMemo(() => Array.from({ length: 7 }, (_, i) => addDays(weekStart, i)), [weekStart]);
+  const days = useMemo(
+    () => Array.from({ length: 7 }, (_, i) => addDays(weekStart, i)),
+    [weekStart],
+  );
 
   const entriesQ = useQuery({
     queryKey: ['planner', profile?.id, weekStart, weekEnd],
@@ -130,14 +133,10 @@ export default function Planner() {
       const title = added
         ? t(added === 1 ? 'planner.addedItems.one' : 'planner.addedItems.many', { count: added })
         : t('planner.nothingNew');
-      Alert.alert(
-        title,
-        added ? undefined : t('planner.allInPantry'),
-        [
-          { text: t('ok'), style: 'default' },
-          { text: t('planner.openList'), onPress: () => router.push('/shopping-list') },
-        ],
-      );
+      Alert.alert(title, added ? undefined : t('planner.allInPantry'), [
+        { text: t('ok'), style: 'default' },
+        { text: t('planner.openList'), onPress: () => router.push('/shopping-list') },
+      ]);
     },
   });
 
@@ -205,7 +204,10 @@ export default function Planner() {
                     onPress={() =>
                       Alert.alert(
                         recipe.title.en,
-                        t('planner.slot.dayMeal', { day: dayLabel, meal: t(`planner.slot.${meal}` as never) }),
+                        t('planner.slot.dayMeal', {
+                          day: dayLabel,
+                          meal: t(`planner.slot.${meal}` as never),
+                        }),
                         [
                           {
                             text: t('planner.openRecipe'),
@@ -215,8 +217,15 @@ export default function Planner() {
                                 params: { slug: recipe.slug },
                               }),
                           },
-                          { text: t('planner.replace'), onPress: () => setPicker({ date: d, meal }) },
-                          { text: t('planner.remove'), style: 'destructive', onPress: () => clearSlot.mutate(entry.id) },
+                          {
+                            text: t('planner.replace'),
+                            onPress: () => setPicker({ date: d, meal }),
+                          },
+                          {
+                            text: t('planner.remove'),
+                            style: 'destructive',
+                            onPress: () => clearSlot.mutate(entry.id),
+                          },
                           { text: t('action.cancel'), style: 'cancel' },
                         ],
                         { cancelable: true },
@@ -352,7 +361,12 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: 1.5,
   },
-  title: { fontFamily: FONTS.display, fontSize: FONT_SIZES.xxl, color: COLORS.ink900, marginTop: 4 },
+  title: {
+    fontFamily: FONTS.display,
+    fontSize: FONT_SIZES.xxl,
+    color: COLORS.ink900,
+    marginTop: 4,
+  },
   weekNav: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -363,7 +377,13 @@ const styles = StyleSheet.create({
     padding: 4,
     ...SHADOW.soft,
   },
-  navBtn: { width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center' },
+  navBtn: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   weekLabel: { fontFamily: FONTS.bodyMedium, color: COLORS.ink700, fontSize: FONT_SIZES.sm },
   addWeekBtn: {
     marginTop: SPACING.md,
@@ -483,5 +503,10 @@ const styles = StyleSheet.create({
     ...SHADOW.soft,
   },
   pickerRowTitle: { fontFamily: FONTS.bodySemi, fontSize: FONT_SIZES.md, color: COLORS.ink900 },
-  pickerRowSub: { fontFamily: FONTS.body, fontSize: FONT_SIZES.sm, color: COLORS.ink500, marginTop: 2 },
+  pickerRowSub: {
+    fontFamily: FONTS.body,
+    fontSize: FONT_SIZES.sm,
+    color: COLORS.ink500,
+    marginTop: 2,
+  },
 });

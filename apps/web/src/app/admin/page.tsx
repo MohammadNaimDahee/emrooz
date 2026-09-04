@@ -17,11 +17,14 @@ async function loadDashboard() {
 
   const [{ data: profileCount }, states, { data: importBatches }] = await Promise.all([
     supabase.from('profiles').select('id', { count: 'exact', head: true }),
-    supabase.rpc('emrooz_recipe_state_counts').select().then(
-      // rpc doesn't exist yet — fall back to a direct group-by via raw select
-      () => undefined,
-      () => undefined,
-    ) as Promise<undefined>,
+    supabase
+      .rpc('emrooz_recipe_state_counts')
+      .select()
+      .then(
+        // rpc doesn't exist yet — fall back to a direct group-by via raw select
+        () => undefined,
+        () => undefined,
+      ) as Promise<undefined>,
     supabase
       .from('import_batches')
       .select('id, status, started_at, finished_at')
@@ -69,7 +72,9 @@ export default async function AdminOverview() {
       </div>
 
       <section>
-        <h2 className="text-sm font-semibold uppercase tracking-widest text-ink-400 mb-3">Recipes by state</h2>
+        <h2 className="text-sm font-semibold uppercase tracking-widest text-ink-400 mb-3">
+          Recipes by state
+        </h2>
         <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-4">
           {(data?.stateCounts ?? []).length === 0 && (
             <StateCard label="No recipes yet" state="empty" count={0} />
@@ -87,7 +92,9 @@ export default async function AdminOverview() {
       </section>
 
       <section>
-        <h2 className="text-sm font-semibold uppercase tracking-widest text-ink-400 mb-3">Providers</h2>
+        <h2 className="text-sm font-semibold uppercase tracking-widest text-ink-400 mb-3">
+          Providers
+        </h2>
         <div className="rounded-2xl bg-white border border-ink-100 shadow-card divide-y divide-ink-100">
           {providers.map((p) => (
             <div key={p.key} className="p-4 flex flex-wrap items-center gap-3">
@@ -99,8 +106,10 @@ export default async function AdminOverview() {
                   storage: {p.storageMode}
                 </div>
               </div>
-              <div className={`text-xs rounded-pill px-2 py-1 ${providerHealth.reachable ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' : 'bg-saffron-500/10 text-saffron-700 border border-saffron-500/20'}`}>
-                {providerHealth.reachable ? 'Healthy' : providerHealth.lastError ?? 'Unreachable'}
+              <div
+                className={`text-xs rounded-pill px-2 py-1 ${providerHealth.reachable ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' : 'bg-saffron-500/10 text-saffron-700 border border-saffron-500/20'}`}
+              >
+                {providerHealth.reachable ? 'Healthy' : (providerHealth.lastError ?? 'Unreachable')}
               </div>
               <Link
                 href="/admin/providers"
@@ -114,7 +123,9 @@ export default async function AdminOverview() {
       </section>
 
       <section>
-        <h2 className="text-sm font-semibold uppercase tracking-widest text-ink-400 mb-3">Recent imports</h2>
+        <h2 className="text-sm font-semibold uppercase tracking-widest text-ink-400 mb-3">
+          Recent imports
+        </h2>
         <div className="rounded-2xl bg-white border border-ink-100 shadow-card">
           {(data?.importBatches ?? []).length === 0 ? (
             <div className="p-6 text-sm text-ink-500">
@@ -126,20 +137,29 @@ export default async function AdminOverview() {
             </div>
           ) : (
             <ul className="divide-y divide-ink-100">
-              {(data?.importBatches ?? []).map((b: { id: string; status: string; started_at: string; finished_at: string | null }) => (
-                <li key={b.id} className="p-4 flex items-center gap-3">
-                  <div className="flex-1 text-sm">
-                    <div className="text-ink-900 font-medium">{b.id.slice(0, 8)}</div>
-                    <div className="text-xs text-ink-500 tabular-nums">
-                      {new Date(b.started_at).toLocaleString()}
-                      {b.finished_at ? ` → ${new Date(b.finished_at).toLocaleString()}` : ' (running)'}
+              {(data?.importBatches ?? []).map(
+                (b: {
+                  id: string;
+                  status: string;
+                  started_at: string;
+                  finished_at: string | null;
+                }) => (
+                  <li key={b.id} className="p-4 flex items-center gap-3">
+                    <div className="flex-1 text-sm">
+                      <div className="text-ink-900 font-medium">{b.id.slice(0, 8)}</div>
+                      <div className="text-xs text-ink-500 tabular-nums">
+                        {new Date(b.started_at).toLocaleString()}
+                        {b.finished_at
+                          ? ` → ${new Date(b.finished_at).toLocaleString()}`
+                          : ' (running)'}
+                      </div>
                     </div>
-                  </div>
-                  <div className="text-xs rounded-pill bg-ink-50 text-ink-700 border border-ink-100 px-2 py-1 capitalize">
-                    {b.status}
-                  </div>
-                </li>
-              ))}
+                    <div className="text-xs rounded-pill bg-ink-50 text-ink-700 border border-ink-100 px-2 py-1 capitalize">
+                      {b.status}
+                    </div>
+                  </li>
+                ),
+              )}
             </ul>
           )}
         </div>
@@ -159,7 +179,9 @@ function StateCard({ label, state, count }: { label: string; state: string; coun
           : 'bg-white border-ink-100 text-ink-700';
   return (
     <div className={`rounded-2xl border p-4 ${tone}`}>
-      <div className="text-xs uppercase tracking-widest opacity-70 capitalize">{label.replace('_', ' ')}</div>
+      <div className="text-xs uppercase tracking-widest opacity-70 capitalize">
+        {label.replace('_', ' ')}
+      </div>
       <div className="mt-2 font-display text-3xl tabular-nums">{count}</div>
     </div>
   );

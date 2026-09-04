@@ -33,7 +33,16 @@ const TIME_BUCKETS: { key: string; label: string; max: number }[] = [
 ];
 
 const DIFFICULTIES: Difficulty[] = ['easy', 'medium', 'hard'];
-const MEALS: MealType[] = ['breakfast', 'lunch', 'dinner', 'snack', 'soup', 'salad', 'side', 'dessert'];
+const MEALS: MealType[] = [
+  'breakfast',
+  'lunch',
+  'dinner',
+  'snack',
+  'soup',
+  'salad',
+  'side',
+  'dessert',
+];
 const DIETS: DietaryTag[] = ['vegetarian', 'vegan', 'halal', 'gluten_free', 'dairy_free'];
 
 export default function Discover() {
@@ -73,7 +82,9 @@ export default function Discover() {
         if (meal && !r.mealTypes.includes(meal)) return false;
         for (const d of diets) if (!r.dietaryTags.includes(d)) return false;
         if (needle) {
-          const hay = [r.title.en, r.description?.en ?? '', ...r.cuisineIds].join(' ').toLowerCase();
+          const hay = [r.title.en, r.description?.en ?? '', ...r.cuisineIds]
+            .join(' ')
+            .toLowerCase();
           if (!hay.includes(needle)) return false;
         }
         return true;
@@ -164,7 +175,9 @@ export default function Discover() {
           renderItem={({ item }: { item: RecipeSummary }) => (
             <Pressable
               style={styles.row}
-              onPress={() => router.push({ pathname: '/recipe/[slug]', params: { slug: item.slug } })}
+              onPress={() =>
+                router.push({ pathname: '/recipe/[slug]', params: { slug: item.slug } })
+              }
             >
               <CuisineArt
                 seed={item.cuisineIds[0] ?? item.slug}
@@ -178,7 +191,9 @@ export default function Discover() {
                     ? t(`discover.mealType.${item.mealTypes[0]}` as never)
                     : t('today.mealFallback')}
                 </Text>
-                <Text style={styles.rowTitle} numberOfLines={2}>{item.title.en}</Text>
+                <Text style={styles.rowTitle} numberOfLines={2}>
+                  {item.title.en}
+                </Text>
                 <Text style={styles.rowSub}>
                   {t('discover.row.subtitle', {
                     minutes: item.totalMinutes,
@@ -290,7 +305,9 @@ function FilterSheet(props: {
                 <Chip
                   key={bucket.key}
                   active={props.maxMinutes === bucket.max}
-                  onPress={() => props.onMaxMinutes(props.maxMinutes === bucket.max ? null : bucket.max)}
+                  onPress={() =>
+                    props.onMaxMinutes(props.maxMinutes === bucket.max ? null : bucket.max)
+                  }
                 >
                   {t('discover.filter.timeBucket', { minutes: bucket.max })}
                 </Chip>
@@ -502,7 +519,12 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: 1.2,
   },
-  rowTitle: { fontFamily: FONTS.display, fontSize: FONT_SIZES.lg, color: COLORS.ink900, lineHeight: 22 },
+  rowTitle: {
+    fontFamily: FONTS.display,
+    fontSize: FONT_SIZES.lg,
+    color: COLORS.ink900,
+    lineHeight: 22,
+  },
   rowSub: { color: COLORS.ink500, marginTop: 2, fontFamily: FONTS.body, fontSize: FONT_SIZES.sm },
 
   empty: { marginTop: SPACING.xxl, alignItems: 'center' },

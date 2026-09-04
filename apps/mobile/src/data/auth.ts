@@ -46,8 +46,7 @@ export async function signUp(email: string, password: string): Promise<AuthResul
   // keeps their auth.users row and therefore every pantry_items / favorites
   // / history / planner / shopping_list_items row keyed to it.
   const { data: existing } = await supabase.auth.getUser();
-  const isAnonymous =
-    existing.user?.is_anonymous ?? (existing.user ? !existing.user.email : false);
+  const isAnonymous = existing.user?.is_anonymous ?? (existing.user ? !existing.user.email : false);
 
   if (existing.user && isAnonymous) {
     const { error } = await supabase.auth.updateUser({ email, password });

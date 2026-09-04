@@ -260,7 +260,8 @@ function filterRecipes(
       for (const t of q.dietaryTagsAll)
         if (!r.dietaryTags.includes(t as (typeof r.dietaryTags)[number])) return false;
     }
-    if (q?.mealType && !r.mealTypes.includes(q.mealType as (typeof r.mealTypes)[number])) return false;
+    if (q?.mealType && !r.mealTypes.includes(q.mealType as (typeof r.mealTypes)[number]))
+      return false;
     if (q?.search) {
       const needle = normalizeAlias(q.search);
       const haystacks = [r.title.en, r.description?.en ?? '', ...r.cuisineIds];

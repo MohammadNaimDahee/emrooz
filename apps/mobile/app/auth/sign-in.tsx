@@ -73,9 +73,7 @@ export default function SignInScreen() {
 
           {!supabaseEnabled && (
             <View style={styles.disabledCard}>
-              <Text style={styles.disabledText}>
-                {t('auth.signIn.disabledHint')}
-              </Text>
+              <Text style={styles.disabledText}>{t('auth.signIn.disabledHint')}</Text>
             </View>
           )}
 

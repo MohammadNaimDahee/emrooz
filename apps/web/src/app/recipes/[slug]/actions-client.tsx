@@ -147,7 +147,9 @@ export function RecipeActions(props: {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h2 className="font-display text-2xl text-ink-900">{t('recipe.ingredients')}</h2>
         <div className="flex items-center gap-3">
-          <label htmlFor="servings" className="text-sm text-ink-500">{t('recipe.servings')}</label>
+          <label htmlFor="servings" className="text-sm text-ink-500">
+            {t('recipe.servings')}
+          </label>
           <div className="inline-flex items-center rounded-pill border border-ink-100 bg-white">
             <button
               type="button"
@@ -188,7 +190,13 @@ export function RecipeActions(props: {
               ) : inPantry ? (
                 <span className="inline-flex items-center gap-1 text-xs text-emerald-700">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M5 12l4 4L20 6" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path
+                      d="M5 12l4 4L20 6"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                   {t('recipe.pantryIndicator')}
                 </span>
@@ -280,9 +288,7 @@ export function RecipeActions(props: {
         >
           <div className="card p-6 max-w-md w-full">
             <h3 className="font-display text-2xl text-ink-900">{t('recipe.log.title')}</h3>
-            <p className="text-ink-500 text-sm mt-2">
-              {t('recipe.log.noteHint2')}
-            </p>
+            <p className="text-ink-500 text-sm mt-2">{t('recipe.log.noteHint2')}</p>
             <textarea
               value={note}
               onChange={(e) => setNote(e.target.value)}
@@ -322,9 +328,7 @@ export function RecipeActions(props: {
         >
           <div className="card p-6 max-w-md w-full">
             <h3 className="font-display text-2xl text-ink-900">{t('recipe.reportProblem')}</h3>
-            <p className="text-ink-500 text-sm mt-2">
-              {t('recipe.report.body')}
-            </p>
+            <p className="text-ink-500 text-sm mt-2">{t('recipe.report.body')}</p>
             <div className="mt-4 flex flex-col gap-2">
               {(
                 [
@@ -366,42 +370,81 @@ export function RecipeActions(props: {
 function CheckIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M5 12l4 4L20 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path
+        d="M5 12l4 4L20 6"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 function ChefIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M7 14v6h10v-6M7 14a4 4 0 010-8c0-1.5 1.5-3 3.5-3 1.5 0 2 1 2 1s.5-1 2-1c2 0 3.5 1.5 3.5 3a4 4 0 010 8" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
+      <path
+        d="M7 14v6h10v-6M7 14a4 4 0 010-8c0-1.5 1.5-3 3.5-3 1.5 0 2 1 2 1s.5-1 2-1c2 0 3.5 1.5 3.5 3a4 4 0 010 8"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 function HeartIcon({ filled }: { filled: boolean }) {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill={filled ? 'currentColor' : 'none'} aria-hidden="true">
-      <path d="M12 20s-7-4.35-9-9a5 5 0 019-3 5 5 0 019 3c-2 4.65-9 9-9 9z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/>
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill={filled ? 'currentColor' : 'none'}
+      aria-hidden="true"
+    >
+      <path
+        d="M12 20s-7-4.35-9-9a5 5 0 019-3 5 5 0 019 3c-2 4.65-9 9-9 9z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 function PrintIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M6 9V4h12v5M6 18h12v3H6v-3zM6 18H4v-6a2 2 0 012-2h12a2 2 0 012 2v6h-2" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
+      <path
+        d="M6 9V4h12v5M6 18h12v3H6v-3zM6 18H4v-6a2 2 0 012-2h12a2 2 0 012 2v6h-2"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 function ShareIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M12 3v13m0-13l-4 4m4-4l4 4M5 14v5a2 2 0 002 2h10a2 2 0 002-2v-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+      <path
+        d="M12 3v13m0-13l-4 4m4-4l4 4M5 14v5a2 2 0 002 2h10a2 2 0 002-2v-5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 function BasketIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M5 9h14l-1 10a2 2 0 01-2 2H8a2 2 0 01-2-2L5 9zm3-3a4 4 0 018 0" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+      <path
+        d="M5 9h14l-1 10a2 2 0 01-2 2H8a2 2 0 01-2-2L5 9zm3-3a4 4 0 018 0"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }

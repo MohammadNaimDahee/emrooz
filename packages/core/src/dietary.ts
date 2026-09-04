@@ -1,10 +1,4 @@
-import type {
-  Allergen,
-  DietaryTag,
-  Ingredient,
-  Recipe,
-  UserPreferences,
-} from '@emrooz/types';
+import type { Allergen, DietaryTag, Ingredient, Recipe, UserPreferences } from '@emrooz/types';
 
 export interface DietarySafetyResult {
   safe: boolean;

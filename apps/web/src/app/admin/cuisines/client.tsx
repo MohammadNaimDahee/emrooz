@@ -63,7 +63,7 @@ export function CuisinesClient({
   }
 
   const countryName = (id: string | null) =>
-    id ? countries.find((c) => c.id === id)?.name_en ?? '—' : '—';
+    id ? (countries.find((c) => c.id === id)?.name_en ?? '—') : '—';
 
   return (
     <div className="space-y-4">
@@ -77,7 +77,10 @@ export function CuisinesClient({
       </div>
 
       {error && (
-        <p role="alert" className="text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-lg px-3 py-2">
+        <p
+          role="alert"
+          className="text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-lg px-3 py-2"
+        >
           {error}
         </p>
       )}

@@ -35,8 +35,28 @@ const LANGS: { code: Locale; label: string; dir: 'ltr' | 'rtl' }[] = [
   { code: 'fa-AF', label: 'دری', dir: 'rtl' },
   { code: 'ps', label: 'پښتو', dir: 'rtl' },
 ];
-const DIETS: DietaryTag[] = ['vegetarian', 'vegan', 'pescatarian', 'halal', 'kosher', 'gluten_free', 'dairy_free', 'egg_free', 'nut_free'];
-const ALLERGENS: Allergen[] = ['gluten', 'dairy', 'egg', 'peanut', 'tree_nut', 'soy', 'sesame', 'fish', 'shellfish'];
+const DIETS: DietaryTag[] = [
+  'vegetarian',
+  'vegan',
+  'pescatarian',
+  'halal',
+  'kosher',
+  'gluten_free',
+  'dairy_free',
+  'egg_free',
+  'nut_free',
+];
+const ALLERGENS: Allergen[] = [
+  'gluten',
+  'dairy',
+  'egg',
+  'peanut',
+  'tree_nut',
+  'soy',
+  'sesame',
+  'fish',
+  'shellfish',
+];
 
 export default function SettingsClient() {
   const { t } = useTranslator();
@@ -95,7 +115,9 @@ export default function SettingsClient() {
       dislikedIngredientIds: prefs?.dislikedIngredientIds ?? [],
       pantrySeedIngredientIds: prefs?.pantrySeedIngredientIds ?? [],
       preferredDifficulty: prefs?.preferredDifficulty,
-      reminder: reminderOn ? { enabled: true, time: reminderTime } : { enabled: false, time: reminderTime },
+      reminder: reminderOn
+        ? { enabled: true, time: reminderTime }
+        : { enabled: false, time: reminderTime },
       onboardedAt: prefs?.onboardedAt ?? new Date().toISOString(),
     };
     save(next);
@@ -126,16 +148,17 @@ export default function SettingsClient() {
     }
 
     // Demo mode: fall back to a local dump.
-    const [profile, prefsC, pantry, favorites, history, feedback, planner, list] = await Promise.all([
-      data.profile.get(userId),
-      data.preferences.get(userId),
-      data.pantry.list(userId),
-      data.favorites.list(userId),
-      data.history.list(userId),
-      data.feedback.list(userId),
-      data.planner.listForRange(userId, '1970-01-01', '2999-12-31'),
-      data.shoppingList.list(userId),
-    ]);
+    const [profile, prefsC, pantry, favorites, history, feedback, planner, list] =
+      await Promise.all([
+        data.profile.get(userId),
+        data.preferences.get(userId),
+        data.pantry.list(userId),
+        data.favorites.list(userId),
+        data.history.list(userId),
+        data.feedback.list(userId),
+        data.planner.listForRange(userId, '1970-01-01', '2999-12-31'),
+        data.shoppingList.list(userId),
+      ]);
     const payload = {
       exportedAt: new Date().toISOString(),
       profile,
@@ -187,7 +210,8 @@ export default function SettingsClient() {
     await data.pantry.clear(userId);
     await data.shoppingList.clear(userId);
     for (const h of await data.history.list(userId)) await data.history.remove(userId, h.id);
-    for (const f of await data.favorites.list(userId)) await data.favorites.remove(userId, f.recipeId);
+    for (const f of await data.favorites.list(userId))
+      await data.favorites.remove(userId, f.recipeId);
     for (const p of await data.planner.listForRange(userId, '1970-01-01', '2999-12-31')) {
       await data.planner.remove(userId, p.id);
     }
@@ -198,7 +222,9 @@ export default function SettingsClient() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 pt-10 pb-16">
-      <div className="text-xs uppercase tracking-widest text-ink-400">{t('settings.eyebrow.preferences')}</div>
+      <div className="text-xs uppercase tracking-widest text-ink-400">
+        {t('settings.eyebrow.preferences')}
+      </div>
       <h1 className="font-display text-4xl md:text-5xl text-ink-900 mt-1">{t('settings.title')}</h1>
 
       <div className="mt-8 space-y-6">
@@ -206,9 +232,7 @@ export default function SettingsClient() {
           <Section
             title={t('settings.account.title')}
             hint={
-              accountEmail
-                ? t('settings.account.signedInHint2')
-                : t('settings.account.guestHint2')
+              accountEmail ? t('settings.account.signedInHint2') : t('settings.account.guestHint2')
             }
           >
             {accountEmail ? (
@@ -297,7 +321,10 @@ export default function SettingsClient() {
                 {t('settings.time.minutes', { minutes: m })}
               </Chip>
             ))}
-            <Chip active={maxCookMinutes === undefined} onClick={() => setMaxCookMinutes(undefined)}>
+            <Chip
+              active={maxCookMinutes === undefined}
+              onClick={() => setMaxCookMinutes(undefined)}
+            >
               {t('settings.time.noLimitShort')}
             </Chip>
           </div>
@@ -316,17 +343,18 @@ export default function SettingsClient() {
         <Section title={t('settings.allergies')} hint={t('settings.hint.allergies')}>
           <div className="flex flex-wrap gap-2">
             {ALLERGENS.map((a) => (
-              <Chip key={a} active={allergens.includes(a)} onClick={() => toggle(a, allergens, setAllergens)}>
+              <Chip
+                key={a}
+                active={allergens.includes(a)}
+                onClick={() => toggle(a, allergens, setAllergens)}
+              >
                 {allergenLabel(t, a)}
               </Chip>
             ))}
           </div>
         </Section>
 
-        <Section
-          title={t('settings.reminders')}
-          hint={t('settings.reminder.quote')}
-        >
+        <Section title={t('settings.reminders')} hint={t('settings.reminder.quote')}>
           <div className="flex flex-wrap items-center gap-3">
             <label className="inline-flex items-center gap-2 cursor-pointer">
               <input
@@ -344,9 +372,7 @@ export default function SettingsClient() {
               disabled={!reminderOn}
               className="rounded-md border border-ink-100 px-3 py-2 tabular-nums focus-ring disabled:opacity-50"
             />
-            <span className="text-xs text-ink-400">
-              {t('settings.reminder.localHint')}
-            </span>
+            <span className="text-xs text-ink-400">{t('settings.reminder.localHint')}</span>
           </div>
         </Section>
 

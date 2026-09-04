@@ -67,11 +67,7 @@ export interface RecipeStep {
 export interface Provenance {
   contentOwner: string;
   ownershipType:
-    | 'emrooz_owned'
-    | 'licensed'
-    | 'open_license'
-    | 'provider_hosted'
-    | 'external_link_only';
+    'emrooz_owned' | 'licensed' | 'open_license' | 'provider_hosted' | 'external_link_only';
   sourceProvider?: string;
   sourceRecipeId?: string;
   sourceUrl?: Url;
@@ -82,17 +78,9 @@ export interface Provenance {
   attributionText?: string;
   attributionUrl?: Url;
   storagePermission:
-    | 'permanent'
-    | 'subscription_only'
-    | 'temporary_cache'
-    | 'metadata_only'
-    | 'not_permitted';
+    'permanent' | 'subscription_only' | 'temporary_cache' | 'metadata_only' | 'not_permitted';
   imageStoragePermission?:
-    | 'permanent'
-    | 'subscription_only'
-    | 'temporary_cache'
-    | 'metadata_only'
-    | 'not_permitted';
+    'permanent' | 'subscription_only' | 'temporary_cache' | 'metadata_only' | 'not_permitted';
   importedAt?: IsoTimestamp;
   lastSyncedAt?: IsoTimestamp;
   contentHash?: string;

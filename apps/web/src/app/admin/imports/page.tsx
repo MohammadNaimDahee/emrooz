@@ -11,8 +11,8 @@ export default function AdminImportsPage() {
         <h1 className="font-display text-4xl text-ink-900 mt-1">Imports</h1>
         <p className="text-sm text-ink-500 mt-1 max-w-2xl">
           Run a dry-run against TheMealDB. The pipeline fetches candidates, normalises ingredients
-          against the local catalogue, dedupes, and stages results for review. Nothing is written
-          to the database yet — persisted imports arrive with the next admin release.
+          against the local catalogue, dedupes, and stages results for review. Nothing is written to
+          the database yet — persisted imports arrive with the next admin release.
         </p>
       </div>
       <ImportsClient />

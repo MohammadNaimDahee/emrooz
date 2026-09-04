@@ -69,7 +69,14 @@ function withPaddedCanvas(sourceSvg, padPercent) {
   const outer = `${minX - pad} ${minY - pad} ${w + 2 * pad} ${h + 2 * pad}`;
   const wrapped = raw
     .replace(/<svg[^>]*>/, `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${outer}">`)
-    .replace('<defs>', '<defs><style>rect#paper-bg{width:100%;height:100%;x:' + (minX - pad) + ';y:' + (minY - pad) + '}</style>');
+    .replace(
+      '<defs>',
+      '<defs><style>rect#paper-bg{width:100%;height:100%;x:' +
+        (minX - pad) +
+        ';y:' +
+        (minY - pad) +
+        '}</style>',
+    );
   // Simpler: re-emit a wrapper SVG that draws the paper background across the
   // padded canvas, then the source's contents inside. That keeps the pencil
   // art centered within the Android safe zone.

@@ -12,10 +12,7 @@ export const dynamic = 'force-dynamic';
  * Useful for the admin review UI when inspecting a specific candidate.
  * Staff-only. Rate-limited.
  */
-export async function GET(
-  _request: NextRequest,
-  context: { params: Promise<{ id: string }> },
-) {
+export async function GET(_request: NextRequest, context: { params: Promise<{ id: string }> }) {
   const auth = await requireStaff();
   if (auth instanceof NextResponse) return auth;
 

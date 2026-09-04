@@ -23,9 +23,7 @@ export const DEFAULT_LOCALE: Locale = 'en';
 
 export function normalizeLocale(raw: string | undefined | null): Locale {
   if (!raw) return DEFAULT_LOCALE;
-  return (SUPPORTED_LOCALES as readonly string[]).includes(raw)
-    ? (raw as Locale)
-    : DEFAULT_LOCALE;
+  return (SUPPORTED_LOCALES as readonly string[]).includes(raw) ? (raw as Locale) : DEFAULT_LOCALE;
 }
 
 export type Translator = {

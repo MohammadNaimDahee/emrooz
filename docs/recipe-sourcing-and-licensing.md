@@ -36,13 +36,13 @@ Provider API keys must never appear in the web bundle or the mobile bundle. In `
 
 All endpoints require an authenticated staff member (`public.staff_members.role in ('admin', 'editor', 'reviewer')`). Rate-limited per (route, user) via `apps/web/src/lib/rate-limit.ts`.
 
-| Method | Path | Purpose |
-| --- | --- | --- |
-| GET | `/api/providers` | List configured providers with credential status and rate limits |
-| GET | `/api/providers/themealdb/health` | Provider round-trip probe |
-| GET | `/api/providers/themealdb/search?q=&area=` | Search or filter-by-area, returns `CanonicalImportCandidate[]` |
-| GET | `/api/providers/themealdb/lookup/[id]` | Single candidate by provider id |
-| POST | `/api/providers/themealdb/import` | Dry-run staging via the ingestion pipeline. Body: `{ area?, query? }`. Persisted imports refuse with 501 until §3 lands. |
+| Method | Path                                       | Purpose                                                                                                                  |
+| ------ | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| GET    | `/api/providers`                           | List configured providers with credential status and rate limits                                                         |
+| GET    | `/api/providers/themealdb/health`          | Provider round-trip probe                                                                                                |
+| GET    | `/api/providers/themealdb/search?q=&area=` | Search or filter-by-area, returns `CanonicalImportCandidate[]`                                                           |
+| GET    | `/api/providers/themealdb/lookup/[id]`     | Single candidate by provider id                                                                                          |
+| POST   | `/api/providers/themealdb/import`          | Dry-run staging via the ingestion pipeline. Body: `{ area?, query? }`. Persisted imports refuse with 501 until §3 lands. |
 
 ### Error semantics
 
