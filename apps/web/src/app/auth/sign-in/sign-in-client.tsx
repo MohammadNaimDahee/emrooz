@@ -4,11 +4,13 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { useAuthActions } from '../../../lib/auth';
+import { useTranslator } from '../../../lib/i18n-client';
 import { useSupabaseSession } from '../../../lib/session';
 
 type Mode = 'password' | 'magic';
 
 export default function SignInClient() {
+  const { t } = useTranslator();
   const router = useRouter();
   const search = useSearchParams();
   const auth = useAuthActions();
@@ -37,12 +39,12 @@ export default function SignInClient() {
     setNotice(null);
     if (mode === 'password') {
       const r = await auth.signInWithPassword(email, password);
-      if (!r.ok) return setError(r.error ?? 'Sign-in failed.');
+      if (!r.ok) return setError(r.error ?? t('auth.error.signInFailed'));
       router.replace(search.get('next') ?? '/app');
     } else {
       const r = await auth.sendMagicLink(email);
-      if (!r.ok) return setError(r.error ?? 'Failed to send magic link.');
-      setNotice(`We sent a sign-in link to ${email}. Check your inbox.`);
+      if (!r.ok) return setError(r.error ?? t('auth.error.magicLinkFailed'));
+      setNotice(t('auth.signIn.magicLink.sentInbox', { email }));
     }
   }
 
@@ -50,24 +52,22 @@ export default function SignInClient() {
 
   return (
     <div className="mx-auto max-w-md px-4 pt-10 pb-16">
-      <div className="text-xs uppercase tracking-widest text-ink-400">Welcome back</div>
-      <h1 className="font-display text-4xl md:text-5xl text-ink-900 mt-1">Sign in</h1>
+      <div className="text-xs uppercase tracking-widest text-ink-400">{t('auth.signIn.eyebrow')}</div>
+      <h1 className="font-display text-4xl md:text-5xl text-ink-900 mt-1">{t('auth.signIn.header')}</h1>
       <p className="text-ink-500 mt-2">
-        Sync your pantry, favorites, and cooking history across devices.
+        {t('auth.signIn.subtitleWeb')}
       </p>
 
       {supabaseDisabled && (
         <div className="mt-6 rounded-xl border border-ink-100 bg-white p-4 text-sm text-ink-500">
-          Sign-in wires up once Supabase credentials are configured. See{' '}
-          <code className="text-ink-700">docs/backend-setup.md</code>. In the meantime, Emrooz
-          works fully as a guest.
+          {t('auth.signIn.disabledHint.web', { code: 'docs/backend-setup.md' })}
         </div>
       )}
 
       {/* Mode toggle */}
       <div
         role="tablist"
-        aria-label="Sign in method"
+        aria-label={t('auth.signIn.methodLabel')}
         className="mt-6 inline-flex rounded-pill border border-ink-100 bg-white p-1"
       >
         <button
@@ -78,7 +78,7 @@ export default function SignInClient() {
             mode === 'password' ? 'bg-emerald-700 text-cream-50' : 'text-ink-700'
           }`}
         >
-          Password
+          {t('auth.signIn.mode.password')}
         </button>
         <button
           role="tab"
@@ -88,13 +88,13 @@ export default function SignInClient() {
             mode === 'magic' ? 'bg-emerald-700 text-cream-50' : 'text-ink-700'
           }`}
         >
-          Magic link
+          {t('auth.signIn.mode.magic')}
         </button>
       </div>
 
       <form onSubmit={submit} className="mt-6 space-y-4">
         <label className="block">
-          <span className="text-sm">Email</span>
+          <span className="text-sm">{t('auth.email')}</span>
           <input
             type="email"
             autoComplete="email"
@@ -108,9 +108,9 @@ export default function SignInClient() {
         {mode === 'password' && (
           <label className="block">
             <span className="text-sm flex justify-between items-baseline">
-              <span>Password</span>
+              <span>{t('auth.password')}</span>
               <Link href="/auth/forgot-password" className="text-xs text-emerald-700 hover:underline focus-ring">
-                Forgot password?
+                {t('auth.forgotPassword.link')}
               </Link>
             </span>
             <input
@@ -141,17 +141,17 @@ export default function SignInClient() {
           className="w-full rounded-pill bg-emerald-700 text-cream-50 px-5 py-3 font-medium hover:bg-emerald-600 focus-ring shadow-card disabled:opacity-50"
         >
           {auth.pending
-            ? 'Working…'
+            ? t('auth.working')
             : mode === 'password'
-              ? 'Sign in'
-              : 'Send magic link'}
+              ? t('action.signIn')
+              : t('auth.sendMagicLink')}
         </button>
       </form>
 
       <p className="mt-6 text-sm text-ink-500">
-        New here?{' '}
+        {t('auth.signIn.newHereShort')}{' '}
         <Link href="/auth/sign-up" className="text-emerald-700 hover:underline focus-ring">
-          Create an account
+          {t('auth.signIn.createAccountLink')}
         </Link>
         .
       </p>

@@ -4,19 +4,22 @@ import { useQuery } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
 
 import { pantryMatch } from '@emrooz/core';
+import type { MessageKey } from '@emrooz/i18n';
 import type { DietaryTag, Difficulty, MealType, RecipeSummary } from '@emrooz/types';
 
 import { getData } from '../../lib/data';
 import { useGuestId } from '../../lib/guest';
+import { useTranslator } from '../../lib/i18n-client';
 import { RecipeCard } from '../../components/RecipeCard';
 
 type SortMode = 'relevance' | 'time' | 'pantry';
+type TFn = (key: MessageKey, params?: Record<string, string | number>) => string;
 
-const TIME_BUCKETS: { key: string; label: string; max: number | null }[] = [
-  { key: 't20', label: '≤20 min', max: 20 },
-  { key: 't30', label: '≤30 min', max: 30 },
-  { key: 't45', label: '≤45 min', max: 45 },
-  { key: 't60', label: '≤60 min', max: 60 },
+const TIME_BUCKETS: { key: string; max: number }[] = [
+  { key: 't20', max: 20 },
+  { key: 't30', max: 30 },
+  { key: 't45', max: 45 },
+  { key: 't60', max: 60 },
 ];
 
 const DIFFICULTIES: Difficulty[] = ['easy', 'medium', 'hard'];
@@ -24,6 +27,7 @@ const MEALS: MealType[] = ['breakfast', 'lunch', 'dinner', 'snack', 'soup', 'sal
 const DIETS: DietaryTag[] = ['vegetarian', 'vegan', 'halal', 'gluten_free', 'dairy_free'];
 
 export default function DiscoverClient() {
+  const { t } = useTranslator();
   const data = getData();
   const userId = useGuestId();
 
@@ -118,10 +122,10 @@ export default function DiscoverClient() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 pt-10 pb-16">
-      <div className="text-xs uppercase tracking-widest text-ink-400">Browse</div>
-      <h1 className="font-display text-4xl md:text-5xl text-ink-900 leading-tight mt-1">Discover</h1>
+      <div className="text-xs uppercase tracking-widest text-ink-400">{t('discover.eyebrow')}</div>
+      <h1 className="font-display text-4xl md:text-5xl text-ink-900 leading-tight mt-1">{t('discover.title')}</h1>
       <p className="text-ink-500 mt-2 max-w-xl">
-        Find something new to cook. Search by name or ingredient, or narrow down with filters.
+        {t('discover.subtitle')}
       </p>
 
       {/* Search */}
@@ -133,7 +137,7 @@ export default function DiscoverClient() {
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Search recipes or ingredients"
+          placeholder={t('discover.search.placeholder')}
           className="w-full rounded-pill border border-ink-100 bg-white pl-11 pr-5 py-3 text-base placeholder:text-ink-400 focus-ring shadow-card"
         />
       </div>
@@ -148,7 +152,7 @@ export default function DiscoverClient() {
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
           </svg>
-          Filters
+          {t('discover.filters')}
           {activeFilterCount > 0 && (
             <span className="rounded-full bg-emerald-700 text-cream-50 text-xs px-2 py-0.5">
               {activeFilterCount}
@@ -156,16 +160,16 @@ export default function DiscoverClient() {
           )}
         </button>
 
-        <label htmlFor="sort" className="text-sm text-ink-500 ml-2">Sort by</label>
+        <label htmlFor="sort" className="text-sm text-ink-500 ml-2">{t('discover.sortBy')}</label>
         <select
           id="sort"
           value={sort}
           onChange={(e) => setSort(e.target.value as SortMode)}
           className="rounded-pill border border-ink-100 bg-white px-3 py-2 text-sm focus-ring"
         >
-          <option value="relevance">Relevance</option>
-          <option value="time">Quickest first</option>
-          <option value="pantry">Pantry match</option>
+          <option value="relevance">{t('discover.sort.relevance')}</option>
+          <option value="time">{t('discover.sort.quickest')}</option>
+          <option value="pantry">{t('discover.sort.pantryMatch')}</option>
         </select>
 
         {activeFilterCount > 0 && (
@@ -173,7 +177,7 @@ export default function DiscoverClient() {
             onClick={clearAll}
             className="ml-auto text-sm text-ink-500 hover:text-emerald-700 focus-ring"
           >
-            Clear filters
+            {t('discover.clearFilters')}
           </button>
         )}
       </div>
@@ -181,39 +185,39 @@ export default function DiscoverClient() {
       {/* Filter panel */}
       {filtersOpen && (
         <div className="mt-4 card p-5 grid gap-4 md:grid-cols-2 animate-fade-up">
-          <FilterGroup label="Cooking time">
-            {TIME_BUCKETS.map((t) => (
+          <FilterGroup label={t('discover.filter.cookingTime')}>
+            {TIME_BUCKETS.map((bucket) => (
               <Chip
-                key={t.key}
-                active={maxMinutes === t.max}
-                onClick={() => setMaxMinutes((cur) => (cur === t.max ? null : t.max))}
+                key={bucket.key}
+                active={maxMinutes === bucket.max}
+                onClick={() => setMaxMinutes((cur) => (cur === bucket.max ? null : bucket.max))}
               >
-                {t.label}
+                {t('discover.filter.timeBucket', { minutes: bucket.max })}
               </Chip>
             ))}
           </FilterGroup>
-          <FilterGroup label="Difficulty">
+          <FilterGroup label={t('discover.filter.difficulty')}>
             {DIFFICULTIES.map((d) => (
               <Chip
                 key={d}
                 active={difficulty === d}
                 onClick={() => setDifficulty((cur) => (cur === d ? null : d))}
               >
-                {d}
+                {translateDifficulty(t, d)}
               </Chip>
             ))}
           </FilterGroup>
-          <FilterGroup label="Meal type">
+          <FilterGroup label={t('discover.filter.mealType')}>
             {MEALS.map((m) => (
               <Chip key={m} active={meal === m} onClick={() => setMeal((cur) => (cur === m ? null : m))}>
-                {m}
+                {translateMealType(t, m)}
               </Chip>
             ))}
           </FilterGroup>
-          <FilterGroup label="Dietary">
+          <FilterGroup label={t('discover.filter.dietary')}>
             {DIETS.map((d) => (
               <Chip key={d} active={diets.includes(d)} onClick={() => toggleDiet(d)}>
-                {d.replace('_', ' ')}
+                {translateDietaryTag(t, d)}
               </Chip>
             ))}
           </FilterGroup>
@@ -225,7 +229,7 @@ export default function DiscoverClient() {
                 onChange={(e) => setPantryOnly(e.target.checked)}
                 className="w-4 h-4 accent-emerald-700"
               />
-              Only show recipes that use what I have (≥60% pantry match)
+              {t('discover.pantryOnly.checkbox')}
             </label>
           </div>
         </div>
@@ -246,14 +250,16 @@ export default function DiscoverClient() {
 
       {/* Result count */}
       <div className="mt-6 text-sm text-ink-500">
-        {filtered.length} {filtered.length === 1 ? 'recipe' : 'recipes'}
+        {filtered.length === 1
+          ? t('discover.results.one', { count: filtered.length })
+          : t('discover.results.many', { count: filtered.length })}
       </div>
 
       {/* Grid */}
       {filtered.length === 0 ? (
         <div className="mt-6 card p-8 text-center">
-          <h2 className="font-display text-2xl">Nothing matches</h2>
-          <p className="text-ink-500 mt-2">Try loosening a filter or clearing them all.</p>
+          <h2 className="font-display text-2xl">{t('discover.empty.title')}</h2>
+          <p className="text-ink-500 mt-2">{t('discover.empty.tryLoose')}</p>
         </div>
       ) : (
         <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -280,7 +286,7 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
     <button
       onClick={onClick}
       aria-pressed={active}
-      className={`rounded-pill border px-3 py-1.5 text-sm capitalize focus-ring transition ${
+      className={`rounded-pill border px-3 py-1.5 text-sm focus-ring transition ${
         active
           ? 'bg-emerald-700 text-cream-50 border-emerald-700'
           : 'bg-white text-ink-700 border-ink-100 hover:border-emerald-700 hover:text-emerald-700'
@@ -289,4 +295,20 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
       {children}
     </button>
   );
+}
+
+function translateDifficulty(t: TFn, d: Difficulty): string {
+  return t(`recipe.difficulty.${d}` as MessageKey);
+}
+
+function translateMealType(t: TFn, m: MealType): string {
+  const key = `discover.mealType.${m}` as MessageKey;
+  const value = t(key);
+  return value === key ? m : value;
+}
+
+function translateDietaryTag(t: TFn, d: DietaryTag): string {
+  const key = `diet.${d}` as MessageKey;
+  const value = t(key);
+  return value === key ? d.replace('_', ' ') : value;
 }

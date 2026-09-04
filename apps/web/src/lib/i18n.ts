@@ -1,4 +1,3 @@
-import { cookies } from 'next/headers';
 import {
   t as translate,
   direction as directionFor,
@@ -8,12 +7,15 @@ import {
 } from '@emrooz/i18n';
 
 /**
- * Web i18n locale source of truth: the 'emrooz-locale' cookie.
- * Falls back to 'en' when the cookie is missing or malformed.
+ * Client-safe i18n primitives. This file MUST NOT import `next/headers`
+ * or any other server-only API — client components import `Translator`
+ * and `DEFAULT_LOCALE` from here via `i18n-client.tsx`, and pulling in
+ * `cookies()` here would poison the client bundle:
  *
- * This mirrors the mobile hook (apps/mobile/src/i18n/hook.ts) in shape:
- * it returns `{ locale, t, direction }` so components can share the same
- * ergonomics on both platforms.
+ *   Build Error: You're importing a component that needs "next/headers".
+ *   That only works in a Server Component.
+ *
+ * Server-side helpers that read the locale cookie live in `i18n-server.ts`.
  */
 
 export const LOCALE_COOKIE = 'emrooz-locale';
@@ -32,40 +34,18 @@ export type Translator = {
   direction: 'ltr' | 'rtl';
 };
 
-function makeTranslator(locale: Locale): Translator {
+/**
+ * Build a translator for a known locale. Client components typically use
+ * `useTranslator()` from `i18n-client.tsx`, which wraps this. Server
+ * components call `getTranslator()` from `i18n-server.ts`, which reads
+ * the cookie and then calls this.
+ */
+export function translatorFor(locale: Locale): Translator {
   return {
     locale,
     t: (key, params) => translate(locale, key, params),
     direction: directionFor(locale),
   };
-}
-
-/**
- * Server-side helper: read the locale cookie and return a translator.
- * Use this in Server Components, route handlers, and metadata generators.
- */
-export async function getTranslator(): Promise<Translator> {
-  const store = await cookies();
-  const locale = normalizeLocale(store.get(LOCALE_COOKIE)?.value);
-  return makeTranslator(locale);
-}
-
-/**
- * Server helper for callers that only need the raw locale (e.g. to set
- * <html lang> / <html dir>).
- */
-export async function getServerLocale(): Promise<Locale> {
-  const store = await cookies();
-  return normalizeLocale(store.get(LOCALE_COOKIE)?.value);
-}
-
-/**
- * Build a translator for a known locale — useful when the locale has
- * already been resolved (e.g. via a client context that hydrated from the
- * cookie) and you want the same shape as the server helper.
- */
-export function translatorFor(locale: Locale): Translator {
-  return makeTranslator(locale);
 }
 
 export type { Locale, MessageKey };

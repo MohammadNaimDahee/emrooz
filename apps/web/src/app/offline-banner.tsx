@@ -1,7 +1,10 @@
 'use client';
 import { useEffect, useState } from 'react';
 
+import { useTranslator } from '../lib/i18n-client';
+
 export function OfflineBanner() {
+  const { t } = useTranslator();
   const [offline, setOffline] = useState(false);
   useEffect(() => {
     if (typeof navigator === 'undefined') return;
@@ -17,7 +20,7 @@ export function OfflineBanner() {
   if (!offline) return null;
   return (
     <div role="status" className="bg-yellow-100 text-yellow-900 text-center text-sm py-2 px-4">
-      You are offline. Showing what we already have.
+      {t('offline.banner')}
     </div>
   );
 }

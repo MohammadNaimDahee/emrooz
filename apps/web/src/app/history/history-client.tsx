@@ -8,11 +8,13 @@ import type { Recipe } from '@emrooz/types';
 
 import { getData } from '../../lib/data';
 import { useGuestId } from '../../lib/guest';
+import { useTranslator } from '../../lib/i18n-client';
 import { CuisineArt } from '../../components/CuisineArt';
 
 const MEALS = ['breakfast', 'lunch', 'dinner'] as const;
 
 export default function HistoryClient() {
+  const { t } = useTranslator();
   const data = getData();
   const userId = useGuestId();
   const client = useQueryClient();
@@ -71,13 +73,13 @@ export default function HistoryClient() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 pt-10 pb-16">
-      <div className="text-xs uppercase tracking-widest text-ink-400">You've cooked</div>
-      <h1 className="font-display text-4xl md:text-5xl text-ink-900 mt-1">History</h1>
+      <div className="text-xs uppercase tracking-widest text-ink-400">{t('history.headerEyebrow')}</div>
+      <h1 className="font-display text-4xl md:text-5xl text-ink-900 mt-1">{t('nav.history')}</h1>
 
       {q.data?.length === 0 && (
         <div className="mt-10 card p-8 text-center">
-          <h2 className="font-display text-2xl">Nothing cooked yet</h2>
-          <p className="text-ink-500 mt-2">Once you tap "I cooked this" on a recipe, it lands here.</p>
+          <h2 className="font-display text-2xl">{t('history.emptyTitle')}</h2>
+          <p className="text-ink-500 mt-2">{t('history.emptyBody.long')}</p>
         </div>
       )}
 
@@ -98,7 +100,9 @@ export default function HistoryClient() {
                   <div className="text-xs text-ink-400 whitespace-nowrap">{entry.cookedOn}</div>
                 </div>
                 <div className="text-sm text-ink-500 mt-1">
-                  {entry.servings} {entry.servings === 1 ? 'serving' : 'servings'}
+                  {entry.servings === 1
+                    ? t('history.servingsCount.one', { count: entry.servings })
+                    : t('history.servingsCount.many', { count: entry.servings })}
                 </div>
                 {entry.note && (
                   <p className="mt-2 text-sm text-ink-700 italic bg-cream-200/50 rounded-lg px-3 py-2">
@@ -110,22 +114,22 @@ export default function HistoryClient() {
                     onClick={() => cookAgain.mutate(recipe.id)}
                     className="inline-flex items-center gap-1 rounded-pill border border-ink-200 px-3 py-1.5 hover:border-emerald-700 hover:text-emerald-700 focus-ring transition"
                   >
-                    <ChefIcon /> Cook again
+                    <ChefIcon /> {t('history.cookAgain')}
                   </button>
                   <button
                     onClick={() => setPlannerOpen(plannerOpen === entry.id ? null : entry.id)}
                     className="inline-flex items-center gap-1 rounded-pill border border-ink-200 px-3 py-1.5 hover:border-emerald-700 hover:text-emerald-700 focus-ring transition"
                     aria-expanded={plannerOpen === entry.id}
                   >
-                    <CalendarIcon /> Add to planner
+                    <CalendarIcon /> {t('history.addToPlanner')}
                   </button>
                   <button
                     onClick={() => {
-                      if (confirm('Remove this history entry?')) removeEntry.mutate(entry.id);
+                      if (confirm(t('history.confirmRemove.prompt'))) removeEntry.mutate(entry.id);
                     }}
                     className="ml-auto text-xs text-ink-400 hover:text-rose-400 focus-ring"
                   >
-                    Remove
+                    {t('history.removeShort')}
                   </button>
                 </div>
                 {plannerOpen === entry.id && (
@@ -153,12 +157,20 @@ function PlannerPicker({
   onCancel: () => void;
   onSubmit: (date: string, meal: (typeof MEALS)[number]) => void;
 }) {
+  const { t } = useTranslator();
   const [date, setDate] = useState(toIsoDate());
   const [meal, setMeal] = useState<(typeof MEALS)[number]>('dinner');
+  const mealLabel: Record<(typeof MEALS)[number], string> = {
+    breakfast: t('planner.slot.breakfast'),
+    lunch: t('planner.slot.lunch'),
+    dinner: t('planner.slot.dinner'),
+  };
   return (
     <div className="mt-3 rounded-xl border border-ink-100 bg-white p-3 flex flex-wrap items-end gap-3">
       <div>
-        <label htmlFor="pd" className="block text-xs text-ink-400 uppercase tracking-widest">Date</label>
+        <label htmlFor="pd" className="block text-xs text-ink-400 uppercase tracking-widest">
+          {t('history.plannerPicker.date')}
+        </label>
         <input
           id="pd"
           type="date"
@@ -168,16 +180,18 @@ function PlannerPicker({
         />
       </div>
       <div>
-        <label htmlFor="pm" className="block text-xs text-ink-400 uppercase tracking-widest">Meal</label>
+        <label htmlFor="pm" className="block text-xs text-ink-400 uppercase tracking-widest">
+          {t('history.plannerPicker.meal')}
+        </label>
         <select
           id="pm"
           value={meal}
           onChange={(e) => setMeal(e.target.value as (typeof MEALS)[number])}
-          className="rounded-lg border border-ink-100 px-3 py-1.5 focus-ring capitalize"
+          className="rounded-lg border border-ink-100 px-3 py-1.5 focus-ring"
         >
           {MEALS.map((m) => (
             <option key={m} value={m}>
-              {m}
+              {mealLabel[m]}
             </option>
           ))}
         </select>
@@ -187,13 +201,13 @@ function PlannerPicker({
           onClick={onCancel}
           className="text-sm text-ink-500 px-3 py-1.5 hover:text-emerald-700 focus-ring rounded-lg"
         >
-          Cancel
+          {t('action.cancel')}
         </button>
         <button
           onClick={() => onSubmit(date, meal)}
           className="rounded-pill bg-emerald-700 text-cream-50 px-4 py-1.5 text-sm font-medium hover:bg-emerald-600 focus-ring"
         >
-          Add
+          {t('action.add')}
         </button>
       </div>
     </div>

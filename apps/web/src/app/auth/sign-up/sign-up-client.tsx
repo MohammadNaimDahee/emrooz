@@ -4,9 +4,11 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { useAuthActions } from '../../../lib/auth';
+import { useTranslator } from '../../../lib/i18n-client';
 import { useSupabaseSession } from '../../../lib/session';
 
 export default function SignUpClient() {
+  const { t } = useTranslator();
   const router = useRouter();
   const auth = useAuthActions();
   const session = useSupabaseSession();
@@ -23,13 +25,11 @@ export default function SignUpClient() {
     e.preventDefault();
     setError(null);
     setNotice(null);
-    if (password.length < 8) return setError('Password must be at least 8 characters.');
+    if (password.length < 8) return setError(t('auth.error.shortPassword'));
     const r = await auth.signUp(email, password);
-    if (!r.ok) return setError(r.error ?? 'Sign-up failed.');
+    if (!r.ok) return setError(r.error ?? t('auth.error.signUpFailed'));
     if (r.needsVerification) {
-      setNotice(
-        `We sent a confirmation link to ${email}. Click it to finish creating your account.`,
-      );
+      setNotice(t('auth.signUp.confirmSentLong', { email }));
     } else {
       // Confirmation is off in this environment — proceed straight to the app.
       router.replace('/app');
@@ -40,23 +40,21 @@ export default function SignUpClient() {
 
   return (
     <div className="mx-auto max-w-md px-4 pt-10 pb-16">
-      <div className="text-xs uppercase tracking-widest text-ink-400">Get started</div>
-      <h1 className="font-display text-4xl md:text-5xl text-ink-900 mt-1">Create your account</h1>
+      <div className="text-xs uppercase tracking-widest text-ink-400">{t('auth.signUp.eyebrow')}</div>
+      <h1 className="font-display text-4xl md:text-5xl text-ink-900 mt-1">{t('auth.signUp.titleShort')}</h1>
       <p className="text-ink-500 mt-2">
-        Your guest pantry, favorites, and cooking history move with you automatically —
-        you keep the same account, just with an email attached.
+        {t('auth.signUp.subtitleWeb')}
       </p>
 
       {supabaseDisabled && (
         <div className="mt-6 rounded-xl border border-ink-100 bg-white p-4 text-sm text-ink-500">
-          Sign-up wires up once Supabase credentials are configured. See{' '}
-          <code className="text-ink-700">docs/backend-setup.md</code>.
+          {t('auth.signUp.disabledHint.web', { code: 'docs/backend-setup.md' })}
         </div>
       )}
 
       <form onSubmit={submit} className="mt-6 space-y-4">
         <label className="block">
-          <span className="text-sm">Email</span>
+          <span className="text-sm">{t('auth.email')}</span>
           <input
             type="email"
             autoComplete="email"
@@ -67,7 +65,7 @@ export default function SignUpClient() {
           />
         </label>
         <label className="block">
-          <span className="text-sm">Password</span>
+          <span className="text-sm">{t('auth.password')}</span>
           <input
             type="password"
             autoComplete="new-password"
@@ -77,7 +75,7 @@ export default function SignUpClient() {
             onChange={(e) => setPassword(e.target.value)}
             className="mt-1 w-full rounded-md border border-ink-100 bg-white px-3 py-2 focus-ring"
           />
-          <span className="text-xs text-ink-400 mt-1 block">At least 8 characters.</span>
+          <span className="text-xs text-ink-400 mt-1 block">{t('auth.signUp.passwordHint')}</span>
         </label>
 
         {error && (
@@ -96,20 +94,22 @@ export default function SignUpClient() {
           disabled={supabaseDisabled || Boolean(auth.pending)}
           className="w-full rounded-pill bg-emerald-700 text-cream-50 px-5 py-3 font-medium hover:bg-emerald-600 focus-ring shadow-card disabled:opacity-50"
         >
-          {auth.pending ? 'Working…' : 'Create account'}
+          {auth.pending ? t('auth.working') : t('action.signUp')}
         </button>
 
         <p className="text-xs text-ink-500">
-          By continuing, you agree to our{' '}
-          <Link href="/terms" className="underline focus-ring">Terms</Link> and{' '}
-          <Link href="/privacy" className="underline focus-ring">Privacy notice</Link>.
+          {t('auth.signUp.terms.prefix')}{' '}
+          <Link href="/terms" className="underline focus-ring">{t('auth.signUp.terms.terms')}</Link>{' '}
+          {t('auth.signUp.terms.and')}{' '}
+          <Link href="/privacy" className="underline focus-ring">{t('auth.signUp.terms.privacy')}</Link>
+          {t('auth.signUp.terms.dot')}
         </p>
       </form>
 
       <p className="mt-6 text-sm text-ink-500">
-        Already have an account?{' '}
+        {t('auth.signUp.alreadyHave')}{' '}
         <Link href="/auth/sign-in" className="text-emerald-700 hover:underline focus-ring">
-          Sign in
+          {t('auth.signUp.signInLink')}
         </Link>
         .
       </p>

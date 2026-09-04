@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { getData } from '../lib/data';
 import { CuisineArt } from '../components/CuisineArt';
 import { RecipeCard } from '../components/RecipeCard';
-import { getTranslator } from '../lib/i18n';
+import { getTranslator } from '../lib/i18n-server';
 
 export const revalidate = 3600;
 

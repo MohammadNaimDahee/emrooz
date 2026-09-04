@@ -1,10 +1,14 @@
 import type { Metadata } from 'next';
+import { getTranslator } from '../../lib/i18n-server';
 import ShoppingListClient from './shopping-list-client';
 
-export const metadata: Metadata = {
-  title: 'Shopping list',
-  robots: { index: false },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getTranslator();
+  return {
+    title: t('meta.shoppingList.title'),
+    robots: { index: false },
+  };
+}
 
 export default function ShoppingListPage() {
   return <ShoppingListClient />;

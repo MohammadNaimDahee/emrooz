@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 import { useAuthActions } from '../lib/auth';
+import { useTranslator } from '../lib/i18n-client';
 import { useSupabaseSession } from '../lib/session';
 import { getBrowserSupabase } from '../lib/supabase-browser';
 
@@ -13,6 +14,7 @@ import { getBrowserSupabase } from '../lib/supabase-browser';
  * once the user is fully signed in with an email.
  */
 export function AccountNav() {
+  const { t } = useTranslator();
   const session = useSupabaseSession();
   const auth = useAuthActions();
   const router = useRouter();
@@ -51,7 +53,7 @@ export function AccountNav() {
         href="/auth/sign-in"
         className="text-sm text-ink-500 hover:text-emerald-700 focus-ring px-3 py-2 rounded-lg"
       >
-        Sign in
+        {t('action.signIn')}
       </Link>
     );
   }
@@ -62,7 +64,7 @@ export function AccountNav() {
         href="/auth/sign-in"
         className="text-sm text-ink-700 hover:text-emerald-700 focus-ring px-3 py-2 rounded-lg"
       >
-        Sign in
+        {t('action.signIn')}
       </Link>
     );
   }
@@ -81,7 +83,7 @@ export function AccountNav() {
         >
           {(email?.[0] ?? '?').toUpperCase()}
         </span>
-        <span className="hidden sm:inline max-w-[10rem] truncate">{email ?? 'Account'}</span>
+        <span className="hidden sm:inline max-w-[10rem] truncate">{email ?? t('accountNav.account')}</span>
       </button>
 
       {open && (
@@ -95,7 +97,7 @@ export function AccountNav() {
             role="menuitem"
             onClick={() => setOpen(false)}
           >
-            Settings
+            {t('nav.settings')}
           </Link>
           <Link
             href="/history"
@@ -103,7 +105,7 @@ export function AccountNav() {
             role="menuitem"
             onClick={() => setOpen(false)}
           >
-            History
+            {t('nav.history')}
           </Link>
           <div className="my-1 h-px bg-ink-100" />
           <button
@@ -115,7 +117,7 @@ export function AccountNav() {
             className="block w-full text-left px-3 py-2 rounded-lg text-rose-400 hover:bg-rose-400/10 focus-ring"
             role="menuitem"
           >
-            Sign out
+            {t('action.signOut')}
           </button>
         </div>
       )}

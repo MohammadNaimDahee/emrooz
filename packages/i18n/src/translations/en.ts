@@ -84,6 +84,8 @@ const en = {
   'today.mealType.snack': 'SNACK',
   'today.mealType.soup': 'SOUP',
   'today.mealType.dessert': 'DESSERT',
+  'today.web.subtitle': "Today's pick, tailored to your pantry, time, and preferences. A few more below.",
+  'today.web.orTryTheseTitle': 'Or try one of these',
 
   // -- Discover screen --------------------------------------------------
   'discover.title': 'Discover',
@@ -541,7 +543,7 @@ const en = {
   'settings.household.title': 'Household size',
   'settings.time.title': 'Time you usually have',
   'settings.account.signedInHint': 'Signed in — data syncs across devices.',
-  'settings.account.signOut.body': 'You can sign back in any time.',
+  'settings.account.signOut.bodyShort': 'You can sign back in any time.',
   'settings.reminders.permissionHint': "We'll ask for notification permission the first time you enable this.",
   'settings.save': 'Save changes',
   'settings.data.exportBtn': 'Export data',
@@ -634,8 +636,215 @@ const en = {
   'error.generic': 'Something went wrong. Please try again.',
   'loading': 'Loading…',
   'empty.tryAgain': 'Try clearing filters or a different search.',
+
+  // -- Web-specific additions ------------------------------------------
+  // Metadata
+  'meta.discover.title': 'Discover',
+  'meta.discover.description': 'Browse recipes across cuisines, times, and dietary tags.',
+  'meta.planner.title': 'Planner',
+  'meta.settings.title': 'Settings',
+  'meta.shoppingList.title': 'Shopping list',
+  'meta.favorites.title': 'Favorites',
+  'meta.history.title': 'History',
+  'meta.pantry.title': 'Pantry',
+  'meta.recipe.notFound': 'Recipe not found',
+  'meta.recipe.descFallback': 'Recipe: {title}',
+  'meta.cuisines.title': 'Cuisines',
+  'meta.cuisines.description': 'Browse Emrooz recipes by cuisine.',
+  'meta.cuisines.slug.title': '{name} recipes',
+  'meta.cuisines.slug.description': 'Emrooz recipes from {name} cuisine.',
+  'meta.cuisines.notFound': 'Cuisine not found',
+
+  // Discover
+  'discover.subtitle': 'Find something new to cook. Search by name or ingredient, or narrow down with filters.',
+  'discover.sort.quickest': 'Quickest first',
+  'discover.pantryOnly.checkbox': 'Only show recipes that use what I have (≥60% pantry match)',
+  'discover.empty.tryLoose': 'Try loosening a filter or clearing them all.',
+
+  // Planner
+  'planner.prev': '← Prev',
+  'planner.next': 'Next →',
+  'planner.addWeekMissing': "Add week's missing to shopping list",
+  'planner.viewShoppingList': 'View shopping list →',
+  'planner.addedToList.one': 'Added {count} item to your list.',
+  'planner.addedToList.many': 'Added {count} items to your list.',
+  'planner.slot.addLabel': 'Add {meal} on {date}',
+  'planner.slot.replace': 'Replace',
+  'planner.slot.removeAria': 'Remove',
+  'planner.picker.title': 'Pick a recipe · {meal}',
+  'planner.picker.searchPlaceholder': 'Search',
+  'planner.picker.empty': 'Nothing matches.',
+  'planner.picker.itemSubtitle': '{minutes} min · {difficulty}',
+
+  // Pantry
+  'pantry.searchPlaceholder.long': 'Search ingredients — onion, olive oil, chickpea…',
+  'pantry.subtitle.long': "Tell Emrooz what you already have and we'll surface recipes that use it — or ones that need just one or two more ingredients.",
+
+  // Settings (web extras)
+  'settings.eyebrow.preferences': 'Preferences',
+  'settings.hint.language': 'Right-to-left languages flip the UI direction.',
+  'settings.hint.household': 'We scale ingredient quantities to your table.',
+  'settings.hint.time': "We won't suggest anything outside this window.",
+  'settings.hint.diet': 'Strict restrictions are enforced as hard filters.',
+  'settings.hint.allergies': "Recipes we can't positively verify as safe for you never appear.",
+  'settings.hint.data': 'Export a JSON snapshot or delete everything stored locally.',
+  'settings.household.person': 'person',
+  'settings.time.minutes': '{minutes} min',
+  'settings.time.noLimitShort': 'No limit',
+  'settings.reminder.quote': '"Not sure what to cook? Emrooz has today’s ideas ready."',
+  'settings.reminder.enableLabel': 'Enable reminder',
+  'settings.reminder.localHint': 'Local notifications are delivered by the mobile app on your device.',
+  'settings.account.signedInHint2': 'Signed in. Your data syncs across every device you use.',
+  'settings.account.guestHint2': "You're a guest. Create an account to sync your pantry, favorites, and history.",
+  'settings.account.signedInBadge': 'Signed in',
+  'settings.saved.short': 'Saved.',
+  'settings.exportFailed.alert': 'Export failed ({status}). Please try again.',
+  'settings.delete.promptBody':
+    'This permanently removes your account and everything in it (pantry, favorites, history, planner, shopping list, feedback, preferences).\n\nType DELETE to confirm.',
+  'settings.delete.demoConfirm':
+    'Delete all local data? This clears your guest identity, pantry, favorites, history, feedback, planner, and shopping list. This cannot be undone.',
+  'settings.delete.failed.alert': 'Delete failed: {error}',
+  'settings.deleteData': 'Delete my data',
+
+  // Shopping list (web extras)
+  'shoppingList.subtitle.active': '{active} to buy · {done} done',
+  'shoppingList.subtitle.empty': 'Nothing to buy right now. Add missing ingredients from any recipe or planner week.',
+  'shoppingList.add.placeholder.long': 'Add anything — milk, olive oil, dish sponge…',
+  'shoppingList.add.button': 'Add',
+  'shoppingList.clearAllShort': 'Clear all',
+  'shoppingList.clearAllPrompt': 'Clear the entire shopping list? This cannot be undone.',
+  'shoppingList.item.check': 'Check',
+  'shoppingList.item.uncheck': 'Uncheck',
+  'shoppingList.item.removeAria': 'Remove',
+  'shoppingList.fromRecipeOne': 'from 1 recipe',
+  'shoppingList.fromRecipeMany': 'from {count} recipes',
+  'shoppingList.empty.bodyPrefix': 'Add manually above, or open a recipe and tap ',
+  'shoppingList.empty.bodyCta': 'Add missing to shopping list',
+  'shoppingList.empty.bodySuffix': '.',
+
+  // Favorites (web extras)
+  'favorites.emptyBody.long': 'Tap the heart on any recipe you love, and it will land here.',
+  'favorites.discoverCta': 'Discover recipes',
+
+  // History (web extras)
+  'history.emptyBody.long': 'Once you tap "I cooked this" on a recipe, it lands here.',
+  'history.servings.one': 'serving',
+  'history.servings.many': 'servings',
+  'history.confirmRemove.prompt': 'Remove this history entry?',
+  'history.removeShort': 'Remove',
+  'history.plannerPicker.date': 'Date',
+  'history.plannerPicker.meal': 'Meal',
+
+  // Recipe detail (web extras)
+  'recipe.actions.logged': 'Logged',
+  'recipe.actions.favorited': 'Favorited',
+  'recipe.share.linkCopied': 'Link copied to clipboard.',
+  'recipe.report.body': "Thanks for helping us keep recipes accurate. What's off?",
+  'recipe.report.reason.ingredient': 'Ingredient is wrong or missing',
+  'recipe.report.reason.instructions': 'Instructions are unclear',
+  'recipe.report.reason.time': 'Cooking time is off',
+  'recipe.report.reason.dietary': 'Dietary tag is incorrect',
+  'recipe.report.reason.other': 'Something else',
+  'recipe.log.noteHint2': 'Adjustments? Notes for next time? (Optional, private to you.)',
+  'recipe.pantryIndicator': 'in pantry',
+  'recipe.optionalLabel': 'optional',
+  'recipe.containsShort': 'contains {allergen}',
+
+  // Auth (web extras)
+  'auth.working': 'Working…',
+  'auth.signIn.methodLabel': 'Sign in method',
+  'auth.signIn.subtitleWeb': 'Sync your pantry, favorites, and cooking history across devices.',
+  'auth.signIn.disabledHint.web':
+    'Sign-in wires up once Supabase credentials are configured. See {code}. In the meantime, Emrooz works fully as a guest.',
+  'auth.signIn.newHereShort': 'New here?',
+  'auth.signIn.magicLink.sentInbox': 'We sent a sign-in link to {email}. Check your inbox.',
+  'auth.signUp.subtitleWeb':
+    'Your guest pantry, favorites, and cooking history move with you automatically — you keep the same account, just with an email attached.',
+  'auth.signUp.disabledHint.web': 'Sign-up wires up once Supabase credentials are configured. See {code}.',
+  'auth.signUp.confirmSentLong': 'We sent a confirmation link to {email}. Click it to finish creating your account.',
+  'auth.signUp.terms.prefix': 'By continuing, you agree to our',
+  'auth.signUp.terms.terms': 'Terms',
+  'auth.signUp.terms.and': 'and',
+  'auth.signUp.terms.privacy': 'Privacy notice',
+  'auth.signUp.terms.dot': '.',
+  'auth.signUp.alreadyHave': 'Already have an account?',
+  'auth.forgotPassword.subtitleWeb': "Enter your email and we'll send a reset link. It expires after an hour.",
+  'auth.forgotPassword.disabledHint.web': 'Reset wires up once Supabase credentials are configured.',
+  'auth.forgotPassword.sending': 'Sending…',
+  'auth.forgotPassword.remembered': 'Remembered it?',
+  'auth.resetPassword.eyebrow': 'Set a new password',
+  'auth.resetPassword.title': 'Reset password',
+  'auth.resetPassword.expiredIntro': 'This link has expired or was already used. Start again from ',
+  'auth.resetPassword.expiredLink': 'forgot password',
+  'auth.resetPassword.newPassword': 'New password',
+  'auth.resetPassword.saving': 'Saving…',
+  'auth.resetPassword.submit': 'Set new password',
+  'auth.resetPassword.updateFailed': 'Could not update password.',
+
+  // Account nav
+  'accountNav.account': 'Account',
+
+  // Essential cookies banner
+  'cookies.title': 'Essential cookies only',
+  'cookies.body':
+    'Emrooz stores an auth session and your preferences in your browser. No analytics, no advertising, no third-party tracking.',
+  'cookies.readMore': 'Read more',
+  'cookies.gotIt': 'Got it',
+
+  // Cuisines index
+  'cuisines.eyebrow': 'Explore',
+  'cuisines.subtitle':
+    'A global menu. Every cuisine is a first-class citizen — from familiar staples to under-served traditions.',
+  'cuisines.card.eyebrow': 'Cuisine',
+  'cuisines.slug.count.one': '{count} recipe in the collection.',
+  'cuisines.slug.count.many': '{count} recipes in the collection.',
+  'cuisines.slug.emptyTitle': 'Coming soon',
+  'cuisines.slug.emptyPrefix': "We're still curating this collection. ",
+  'cuisines.slug.browseOthers': 'Browse other cuisines',
+  'cuisines.slug.emptySuffix': '.',
+
+  // Onboarding sheet (web)
+  'onboarding.web.eyebrow': 'Getting to know you',
+  'onboarding.web.progressOf': '{current} of {total}',
+  'onboarding.web.skipForNow': 'Skip for now',
+  'onboarding.web.continue': 'Continue',
+  'onboarding.web.allergiesHardFilter':
+    "Emrooz treats allergies as a hard filter. Recipes we can't positively verify as safe for you never appear.",
+  'onboarding.web.step.language.title': 'Choose your language',
+  'onboarding.web.step.language.subtitle': 'You can change this any time from settings.',
+  'onboarding.web.step.cuisines.title': 'Which cuisines do you love?',
+  'onboarding.web.step.cuisines.subtitle':
+    'Pick as many as you like. Emrooz will lean toward these — but never at the expense of variety.',
+  'onboarding.web.step.household.title': 'How many at the table?',
+  'onboarding.web.step.household.subtitle': 'This helps us scale ingredient quantities on recipes.',
+  'onboarding.web.step.time.title': 'How much time do you have?',
+  'onboarding.web.step.time.subtitle': "We won't suggest anything that doesn't fit your window.",
+  'onboarding.web.step.diet.title': 'Any dietary preferences?',
+  'onboarding.web.step.diet.subtitle': 'Optional. Strict restrictions are enforced as hard filters.',
+  'onboarding.web.step.allergies.title': 'Any allergies?',
+  'onboarding.web.step.allergies.subtitle':
+    "These are hard filters — we'll never suggest anything that isn't safe for you.",
+  'onboarding.web.time.sub.quick': 'Quick',
+  'onboarding.web.time.sub.weeknight': 'Weeknight',
+  'onboarding.web.time.sub.weekend': 'Weekend',
+  'onboarding.web.time.noLimit.subtitle': "I've got time",
+  'onboarding.web.time.noLimit.title': 'No limit',
+
+  // Recipe hero meta strip labels
+  'recipeMeta.prep': 'Prep',
+  'recipeMeta.cook': 'Cook',
+  'recipeMeta.total': 'Total',
+  'recipeMeta.difficulty': 'Difficulty',
+  'recipeMeta.minutesShort': '{minutes} min',
 } as const;
 
 export default en;
 export type MessageKey = keyof typeof en;
-export type EnMessages = Record<MessageKey, string>;
+
+/**
+ * The shape of a locale dictionary. Partial because draft locales
+ * (de, fa-AF, ps) may lag behind en.ts by a few keys; the runtime
+ * `t()` fallback covers the gap by falling back to English. See
+ * CLAUDE.md §10.1 for the discipline that keeps that gap small.
+ */
+export type EnMessages = Partial<Record<MessageKey, string>>;

@@ -19,6 +19,44 @@ import type { EnMessages } from './en';
 //   - 'onboarding.time.sub.*' — labels ("Quick", "Weeknight", "Weekend"): translated by feel, may need cultural tweak.
 //   - Auth mode labels ("Magic link"): rendered as "لینک جادویی"; confirm.
 //   - Time filters and numeric labels use Eastern Arabic-Indic digits per Persian/Dari convention.
+//
+// Second batch (web-specific keys) — additional flags for reviewer:
+//   - 'planner.prev' / 'planner.next' — English uses arrow glyphs; kept LTR-safe wording "قبلی" / "بعدی" without arrows (RTL direction handles orientation).
+//   - 'auth.signUp.terms.*' — English splits "By continuing, you agree to our Terms and Privacy notice." across five tokens; Dari word order differs, but the tokens are kept in the same source order (prefix / "شرایط" / "و" / "اعلامیه محرمیت" / ".") so the front-end can concatenate them. The result reads awkwardly outside of context; the reviewer should confirm the final rendered sentence.
+//   - 'auth.resetPassword.expiredIntro' / 'auth.resetPassword.expiredLink' — split across two tokens with a trailing "از " particle; concatenated result reads "این لینک منقضی شده یا قبلاً استفاده شده. دوباره از صفحه رمز عبور فراموش شده شروع کنید." — confirm.
+//   - 'shoppingList.empty.bodyPrefix' / 'bodyCta' / 'bodySuffix' — English sentence "Add manually above, or open a recipe and tap 'Add missing to shopping list'." split across three tokens; Dari concatenation preserved with an inline verb "بزنید" placed in bodySuffix. Confirm sentence flow.
+//   - 'cuisines.slug.emptyPrefix' / 'browseOthers' / 'emptySuffix' — three-token sentence; Dari uses "به جای آن " prefix and "را ببینید" suffix. Confirm.
+//   - 'settings.reminder.quote' — quoted marketing line kept in Persian quotation marks «...» which is more idiomatic than straight quotes in Afghan Persian print.
+//   - 'onboarding.web.eyebrow' — "Getting to know you" rendered as "در حال آشنایی با شما"; may sound clinical — reviewer to soften if needed.
+//   - 'recipeMeta.minutesShort' — rendered as "{minutes} دقیقه" (full word) to match style of 'landing.hero.recipeMinutes'. Existing 'recipe.minutesShort' uses the abbreviated "{count}د" form; the two keys use different placeholders and are used in different UI regions.
+//   - Meta title/description keys — used natural short phrases; SEO copy typically needs a marketer's pass.
+//
+// Third batch (162 additional web + meta keys) — new reviewer flags:
+//   - 'today.web.subtitle' — long marketing sentence; confirm "چند پیشنهاد دیگر پایین" reads naturally.
+//   - 'meta.*' — SEO titles/descriptions; short natural Dari; a marketer/native reviewer should refine.
+//   - 'meta.cuisines.slug.title' / 'meta.cuisines.slug.description' — placeholder {name} kept verbatim; front-end interpolates cuisine name.
+//   - 'planner.prev' / 'planner.next' (already flagged above): rendered as "قبلی" / "بعدی" without arrows.
+//   - 'planner.picker.title' — split "Pick a recipe · {meal}" preserved.
+//   - 'pantry.subtitle.long' / 'pantry.searchPlaceholder.long' — expanded versions of existing short strings; reviewer to confirm consistent voice.
+//   - 'settings.hint.*' — short web-only hint strings under form fields; kept succinct.
+//   - 'settings.household.person' — English singular "person"; rendered "نفر" (Dari has no separate singular form here).
+//   - 'settings.reminder.quote' — marketing quote using Persian guillemets «...».
+//   - 'shoppingList.empty.body{Prefix,Cta,Suffix}' — three-token concatenation; suffix carries the verb "بزنید" so full sentence reads: "به صورت دستی از بالا اضافه کنید، یا یک غذا را باز کنید و «افزودن اجزای کم به فهرست خرید» را بزنید."
+//   - 'favorites.discoverCta' — rendered as "کشف غذاها" (short CTA).
+//   - 'history.servings.one' / 'history.servings.many' — English differs (singular "serving" vs "servings"); Dari has no separate singular, both rendered "حصه". Reviewer to confirm.
+//   - 'recipe.report.reason.*' — short report reasons kept concise.
+//   - 'recipe.optionalLabel' — full-word "اختیاری" (vs abbreviated 'recipe.optional' already in file).
+//   - 'auth.signUp.terms.*' — token split (already flagged).
+//   - 'auth.resetPassword.expiredIntro/Link' — two-token split (already flagged).
+//   - 'accountNav.account' — nav label "حساب".
+//   - 'cookies.*' — cookie banner; short natural Dari.
+//   - 'cuisines.eyebrow' / 'cuisines.subtitle' — cuisines index page; long marketing subtitle.
+//   - 'cuisines.slug.emptyPrefix' / 'browseOthers' / 'emptySuffix' — three-token empty state (flagged above).
+//   - 'onboarding.web.step.*' — mirror of mobile onboarding step keys with web-specific voice.
+//   - 'onboarding.web.time.sub.*' — reuses same labels as mobile 'onboarding.time.sub.*'.
+//   - 'onboarding.web.time.noLimit.title' / 'onboarding.web.time.noLimit.subtitle' — "No limit" / "I've got time".
+//   - 'recipeMeta.prep' / 'recipeMeta.cook' / 'recipeMeta.total' / 'recipeMeta.difficulty' — mirror of 'recipe.prepTime' etc; reused terms for consistency.
+//   - 'recipeMeta.minutesShort' — full-word "{minutes} دقیقه".
 
 const faAF: EnMessages = {
   // -- Brand ------------------------------------------------------------
@@ -106,6 +144,8 @@ const faAF: EnMessages = {
   'today.mealType.snack': 'خوراکی سبک',
   'today.mealType.soup': 'شوربا',
   'today.mealType.dessert': 'شیرینی',
+  'today.web.subtitle': 'انتخاب امروز، جور شده با ذخیره، وقت، و ترجیحات شما. چند پیشنهاد دیگر پایین.',
+  'today.web.orTryTheseTitle': 'یا یکی از این‌ها را امتحان کنید',
 
   // -- Discover screen --------------------------------------------------
   'discover.title': 'کشف',
@@ -563,7 +603,7 @@ const faAF: EnMessages = {
   'settings.household.title': 'اندازه فامیل',
   'settings.time.title': 'وقتی که معمولاً دارید',
   'settings.account.signedInHint': 'وارد شده — معلومات میان دستگاه‌ها همگام‌سازی می‌شود.',
-  'settings.account.signOut.body': 'هر وقت خواستید می‌توانید دوباره وارد شوید.',
+  'settings.account.signOut.bodyShort': 'هر وقت خواستید می‌توانید دوباره وارد شوید.',
   'settings.reminders.permissionHint': 'اولین بار که این را فعال کنید، از شما اجازه اطلاعیه می‌خواهیم.',
   'settings.save': 'ذخیره تغییرات',
   'settings.data.exportBtn': 'برون‌سپاری معلومات',
@@ -656,6 +696,206 @@ const faAF: EnMessages = {
   'error.generic': 'مشکلی پیش آمد. لطفاً دوباره کوشش کنید.',
   'loading': 'در حال بارگذاری…',
   'empty.tryAgain': 'کوشش کنید فیلترها را پاک کنید یا جستجوی دیگری کنید.',
+
+  // -- Web-specific additions ------------------------------------------
+  // Metadata
+  'meta.discover.title': 'کشف',
+  'meta.discover.description': 'غذاها را در آشپزی‌ها، زمان‌ها، و برچسب‌های صرفیه بگردید.',
+  'meta.planner.title': 'برنامه',
+  'meta.settings.title': 'تنظیمات',
+  'meta.shoppingList.title': 'فهرست خرید',
+  'meta.favorites.title': 'محبوب‌ها',
+  'meta.history.title': 'تاریخچه',
+  'meta.pantry.title': 'ذخیره',
+  'meta.recipe.notFound': 'غذا پیدا نشد',
+  'meta.recipe.descFallback': 'غذا: {title}',
+  'meta.cuisines.title': 'آشپزی‌ها',
+  'meta.cuisines.description': 'غذاهای امروز را به تفکیک آشپزی ببینید.',
+  'meta.cuisines.slug.title': 'غذاهای {name}',
+  'meta.cuisines.slug.description': 'غذاهای امروز از آشپزی {name}.',
+  'meta.cuisines.notFound': 'آشپزی پیدا نشد',
+
+  // Discover (web)
+  'discover.subtitle': 'چیز نوی برای پختن پیدا کنید. با نام یا جز جستجو کنید، یا با فیلترها محدود کنید.',
+  'discover.sort.quickest': 'اول سریع‌ترها',
+  'discover.pantryOnly.checkbox': 'تنها غذاهایی را نشان بده که از آنچه دارم استفاده می‌کنند (۶۰٪ یا بیشتر مطابقت با ذخیره)',
+  'discover.empty.tryLoose': 'کوشش کنید یک فیلتر را کم‌سخت‌تر کنید یا همه را پاک کنید.',
+
+  // Planner (web)
+  'planner.prev': 'قبلی',
+  'planner.next': 'بعدی',
+  'planner.addWeekMissing': 'افزودن اجزای کم این هفته به فهرست خرید',
+  'planner.viewShoppingList': 'دیدن فهرست خرید ←',
+  'planner.addedToList.one': '{count} چیز به فهرست شما اضافه شد.',
+  'planner.addedToList.many': '{count} چیز به فهرست شما اضافه شد.',
+  'planner.slot.addLabel': 'افزودن {meal} در {date}',
+  'planner.slot.replace': 'تبدیل',
+  'planner.slot.removeAria': 'برداشتن',
+  'planner.picker.title': 'یک غذا انتخاب کنید · {meal}',
+  'planner.picker.searchPlaceholder': 'جستجو',
+  'planner.picker.empty': 'چیزی جور نمی‌آید.',
+  'planner.picker.itemSubtitle': '{minutes} دقیقه · {difficulty}',
+
+  // Pantry (web)
+  'pantry.searchPlaceholder.long': 'جستجوی اجزا — پیاز، روغن زیتون، نخود…',
+  'pantry.subtitle.long': 'به امروز بگویید چه چیزی از قبل دارید و ما غذاهایی را که از آن استفاده می‌کنند — یا آن‌هایی که فقط به یک یا دو جز دیگر نیاز دارند — پیش روی شما می‌گذاریم.',
+
+  // Settings (web extras)
+  'settings.eyebrow.preferences': 'ترجیحات',
+  'settings.hint.language': 'زبان‌های راست‌به‌چپ جهت رابط را برعکس می‌کنند.',
+  'settings.hint.household': 'ما مقدار اجزا را با اندازه دسترخوان شما جور می‌سازیم.',
+  'settings.hint.time': 'چیزی خارج از این وقت پیشنهاد نمی‌کنیم.',
+  'settings.hint.diet': 'محدودیت‌های سخت به عنوان فیلترهای سخت اعمال می‌شوند.',
+  'settings.hint.allergies': 'غذاهایی که مصون بودن‌شان را برای شما تایید کرده نتوانیم هرگز نشان داده نمی‌شوند.',
+  'settings.hint.data': 'یک نسخه JSON برون‌سپاری کنید یا هر چیزی که محلی ذخیره شده را حذف کنید.',
+  'settings.household.person': 'نفر',
+  'settings.time.minutes': '{minutes} دقیقه',
+  'settings.time.noLimitShort': 'بدون محدودیت',
+  'settings.reminder.quote': '«مطمئن نیستید چه بپزید؟ امروز ایده‌های امروز را آماده دارد.»',
+  'settings.reminder.enableLabel': 'فعال کردن یادآوری',
+  'settings.reminder.localHint': 'اطلاعیه‌های محلی توسط اپ موبایل روی دستگاه شما تحویل داده می‌شوند.',
+  'settings.account.signedInHint2': 'وارد شده. معلومات شما میان هر دستگاهی که استفاده می‌کنید همگام‌سازی می‌شود.',
+  'settings.account.guestHint2': 'شما مهمان هستید. برای همگام‌سازی ذخیره، محبوب‌ها، و تاریخچه، یک حساب بسازید.',
+  'settings.account.signedInBadge': 'وارد شده',
+  'settings.saved.short': 'ذخیره شد.',
+  'settings.exportFailed.alert': 'برون‌سپاری ناکام شد ({status}). لطفاً دوباره کوشش کنید.',
+  'settings.delete.promptBody':
+    'این کار برای همیشه حساب شما و هر چیزی در آن (ذخیره، محبوب‌ها، تاریخچه، برنامه، فهرست خرید، نظرات، ترجیحات) را دور می‌کند.\n\nبرای تایید DELETE را تایپ کنید.',
+  'settings.delete.demoConfirm':
+    'همه معلومات محلی حذف شود؟ این کار هویت مهمان، ذخیره، محبوب‌ها، تاریخچه، نظرات، برنامه، و فهرست خرید شما را پاک می‌کند. این کار غیر قابل بازگشت است.',
+  'settings.delete.failed.alert': 'حذف ناکام شد: {error}',
+  'settings.deleteData': 'حذف معلومات من',
+
+  // Shopping list (web extras)
+  'shoppingList.subtitle.active': '{active} برای خرید · {done} تمام شد',
+  'shoppingList.subtitle.empty': 'حالا چیزی برای خرید نیست. اجزای کم را از هر غذا یا هفته برنامه اضافه کنید.',
+  'shoppingList.add.placeholder.long': 'هر چه می‌خواهید بنویسید — شیر، روغن زیتون، اسفنج ظرف‌شویی…',
+  'shoppingList.add.button': 'افزودن',
+  'shoppingList.clearAllShort': 'پاک کردن همه',
+  'shoppingList.clearAllPrompt': 'تمام فهرست خرید پاک شود؟ این کار غیر قابل بازگشت است.',
+  'shoppingList.item.check': 'نشانی کردن',
+  'shoppingList.item.uncheck': 'برداشتن نشانی',
+  'shoppingList.item.removeAria': 'برداشتن',
+  'shoppingList.fromRecipeOne': 'از ۱ غذا',
+  'shoppingList.fromRecipeMany': 'از {count} غذا',
+  'shoppingList.empty.bodyPrefix': 'به صورت دستی از بالا اضافه کنید، یا یک غذا را باز کنید و ',
+  'shoppingList.empty.bodyCta': '«افزودن اجزای کم به فهرست خرید»',
+  'shoppingList.empty.bodySuffix': ' را بزنید.',
+
+  // Favorites (web extras)
+  'favorites.emptyBody.long': 'روی دل هر غذایی که خوش دارید بزنید تا اینجا نشان داده شود.',
+  'favorites.discoverCta': 'کشف غذاها',
+
+  // History (web extras)
+  'history.emptyBody.long': 'وقتی روی «این را پختم» در یک غذا بزنید، اینجا نشان داده می‌شود.',
+  'history.servings.one': 'حصه',
+  'history.servings.many': 'حصه',
+  'history.confirmRemove.prompt': 'این ورودی تاریخچه برداشته شود؟',
+  'history.removeShort': 'برداشتن',
+  'history.plannerPicker.date': 'تاریخ',
+  'history.plannerPicker.meal': 'غذا',
+
+  // Recipe detail (web extras)
+  'recipe.actions.logged': 'ثبت شد',
+  'recipe.actions.favorited': 'محبوب شد',
+  'recipe.share.linkCopied': 'لینک در کلیپ‌بورد کاپی شد.',
+  'recipe.report.body': 'تشکر که به دقیق نگه داشتن غذاها کمک می‌کنید. چه چیزی درست نیست؟',
+  'recipe.report.reason.ingredient': 'یک جز نادرست یا نبود دارد',
+  'recipe.report.reason.instructions': 'دستورها روشن نیستند',
+  'recipe.report.reason.time': 'وقت پخت نادرست است',
+  'recipe.report.reason.dietary': 'برچسب صرفیه نادرست است',
+  'recipe.report.reason.other': 'چیز دیگر',
+  'recipe.log.noteHint2': 'تغییری کردید؟ نکته‌ای برای بار بعد؟ (اختیاری، خصوصی به خود شما.)',
+  'recipe.pantryIndicator': 'در ذخیره',
+  'recipe.optionalLabel': 'اختیاری',
+  'recipe.containsShort': 'در بر دارد {allergen}',
+
+  // Auth (web extras)
+  'auth.working': 'در حال کار…',
+  'auth.signIn.methodLabel': 'روش ورود',
+  'auth.signIn.subtitleWeb': 'ذخیره، محبوب‌ها، و تاریخچه آشپزی خود را میان دستگاه‌ها همگام‌سازی کنید.',
+  'auth.signIn.disabledHint.web':
+    'ورود پس از پیکربندی اعتبارنامه‌های سوپابیس فعال می‌شود. {code} را ببینید. تا آن وقت، امروز به صورت مهمان کامل کار می‌کند.',
+  'auth.signIn.newHereShort': 'اولین بار است؟',
+  'auth.signIn.magicLink.sentInbox': 'یک لینک ورود به {email} فرستادیم. صندوق دریافتی خود را بررسی کنید.',
+  'auth.signUp.subtitleWeb':
+    'ذخیره مهمان، محبوب‌ها، و تاریخچه آشپزی شما به صورت خودکار با شما می‌آیند — همان حساب است، فقط با یک ایمیل پیوست.',
+  'auth.signUp.disabledHint.web': 'ثبت‌نام پس از پیکربندی اعتبارنامه‌های سوپابیس فعال می‌شود. {code} را ببینید.',
+  'auth.signUp.confirmSentLong': 'یک لینک تایید به {email} فرستادیم. برای تمام کردن ساختن حساب روی آن کلیک کنید.',
+  'auth.signUp.terms.prefix': 'با ادامه دادن، شما با ',
+  'auth.signUp.terms.terms': 'شرایط',
+  'auth.signUp.terms.and': ' و ',
+  'auth.signUp.terms.privacy': 'اعلامیه محرمیت',
+  'auth.signUp.terms.dot': ' ما موافقت می‌کنید.',
+  'auth.signUp.alreadyHave': 'قبلاً حساب دارید؟',
+  'auth.forgotPassword.subtitleWeb': 'ایمیل خود را وارد کنید و ما یک لینک بازنشانی می‌فرستیم. بعد از یک ساعت نامعتبر می‌شود.',
+  'auth.forgotPassword.disabledHint.web': 'بازنشانی پس از پیکربندی اعتبارنامه‌های سوپابیس فعال می‌شود.',
+  'auth.forgotPassword.sending': 'در حال فرستادن…',
+  'auth.forgotPassword.remembered': 'آن را به یاد آوردید؟',
+  'auth.resetPassword.eyebrow': 'یک رمز عبور نو تعیین کنید',
+  'auth.resetPassword.title': 'بازنشانی رمز عبور',
+  'auth.resetPassword.expiredIntro': 'این لینک نامعتبر شده یا قبلاً استفاده شده است. دوباره از ',
+  'auth.resetPassword.expiredLink': 'رمز عبور فراموش شده',
+  'auth.resetPassword.newPassword': 'رمز عبور نو',
+  'auth.resetPassword.saving': 'در حال ذخیره…',
+  'auth.resetPassword.submit': 'تعیین رمز عبور نو',
+  'auth.resetPassword.updateFailed': 'به‌روز کردن رمز عبور ناکام شد.',
+
+  // Account nav
+  'accountNav.account': 'حساب',
+
+  // Essential cookies banner
+  'cookies.title': 'تنها کوکی‌های اساسی',
+  'cookies.body':
+    'امروز یک نشست ورود و ترجیحات شما را در مرورگرتان ذخیره می‌کند. بدون تحلیل، بدون اعلانات، بدون ردیابی طرف سوم.',
+  'cookies.readMore': 'بیشتر بخوانید',
+  'cookies.gotIt': 'فهمیدم',
+
+  // Cuisines index
+  'cuisines.eyebrow': 'کشف کنید',
+  'cuisines.subtitle':
+    'یک منوی جهانی. هر آشپزی یک شهروند درجه اول است — از پایه‌های آشنا تا سنت‌های کم‌توجه‌شده.',
+  'cuisines.card.eyebrow': 'آشپزی',
+  'cuisines.slug.count.one': '{count} غذا در این مجموعه.',
+  'cuisines.slug.count.many': '{count} غذا در این مجموعه.',
+  'cuisines.slug.emptyTitle': 'به زودی',
+  'cuisines.slug.emptyPrefix': 'هنوز در حال انتخاب این مجموعه هستیم. به جای آن ',
+  'cuisines.slug.browseOthers': 'آشپزی‌های دیگر',
+  'cuisines.slug.emptySuffix': ' را ببینید.',
+
+  // Onboarding sheet (web)
+  'onboarding.web.eyebrow': 'در حال آشنایی با شما',
+  'onboarding.web.progressOf': '{current} از {total}',
+  'onboarding.web.skipForNow': 'حالا رد کن',
+  'onboarding.web.continue': 'ادامه',
+  'onboarding.web.allergiesHardFilter':
+    'امروز حساسیت‌ها را به عنوان فیلتر سخت در نظر می‌گیرد. غذاهایی که مصون بودن‌شان را برای شما تایید کرده نتوانیم هرگز نشان داده نمی‌شوند.',
+  'onboarding.web.step.language.title': 'زبان خود را انتخاب کنید',
+  'onboarding.web.step.language.subtitle': 'هر وقت بخواهید می‌توانید از تنظیمات آن را تغییر بدهید.',
+  'onboarding.web.step.cuisines.title': 'کدام آشپزی‌ها را خوش دارید؟',
+  'onboarding.web.step.cuisines.subtitle':
+    'هر تعداد که بخواهید انتخاب کنید. امروز به این‌ها تمایل نشان می‌دهد — ولی هرگز به بهای تنوع.',
+  'onboarding.web.step.household.title': 'چند نفر سر دسترخوان؟',
+  'onboarding.web.step.household.subtitle': 'این به ما کمک می‌کند مقدار اجزا را در غذاها جور کنیم.',
+  'onboarding.web.step.time.title': 'چقدر وقت دارید؟',
+  'onboarding.web.step.time.subtitle': 'چیزی که با وقت شما جور نیاید پیشنهاد نمی‌کنیم.',
+  'onboarding.web.step.diet.title': 'صرفیه غذایی خاصی دارید؟',
+  'onboarding.web.step.diet.subtitle': 'اختیاری. محدودیت‌های سخت به عنوان فیلترهای سخت اعمال می‌شوند.',
+  'onboarding.web.step.allergies.title': 'حساسیت غذایی دارید؟',
+  'onboarding.web.step.allergies.subtitle':
+    'این‌ها فیلترهای سخت هستند — هرگز چیزی که برای شما مصون نباشد پیشنهاد نمی‌کنیم.',
+  'onboarding.web.time.sub.quick': 'سریع',
+  'onboarding.web.time.sub.weeknight': 'شب کاری',
+  'onboarding.web.time.sub.weekend': 'آخر هفته',
+  'onboarding.web.time.noLimit.subtitle': 'وقت دارم',
+  'onboarding.web.time.noLimit.title': 'بدون محدودیت',
+
+  // Recipe hero meta strip labels
+  'recipeMeta.prep': 'آماده‌سازی',
+  'recipeMeta.cook': 'پخت',
+  'recipeMeta.total': 'مجموع',
+  'recipeMeta.difficulty': 'دشواری',
+  'recipeMeta.minutesShort': '{minutes} دقیقه',
 };
 
 export default faAF;

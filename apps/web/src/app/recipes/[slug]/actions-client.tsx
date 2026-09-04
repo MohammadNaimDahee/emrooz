@@ -5,6 +5,7 @@ import { scaleIngredients, toIsoDate } from '@emrooz/core';
 import type { RecipeIngredient } from '@emrooz/types';
 import { getData } from '../../../lib/data';
 import { useGuestId } from '../../../lib/guest';
+import { useTranslator } from '../../../lib/i18n-client';
 
 export function RecipeActions(props: {
   recipeId: string;
@@ -14,6 +15,7 @@ export function RecipeActions(props: {
   ingredients: RecipeIngredient[];
   ingredientNames: Record<string, string>;
 }) {
+  const { t } = useTranslator();
   const data = getData();
   const userId = useGuestId();
   const client = useQueryClient();
@@ -124,10 +126,10 @@ export function RecipeActions(props: {
 
   async function shareRecipe() {
     const url = typeof window !== 'undefined' ? window.location.href : '';
-    const text = `${props.title} — via Emrooz`;
+    const message = t('recipe.share.message', { title: props.title, slug: props.slug });
     if (typeof navigator !== 'undefined' && 'share' in navigator) {
       try {
-        await navigator.share({ title: props.title, text, url });
+        await navigator.share({ title: props.title, text: message, url });
       } catch {
         // User cancelled — nothing to do.
       }
@@ -136,22 +138,22 @@ export function RecipeActions(props: {
       (navigator as Navigator & { clipboard?: Clipboard }).clipboard
     ) {
       await (navigator as Navigator & { clipboard: Clipboard }).clipboard.writeText(url);
-      alert('Link copied to clipboard.');
+      alert(t('recipe.share.linkCopied'));
     }
   }
 
   return (
     <section className="mt-6 card p-6 md:p-8 print:hidden">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h2 className="font-display text-2xl text-ink-900">Ingredients</h2>
+        <h2 className="font-display text-2xl text-ink-900">{t('recipe.ingredients')}</h2>
         <div className="flex items-center gap-3">
-          <label htmlFor="servings" className="text-sm text-ink-500">Servings</label>
+          <label htmlFor="servings" className="text-sm text-ink-500">{t('recipe.servings')}</label>
           <div className="inline-flex items-center rounded-pill border border-ink-100 bg-white">
             <button
               type="button"
               onClick={() => setServings(Math.max(1, servings - 1))}
               className="w-9 h-9 leading-none text-lg text-ink-500 hover:text-emerald-700 focus-ring rounded-l-pill"
-              aria-label="Decrease servings"
+              aria-label={t('recipe.decreaseServings')}
             >
               −
             </button>
@@ -162,7 +164,7 @@ export function RecipeActions(props: {
               type="button"
               onClick={() => setServings(servings + 1)}
               className="w-9 h-9 leading-none text-lg text-ink-500 hover:text-emerald-700 focus-ring rounded-r-pill"
-              aria-label="Increase servings"
+              aria-label={t('recipe.increaseServings')}
             >
               +
             </button>
@@ -176,19 +178,19 @@ export function RecipeActions(props: {
           return (
             <li key={i} className="flex py-3 gap-4 items-baseline">
               <span className="w-28 text-ink-400 tabular-nums text-sm">
-                {ing.quantity ? `${ing.quantity} ${ing.unit ?? ''}`.trim() : 'to taste'}
+                {ing.quantity ? `${ing.quantity} ${ing.unit ?? ''}`.trim() : t('recipe.toTaste')}
               </span>
               <span className={`flex-1 ${inPantry ? 'text-ink-500' : 'text-ink-900'}`}>
                 {props.ingredientNames[ing.ingredientId] ?? ing.ingredientId}
               </span>
               {ing.optional ? (
-                <span className="text-xs text-ink-400 italic">optional</span>
+                <span className="text-xs text-ink-400 italic">{t('recipe.optionalLabel')}</span>
               ) : inPantry ? (
                 <span className="inline-flex items-center gap-1 text-xs text-emerald-700">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M5 12l4 4L20 6" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
-                  in pantry
+                  {t('recipe.pantryIndicator')}
                 </span>
               ) : null}
             </li>
@@ -207,11 +209,11 @@ export function RecipeActions(props: {
         >
           {addedToList ? (
             <>
-              <CheckIcon /> Added {missing.length} to your list
+              <CheckIcon /> {t('recipe.addedToList', { count: missing.length })}
             </>
           ) : (
             <>
-              <BasketIcon /> Add {missing.length} missing to shopping list
+              <BasketIcon /> {t('recipe.addMissingToList', { count: missing.length })}
             </>
           )}
         </button>
@@ -228,11 +230,11 @@ export function RecipeActions(props: {
         >
           {cookedAt ? (
             <>
-              <CheckIcon /> Logged
+              <CheckIcon /> {t('recipe.actions.logged')}
             </>
           ) : (
             <>
-              <ChefIcon /> I cooked this
+              <ChefIcon /> {t('recipe.iCookedThis.button')}
             </>
           )}
         </button>
@@ -246,25 +248,25 @@ export function RecipeActions(props: {
           aria-pressed={Boolean(favQ.data)}
         >
           <HeartIcon filled={Boolean(favQ.data)} />
-          {favQ.data ? 'Favorited' : 'Favorite'}
+          {favQ.data ? t('recipe.actions.favorited') : t('recipe.favorite')}
         </button>
         <button
           onClick={shareRecipe}
           className="inline-flex items-center gap-2 rounded-pill border border-ink-200 px-5 py-3 text-sm font-medium hover:border-emerald-700 hover:text-emerald-700 focus-ring transition"
         >
-          <ShareIcon /> Share
+          <ShareIcon /> {t('recipe.share')}
         </button>
         <button
           onClick={() => window.print()}
           className="inline-flex items-center gap-2 rounded-pill border border-ink-200 px-5 py-3 text-sm font-medium hover:border-emerald-700 hover:text-emerald-700 focus-ring transition"
         >
-          <PrintIcon /> Print
+          <PrintIcon /> {t('recipe.print')}
         </button>
         <button
           onClick={() => setShowReport(true)}
           className="ml-auto text-xs text-ink-400 hover:text-emerald-700 focus-ring underline"
         >
-          Report a problem
+          {t('recipe.reportProblem')}
         </button>
       </div>
 
@@ -277,15 +279,15 @@ export function RecipeActions(props: {
           onClick={(e) => e.target === e.currentTarget && setShowCookedModal(false)}
         >
           <div className="card p-6 max-w-md w-full">
-            <h3 className="font-display text-2xl text-ink-900">Log this cook</h3>
+            <h3 className="font-display text-2xl text-ink-900">{t('recipe.log.title')}</h3>
             <p className="text-ink-500 text-sm mt-2">
-              Adjustments? Notes for next time? (Optional, private to you.)
+              {t('recipe.log.noteHint2')}
             </p>
             <textarea
               value={note}
               onChange={(e) => setNote(e.target.value)}
               rows={3}
-              placeholder="Added extra garlic, cooked 5 min less…"
+              placeholder={t('recipe.log.notePlaceholder')}
               className="mt-3 w-full rounded-xl border border-ink-100 bg-white px-3 py-2 focus-ring"
             />
             <div className="mt-4 flex justify-end gap-2">
@@ -293,7 +295,7 @@ export function RecipeActions(props: {
                 onClick={() => setShowCookedModal(false)}
                 className="px-4 py-2 text-sm text-ink-500 hover:text-emerald-700 focus-ring rounded-lg"
               >
-                Cancel
+                {t('action.cancel')}
               </button>
               <button
                 onClick={async () => {
@@ -303,7 +305,7 @@ export function RecipeActions(props: {
                 }}
                 className="rounded-pill bg-emerald-700 text-cream-50 px-5 py-2 text-sm font-medium hover:bg-emerald-600 focus-ring"
               >
-                Save
+                {t('action.save')}
               </button>
             </div>
           </div>
@@ -319,34 +321,39 @@ export function RecipeActions(props: {
           onClick={(e) => e.target === e.currentTarget && setShowReport(false)}
         >
           <div className="card p-6 max-w-md w-full">
-            <h3 className="font-display text-2xl text-ink-900">Report a problem</h3>
+            <h3 className="font-display text-2xl text-ink-900">{t('recipe.reportProblem')}</h3>
             <p className="text-ink-500 text-sm mt-2">
-              Thanks for helping us keep recipes accurate. What's off?
+              {t('recipe.report.body')}
             </p>
             <div className="mt-4 flex flex-col gap-2">
-              {[
-                'Ingredient is wrong or missing',
-                'Instructions are unclear',
-                'Cooking time is off',
-                'Dietary tag is incorrect',
-                'Something else',
-              ].map((r) => (
-                <a
-                  key={r}
-                  href={`mailto:hello@emroozapp.com?subject=Report%3A%20${encodeURIComponent(props.slug)}&body=${encodeURIComponent(`Issue: ${r}\n\nRecipe: ${props.title}\nURL: ${typeof window !== 'undefined' ? window.location.href : ''}\n\nDetails:\n`)}`}
-                  className="block rounded-xl border border-ink-100 bg-white px-4 py-3 text-sm hover:border-emerald-700 hover:text-emerald-700 focus-ring"
-                  onClick={() => setShowReport(false)}
-                >
-                  {r}
-                </a>
-              ))}
+              {(
+                [
+                  'recipe.report.reason.ingredient',
+                  'recipe.report.reason.instructions',
+                  'recipe.report.reason.time',
+                  'recipe.report.reason.dietary',
+                  'recipe.report.reason.other',
+                ] as const
+              ).map((key) => {
+                const label = t(key);
+                return (
+                  <a
+                    key={key}
+                    href={`mailto:hello@emroozapp.com?subject=Report%3A%20${encodeURIComponent(props.slug)}&body=${encodeURIComponent(`Issue: ${label}\n\nRecipe: ${props.title}\nURL: ${typeof window !== 'undefined' ? window.location.href : ''}\n\nDetails:\n`)}`}
+                    className="block rounded-xl border border-ink-100 bg-white px-4 py-3 text-sm hover:border-emerald-700 hover:text-emerald-700 focus-ring"
+                    onClick={() => setShowReport(false)}
+                  >
+                    {label}
+                  </a>
+                );
+              })}
             </div>
             <div className="mt-4 flex justify-end">
               <button
                 onClick={() => setShowReport(false)}
                 className="px-4 py-2 text-sm text-ink-500 hover:text-emerald-700 focus-ring rounded-lg"
               >
-                Cancel
+                {t('action.cancel')}
               </button>
             </div>
           </div>

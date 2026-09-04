@@ -155,32 +155,37 @@ export default function TodayClient() {
             <p className="text-ink-500 mt-2 max-w-md mx-auto">{t('today.emptyState.subtitle')}</p>
           </div>
         )}
-        {q.data && q.data.length > 0 && (
+        {q.data && q.data.length > 0 && (() => {
+          // Pull the primary pick into a local so TS narrows the tuple access
+          // — indexing into q.data inline keeps its type as `T | undefined`.
+          const hero = q.data[0]!;
+          const rest = q.data.slice(1);
+          return (
           <>
             {/* Hero: today's single primary pick. Same visual weight as the
                 mobile app's Today hero card so users get a clear "one meal
                 per day" moment before browsing the alternatives. */}
             <HeroPick
-              slug={q.data[0].recipe.slug}
-              title={q.data[0].recipe.title.en}
-              mealType={q.data[0].recipe.mealTypes[0] ?? 'meal'}
-              totalMinutes={q.data[0].recipe.totalMinutes}
-              difficulty={q.data[0].recipe.difficulty}
-              reason={q.data[0].reason}
-              pantryMatch={q.data[0].breakdown.pantryMatch}
-              missing={q.data[0].missingIngredientIds.length}
-              dietaryTags={q.data[0].recipe.dietaryTags}
-              cuisineSeed={q.data[0].recipe.cuisineIds[0] ?? q.data[0].recipe.slug}
-              onFeedback={(kind) => sendFeedback.mutate({ recipeId: q.data![0].recipe.id, kind })}
+              slug={hero.recipe.slug}
+              title={hero.recipe.title.en}
+              mealType={hero.recipe.mealTypes[0] ?? 'meal'}
+              totalMinutes={hero.recipe.totalMinutes}
+              difficulty={hero.recipe.difficulty}
+              reason={hero.reason}
+              pantryMatch={hero.breakdown.pantryMatch}
+              missing={hero.missingIngredientIds.length}
+              dietaryTags={hero.recipe.dietaryTags}
+              cuisineSeed={hero.recipe.cuisineIds[0] ?? hero.recipe.slug}
+              onFeedback={(kind) => sendFeedback.mutate({ recipeId: hero.recipe.id, kind })}
             />
 
-            {q.data.length > 1 && (
+            {rest.length > 0 && (
               <div className="mt-8">
                 <h2 className="text-xs uppercase tracking-widest text-ink-400">
                   {t('today.web.orTryTheseTitle')}
                 </h2>
                 <div className="mt-3 space-y-3">
-                  {q.data.slice(1).map((rec, i) => (
+                  {rest.map((rec, i) => (
                     <SecondaryPick
                       key={rec.recipe.id}
                       index={i}
@@ -198,7 +203,8 @@ export default function TodayClient() {
               </div>
             )}
           </>
-        )}
+          );
+        })()}
       </div>
 
       <div className="mt-10 text-center text-xs text-ink-400">{t('demo.banner')}</div>
@@ -243,6 +249,7 @@ function HeroPick({
   cuisineSeed: string;
   onFeedback: (kind: FeedbackType) => void;
 }) {
+  const { t } = useTranslator();
   const [menuOpen, setMenuOpen] = useState(false);
   const [dismissed, setDismissed] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -269,7 +276,7 @@ function HeroPick({
           <div className="flex items-start justify-between gap-3">
             <div>
               <div className="text-xs uppercase tracking-widest text-ink-400">
-                Today's pick · {mealType}
+                {t('today.pick')} · {mealType}
               </div>
               <h2 className="font-display text-3xl md:text-4xl text-ink-900 mt-1 group-hover:text-emerald-700 transition leading-tight">
                 {title}
@@ -323,22 +330,25 @@ function HeroPick({
             className="absolute right-0 mt-2 w-56 rounded-xl bg-white shadow-pop border border-ink-100 p-1 z-10 text-sm"
           >
             <div className="px-3 py-2 text-xs text-ink-400 uppercase tracking-widest">
-              Adjust recommendation
+              {t('today.feedback.title')}
             </div>
-            {FEEDBACK_OPTIONS.map((opt) => (
-              <button
-                key={opt.kind}
-                onClick={() => {
-                  onFeedback(opt.kind);
-                  setMenuOpen(false);
-                  setDismissed(opt.label);
-                }}
-                className="block w-full text-left px-3 py-2 rounded-lg text-ink-700 hover:bg-emerald-50 hover:text-emerald-700 focus-ring"
-                role="menuitem"
-              >
-                {opt.label}
-              </button>
-            ))}
+            {FEEDBACK_OPTIONS.map((opt) => {
+              const label = t(`today.feedback.${opt.labelKey}` as never);
+              return (
+                <button
+                  key={opt.kind}
+                  onClick={() => {
+                    onFeedback(opt.kind);
+                    setMenuOpen(false);
+                    setDismissed(label);
+                  }}
+                  className="block w-full text-left px-3 py-2 rounded-lg text-ink-700 hover:bg-emerald-50 hover:text-emerald-700 focus-ring"
+                  role="menuitem"
+                >
+                  {label}
+                </button>
+              );
+            })}
           </div>
         )}
       </div>

@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
+import { getTranslator } from '../../lib/i18n-server';
 import SettingsClient from './settings-client';
 
-export const metadata: Metadata = { title: 'Settings', robots: { index: false } };
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getTranslator();
+  return { title: t('meta.settings.title'), robots: { index: false } };
+}
 
 export default function SettingsPage() {
   return <SettingsClient />;

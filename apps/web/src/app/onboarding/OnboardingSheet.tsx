@@ -1,7 +1,14 @@
 'use client';
 import { useEffect, useState } from 'react';
+import type { MessageKey } from '@emrooz/i18n';
 import type { Allergen, DietaryTag, Locale, UserPreferences } from '@emrooz/types';
 
+import { useTranslator } from '../../lib/i18n-client';
+
+type TFn = (key: MessageKey, params?: Record<string, string | number>) => string;
+
+// Cuisine labels stay in English seed data; when a matching en.ts key exists,
+// we render its translation, otherwise fall back to the seed label.
 const CUISINES: Array<[string, string]> = [
   ['cu_afghan', 'Afghan'],
   ['cu_italian', 'Italian'],
@@ -31,6 +38,18 @@ const ALLERGENS: Allergen[] = [
 
 const STEPS = ['Language', 'Cuisines', 'Household', 'Time', 'Diet', 'Allergies'] as const;
 
+function dietLabel(t: TFn, d: DietaryTag): string {
+  const key = `diet.${d}` as MessageKey;
+  const v = t(key);
+  return v === key ? d.replace('_', ' ') : v;
+}
+
+function allergenLabel(t: TFn, a: Allergen): string {
+  const key = `allergen.${a}` as MessageKey;
+  const v = t(key);
+  return v === key ? a.replace('_', ' ') : v;
+}
+
 export default function OnboardingSheet({
   userId,
   onSave,
@@ -38,6 +57,7 @@ export default function OnboardingSheet({
   userId: string;
   onSave: (prefs: UserPreferences) => void;
 }) {
+  const { t } = useTranslator();
   const [step, setStep] = useState(0);
   const [language, setLanguage] = useState<Locale>('en');
   const [cuisines, setCuisines] = useState<string[]>([]);
@@ -84,9 +104,9 @@ export default function OnboardingSheet({
         {/* Progress */}
         <div className="sticky top-0 z-10 bg-cream-50/95 backdrop-blur border-b border-ink-100/60 px-6 pt-5 pb-4">
           <div className="flex items-center justify-between text-xs uppercase tracking-widest text-ink-400">
-            <span>Getting to know you</span>
+            <span>{t('onboarding.web.eyebrow')}</span>
             <span>
-              {step + 1} of {STEPS.length}
+              {t('onboarding.web.progressOf', { current: step + 1, total: STEPS.length })}
             </span>
           </div>
           <div className="mt-2 h-1 rounded-full bg-ink-100 overflow-hidden">
@@ -96,9 +116,9 @@ export default function OnboardingSheet({
             />
           </div>
           <h2 id="onboarding-title" className="mt-4 font-display text-3xl text-ink-900 leading-tight">
-            {stepTitle(step)}
+            {stepTitle(t, step)}
           </h2>
-          <p className="text-ink-500 text-sm mt-1">{stepSubtitle(step)}</p>
+          <p className="text-ink-500 text-sm mt-1">{stepSubtitle(t, step)}</p>
         </div>
 
         <div className="px-6 py-6">
@@ -167,15 +187,21 @@ export default function OnboardingSheet({
                   key={m}
                   active={maxCookMinutes === m}
                   onClick={() => setMaxCookMinutes(m)}
-                  title={`${m} min`}
-                  subtitle={m <= 30 ? 'Quick' : m === 60 ? 'Weekend' : 'Weeknight'}
+                  title={t('recipeMeta.minutesShort', { minutes: m })}
+                  subtitle={
+                    m <= 30
+                      ? t('onboarding.web.time.sub.quick')
+                      : m === 60
+                        ? t('onboarding.web.time.sub.weekend')
+                        : t('onboarding.web.time.sub.weeknight')
+                  }
                 />
               ))}
               <ChoiceCard
                 active={maxCookMinutes === undefined}
                 onClick={() => setMaxCookMinutes(undefined)}
-                title="No limit"
-                subtitle="I've got time"
+                title={t('onboarding.web.time.noLimit.title')}
+                subtitle={t('onboarding.web.time.noLimit.subtitle')}
               />
             </div>
           )}
@@ -184,7 +210,7 @@ export default function OnboardingSheet({
             <div className="flex flex-wrap gap-2">
               {DIETS.map((d) => (
                 <ChipButton key={d} active={dietary.includes(d)} onClick={() => toggle(d, dietary, setDietary)}>
-                  {d.replace('_', ' ')}
+                  {dietLabel(t, d)}
                 </ChipButton>
               ))}
             </div>
@@ -193,13 +219,12 @@ export default function OnboardingSheet({
           {STEPS[step] === 'Allergies' && (
             <>
               <p className="text-sm text-ink-500 mb-3">
-                Emrooz treats allergies as a hard filter. Recipes we can't positively verify as safe
-                for you never appear.
+                {t('onboarding.web.allergiesHardFilter')}
               </p>
               <div className="flex flex-wrap gap-2">
                 {ALLERGENS.map((a) => (
                   <ChipButton key={a} active={allergens.includes(a)} onClick={() => toggle(a, allergens, setAllergens)}>
-                    {a.replace('_', ' ')}
+                    {allergenLabel(t, a)}
                   </ChipButton>
                 ))}
               </div>
@@ -212,7 +237,7 @@ export default function OnboardingSheet({
             onClick={() => (step === 0 ? finish() : setStep(step - 1))}
             className="text-sm text-ink-500 hover:text-emerald-700 focus-ring px-3 py-2 rounded-lg"
           >
-            {step === 0 ? 'Skip for now' : 'Back'}
+            {step === 0 ? t('onboarding.web.skipForNow') : t('action.back')}
           </button>
           <div className="flex items-center gap-2">
             {step < STEPS.length - 1 ? (
@@ -220,7 +245,7 @@ export default function OnboardingSheet({
                 onClick={() => setStep(step + 1)}
                 className="inline-flex items-center gap-2 rounded-pill bg-emerald-700 text-cream-50 px-6 py-3 text-sm font-medium hover:bg-emerald-600 focus-ring shadow-card"
               >
-                Continue
+                {t('onboarding.web.continue')}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -230,7 +255,7 @@ export default function OnboardingSheet({
                 onClick={finish}
                 className="inline-flex items-center gap-2 rounded-pill bg-saffron-500 text-ink-900 px-6 py-3 text-sm font-semibold hover:bg-saffron-400 focus-ring shadow-card"
               >
-                Let's cook
+                {t('onboarding.finish')}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -243,26 +268,28 @@ export default function OnboardingSheet({
   );
 }
 
-function stepTitle(i: number): string {
-  return [
-    'Choose your language',
-    'Which cuisines do you love?',
-    'How many at the table?',
-    'How much time do you have?',
-    'Any dietary preferences?',
-    'Any allergies?',
-  ][i]!;
+function stepTitle(t: TFn, i: number): string {
+  const keys: MessageKey[] = [
+    'onboarding.web.step.language.title',
+    'onboarding.web.step.cuisines.title',
+    'onboarding.web.step.household.title',
+    'onboarding.web.step.time.title',
+    'onboarding.web.step.diet.title',
+    'onboarding.web.step.allergies.title',
+  ];
+  return t(keys[i]!);
 }
 
-function stepSubtitle(i: number): string {
-  return [
-    'You can change this any time from settings.',
-    'Pick as many as you like. Emrooz will lean toward these — but never at the expense of variety.',
-    'This helps us scale ingredient quantities on recipes.',
-    "We won't suggest anything that doesn't fit your window.",
-    'Optional. Strict restrictions are enforced as hard filters.',
-    "These are hard filters — we'll never suggest anything that isn't safe for you.",
-  ][i]!;
+function stepSubtitle(t: TFn, i: number): string {
+  const keys: MessageKey[] = [
+    'onboarding.web.step.language.subtitle',
+    'onboarding.web.step.cuisines.subtitle',
+    'onboarding.web.step.household.subtitle',
+    'onboarding.web.step.time.subtitle',
+    'onboarding.web.step.diet.subtitle',
+    'onboarding.web.step.allergies.subtitle',
+  ];
+  return t(keys[i]!);
 }
 
 function ChoiceCard({

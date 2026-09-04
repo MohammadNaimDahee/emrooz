@@ -260,6 +260,28 @@ Requirements:
 
 Draft translations may be included but must be easy to review. Mark translations that require native-speaker verification.
 
+### 10.1 Ongoing translation discipline — for every session and every PR
+
+Localization is a **shipping requirement**, not a follow-up task. Every session that touches the product must uphold the invariant that every user-facing string in mobile and web is served through the translator in all four locales. Never leave translation as "somebody's problem later" — the codebase drifts fast and the copy pass gets exponentially more expensive when deferred.
+
+Concrete rules that apply to every session:
+
+- Never write a new user-facing English literal into a `Text`, JSX child, `placeholder`, `aria-label`, `Alert.alert`, action-sheet title, `Modal` heading, share-message, or empty-state string. Route it through the translator first.
+- The English dictionary at `packages/i18n/src/translations/en.ts` is the source of truth. Add the key there before you add the `t('…')` call in the component.
+- Add the same key with a draft translation to `de.ts`, `fa-AF.ts`, and `ps.ts` in the **same commit** or PR. Do not merge a state where en.ts has a key that the other three locales are missing — that silently ships English strings to non-English users because of the fallback in `packages/i18n/src/index.ts`.
+- When you draft translations you can't personally verify (Dari and Pashto especially), keep the string sensible and add a comment at the top of the affected file listing the flagged term so a native reviewer can find it. The `DRAFT_LOCALES` export in `packages/i18n/src/index.ts` already marks `de`, `fa-AF`, `ps` as needing review — do not remove that flag until a native speaker signs off.
+- Preserve `{placeholder}` tokens verbatim across all four files. Every language must expand the same set of parameters.
+- Ordinary chip/tag labels for dietary tags, allergens, cuisines, meal types, difficulty levels, planner slot names, pantry categories, and weekdays live under stable key prefixes (`diet.*`, `allergen.*`, `discover.mealType.*`, `recipe.difficulty.*`, `planner.slot.*`, `planner.day.*`, `pantry.category.*`). Reuse those; never re-invent them per-screen.
+- Do not translate strings the user never sees: log messages, `testID`, `style` names, query-key strings, technical identifiers like `application/json`. Localize prose, not internals.
+- RTL: when a component uses directional icons (chevrons, back arrows) or fixed-position ornaments, mirror them for RTL locales. Use `direction` from the translator hook to decide.
+- Discover new missing translations proactively. Before wrapping up a session, grep the changed files for hard-coded English literals in JSX/Text positions and route any survivors through the translator.
+- When you add a new screen, section, or component, its default acceptance criterion includes: "reads correctly in all four locales, in both LTR and RTL layouts." Screenshots or a rendered check in at least one non-English locale are worth the minute they cost.
+- Recipe content (title, description, steps, ingredients) is a separate concern from UI copy. Recipe translations live in `recipe_translations` / `recipe_step_translations` in the database (per §35). Do not pack recipe copy into the UI translation dictionary — but do route the UI chrome around it.
+
+Session hand-off note: if a session cannot complete translations for a new screen (blocked, out of context, out of scope), it must leave behind the English keys plus a matching TODO row in the other three locale files (e.g. the English value with a `// TODO(fa-AF)` comment) so the next session can pick them up immediately.
+
+Localization drift is a bug. Treat it like one.
+
 ## 11. Authentication and guest mode
 
 Support:

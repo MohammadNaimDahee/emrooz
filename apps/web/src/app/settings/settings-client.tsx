@@ -5,12 +5,29 @@ import { useEffect, useState } from 'react';
 
 import type { Allergen, DietaryTag, Locale, UserPreferences } from '@emrooz/types';
 
+import type { MessageKey } from '@emrooz/i18n';
+
 import { useAuthActions } from '../../lib/auth';
 import { getData } from '../../lib/data';
 import { useGuestId } from '../../lib/guest';
+import { useTranslator } from '../../lib/i18n-client';
 import { usePreferences } from '../../lib/prefs-client';
 import { useSupabaseSession } from '../../lib/session';
 import { getBrowserSupabase } from '../../lib/supabase-browser';
+
+type TFn = (key: MessageKey, params?: Record<string, string | number>) => string;
+
+function dietLabel(t: TFn, d: DietaryTag): string {
+  const key = `diet.${d}` as MessageKey;
+  const value = t(key);
+  return value === key ? d.replace('_', ' ') : value;
+}
+
+function allergenLabel(t: TFn, a: Allergen): string {
+  const key = `allergen.${a}` as MessageKey;
+  const value = t(key);
+  return value === key ? a.replace('_', ' ') : value;
+}
 
 const LANGS: { code: Locale; label: string; dir: 'ltr' | 'rtl' }[] = [
   { code: 'en', label: 'English', dir: 'ltr' },
@@ -22,6 +39,7 @@ const DIETS: DietaryTag[] = ['vegetarian', 'vegan', 'pescatarian', 'halal', 'kos
 const ALLERGENS: Allergen[] = ['gluten', 'dairy', 'egg', 'peanut', 'tree_nut', 'soy', 'sesame', 'fish', 'shellfish'];
 
 export default function SettingsClient() {
+  const { t } = useTranslator();
   const data = getData();
   const userId = useGuestId();
   const { prefs, save } = usePreferences(userId);
@@ -92,7 +110,7 @@ export default function SettingsClient() {
       // caller's own RLS-scoped session.
       const res = await fetch('/api/account/export', { credentials: 'include' });
       if (!res.ok) {
-        alert(`Export failed (${res.status}). Please try again.`);
+        alert(t('settings.exportFailed.alert', { status: res.status }));
         return;
       }
       const blob = await res.blob();
@@ -144,9 +162,7 @@ export default function SettingsClient() {
     if (!userId) return;
 
     if (session.supabaseEnabled) {
-      const typed = prompt(
-        'This permanently removes your account and everything in it (pantry, favorites, history, planner, shopping list, feedback, preferences).\n\nType DELETE to confirm.',
-      );
+      const typed = prompt(t('settings.delete.promptBody'));
       if (typed !== 'DELETE') return;
       const res = await fetch('/api/account/delete', {
         method: 'POST',
@@ -156,7 +172,7 @@ export default function SettingsClient() {
       });
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
-        alert(`Delete failed: ${body.error ?? res.status}`);
+        alert(t('settings.delete.failed.alert', { error: String(body.error ?? res.status) }));
         return;
       }
       localStorage.removeItem('emrooz.guestId');
@@ -167,7 +183,7 @@ export default function SettingsClient() {
     }
 
     // Demo mode: local reset.
-    if (!confirm('Delete all local data? This clears your guest identity, pantry, favorites, history, feedback, planner, and shopping list. This cannot be undone.')) return;
+    if (!confirm(t('settings.delete.demoConfirm'))) return;
     await data.pantry.clear(userId);
     await data.shoppingList.clear(userId);
     for (const h of await data.history.list(userId)) await data.history.remove(userId, h.id);
@@ -182,17 +198,17 @@ export default function SettingsClient() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 pt-10 pb-16">
-      <div className="text-xs uppercase tracking-widest text-ink-400">Preferences</div>
-      <h1 className="font-display text-4xl md:text-5xl text-ink-900 mt-1">Settings</h1>
+      <div className="text-xs uppercase tracking-widest text-ink-400">{t('settings.eyebrow.preferences')}</div>
+      <h1 className="font-display text-4xl md:text-5xl text-ink-900 mt-1">{t('settings.title')}</h1>
 
       <div className="mt-8 space-y-6">
         {session.supabaseEnabled && (
           <Section
-            title="Account"
+            title={t('settings.account.title')}
             hint={
               accountEmail
-                ? 'Signed in. Your data syncs across every device you use.'
-                : "You're a guest. Create an account to sync your pantry, favorites, and history."
+                ? t('settings.account.signedInHint2')
+                : t('settings.account.guestHint2')
             }
           >
             {accountEmail ? (
@@ -202,7 +218,7 @@ export default function SettingsClient() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="font-medium text-ink-900 truncate">{accountEmail}</div>
-                  <div className="text-xs text-ink-500">Signed in</div>
+                  <div className="text-xs text-ink-500">{t('settings.account.signedInBadge')}</div>
                 </div>
                 <button
                   onClick={async () => {
@@ -211,7 +227,7 @@ export default function SettingsClient() {
                   }}
                   className="rounded-pill border border-ink-200 px-4 py-2 text-sm hover:border-emerald-700 hover:text-emerald-700 focus-ring"
                 >
-                  Sign out
+                  {t('action.signOut')}
                 </button>
               </div>
             ) : (
@@ -220,30 +236,45 @@ export default function SettingsClient() {
                   href="/auth/sign-in"
                   className="rounded-pill bg-emerald-700 text-cream-50 px-4 py-2 text-sm font-medium hover:bg-emerald-600 focus-ring shadow-card"
                 >
-                  Sign in
+                  {t('action.signIn')}
                 </Link>
                 <Link
                   href="/auth/sign-up"
                   className="rounded-pill border border-ink-200 px-4 py-2 text-sm hover:border-emerald-700 hover:text-emerald-700 focus-ring"
                 >
-                  Create account
+                  {t('action.signUp')}
                 </Link>
               </div>
             )}
           </Section>
         )}
 
-        <Section title="Language" hint="Right-to-left languages flip the UI direction.">
+        <Section title={t('settings.language')} hint={t('settings.hint.language')}>
           <div className="flex flex-wrap gap-2">
             {LANGS.map((l) => (
-              <Chip key={l.code} active={language === l.code} onClick={() => setLanguage(l.code)}>
+              <Chip
+                key={l.code}
+                active={language === l.code}
+                onClick={() => {
+                  setLanguage(l.code);
+                  // Persist to the cookie the server layout reads, then
+                  // refresh so <html lang dir> and every server-rendered
+                  // string swap to the new locale immediately. Without
+                  // this, the language selection only takes effect on the
+                  // next save + full navigation, which reads as "the
+                  // selector does nothing".
+                  const oneYear = 60 * 60 * 24 * 365;
+                  document.cookie = `emrooz-locale=${l.code}; path=/; max-age=${oneYear}; SameSite=Lax`;
+                  router.refresh();
+                }}
+              >
                 <span dir={l.dir}>{l.label}</span>
               </Chip>
             ))}
           </div>
         </Section>
 
-        <Section title="Household size" hint="We scale ingredient quantities to your table.">
+        <Section title={t('settings.household.title')} hint={t('settings.hint.household')}>
           <div className="flex items-center gap-3">
             <input
               type="number"
@@ -253,46 +284,48 @@ export default function SettingsClient() {
               onChange={(e) => setHousehold(Math.max(1, Number(e.target.value) || 1))}
               className="w-20 rounded-md border border-ink-100 px-3 py-2 tabular-nums focus-ring"
             />
-            <span className="text-ink-500 text-sm">{household === 1 ? 'person' : 'people'}</span>
+            <span className="text-ink-500 text-sm">
+              {household === 1 ? t('settings.household.person') : t('settings.household.people')}
+            </span>
           </div>
         </Section>
 
-        <Section title="Time you usually have" hint="We won't suggest anything outside this window.">
+        <Section title={t('settings.time.title')} hint={t('settings.hint.time')}>
           <div className="flex flex-wrap gap-2">
             {[20, 30, 45, 60].map((m) => (
               <Chip key={m} active={maxCookMinutes === m} onClick={() => setMaxCookMinutes(m)}>
-                {m} min
+                {t('settings.time.minutes', { minutes: m })}
               </Chip>
             ))}
             <Chip active={maxCookMinutes === undefined} onClick={() => setMaxCookMinutes(undefined)}>
-              No limit
+              {t('settings.time.noLimitShort')}
             </Chip>
           </div>
         </Section>
 
-        <Section title="Dietary preferences" hint="Strict restrictions are enforced as hard filters.">
+        <Section title={t('settings.diet')} hint={t('settings.hint.diet')}>
           <div className="flex flex-wrap gap-2">
             {DIETS.map((d) => (
               <Chip key={d} active={diets.includes(d)} onClick={() => toggle(d, diets, setDiets)}>
-                {d.replace('_', ' ')}
+                {dietLabel(t, d)}
               </Chip>
             ))}
           </div>
         </Section>
 
-        <Section title="Allergies" hint="Recipes we can't positively verify as safe for you never appear.">
+        <Section title={t('settings.allergies')} hint={t('settings.hint.allergies')}>
           <div className="flex flex-wrap gap-2">
             {ALLERGENS.map((a) => (
               <Chip key={a} active={allergens.includes(a)} onClick={() => toggle(a, allergens, setAllergens)}>
-                {a.replace('_', ' ')}
+                {allergenLabel(t, a)}
               </Chip>
             ))}
           </div>
         </Section>
 
         <Section
-          title="Daily reminder"
-          hint={"“Not sure what to cook? Emrooz has today’s ideas ready.”"}
+          title={t('settings.reminders')}
+          hint={t('settings.reminder.quote')}
         >
           <div className="flex flex-wrap items-center gap-3">
             <label className="inline-flex items-center gap-2 cursor-pointer">
@@ -302,7 +335,7 @@ export default function SettingsClient() {
                 onChange={(e) => setReminderOn(e.target.checked)}
                 className="w-4 h-4 accent-emerald-700"
               />
-              Enable reminder
+              {t('settings.reminder.enableLabel')}
             </label>
             <input
               type="time"
@@ -312,7 +345,7 @@ export default function SettingsClient() {
               className="rounded-md border border-ink-100 px-3 py-2 tabular-nums focus-ring disabled:opacity-50"
             />
             <span className="text-xs text-ink-400">
-              Local notifications are delivered by the mobile app on your device.
+              {t('settings.reminder.localHint')}
             </span>
           </div>
         </Section>
@@ -322,24 +355,24 @@ export default function SettingsClient() {
             onClick={apply}
             className="rounded-pill bg-emerald-700 text-cream-50 px-5 py-3 text-sm font-medium hover:bg-emerald-600 focus-ring shadow-card"
           >
-            Save changes
+            {t('settings.save')}
           </button>
-          {saved && <span className="text-sm text-emerald-700">Saved.</span>}
+          {saved && <span className="text-sm text-emerald-700">{t('settings.saved.short')}</span>}
         </div>
 
-        <Section title="Your data" hint="Export a JSON snapshot or delete everything stored locally.">
+        <Section title={t('settings.data.title')} hint={t('settings.hint.data')}>
           <div className="flex flex-wrap gap-3">
             <button
               onClick={exportData}
               className="rounded-pill border border-ink-200 px-4 py-2 text-sm hover:border-emerald-700 hover:text-emerald-700 focus-ring"
             >
-              Export my data
+              {t('settings.data.export')}
             </button>
             <button
               onClick={deleteAccount}
               className="rounded-pill border border-rose-400/40 text-rose-400 px-4 py-2 text-sm hover:bg-rose-400/10 focus-ring"
             >
-              Delete my data
+              {t('settings.deleteData')}
             </button>
           </div>
         </Section>
@@ -381,7 +414,7 @@ function Chip({
     <button
       onClick={onClick}
       aria-pressed={active}
-      className={`rounded-pill border px-3 py-1.5 text-sm capitalize focus-ring transition ${
+      className={`rounded-pill border px-3 py-1.5 text-sm focus-ring transition ${
         active
           ? 'bg-emerald-700 text-cream-50 border-emerald-700'
           : 'bg-white text-ink-700 border-ink-100 hover:border-emerald-700 hover:text-emerald-700'

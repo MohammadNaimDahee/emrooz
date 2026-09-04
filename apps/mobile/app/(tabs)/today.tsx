@@ -179,7 +179,7 @@ export default function TodayScreen() {
           <View style={styles.headerRow}>
             <Text style={styles.greeting}>{t(greetingKey as never)}</Text>
             <Pressable
-              onPress={() => router.push('/settings')}
+              onPress={() => router.push(profile?.email ? '/settings' : '/auth/sign-in')}
               accessibilityRole="button"
               accessibilityLabel={t(profile?.email ? 'today.accountAndSettings' : 'today.signInOrGuest')}
               hitSlop={12}

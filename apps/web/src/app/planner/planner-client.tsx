@@ -4,17 +4,36 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
 
 import { addDays, missingIngredientsFor, startOfWeek, toIsoDate } from '@emrooz/core';
+import type { MessageKey } from '@emrooz/i18n';
 import type { MealPlanEntry, Recipe, RecipeSummary } from '@emrooz/types';
 
 import { getData } from '../../lib/data';
 import { useGuestId } from '../../lib/guest';
+import { useTranslator } from '../../lib/i18n-client';
 import { CuisineArt } from '../../components/CuisineArt';
 
 const MEALS = ['breakfast', 'lunch', 'dinner'] as const;
 type Meal = (typeof MEALS)[number];
-const DAY_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const DAY_KEYS: MessageKey[] = [
+  'planner.day.mon',
+  'planner.day.tue',
+  'planner.day.wed',
+  'planner.day.thu',
+  'planner.day.fri',
+  'planner.day.sat',
+  'planner.day.sun',
+];
+
+type TFn = (key: MessageKey, params?: Record<string, string | number>) => string;
+
+const MEAL_KEY: Record<Meal, MessageKey> = {
+  breakfast: 'planner.slot.breakfast',
+  lunch: 'planner.slot.lunch',
+  dinner: 'planner.slot.dinner',
+};
 
 export default function PlannerClient() {
+  const { t } = useTranslator();
   const data = getData();
   const userId = useGuestId();
   const client = useQueryClient();
@@ -123,26 +142,26 @@ export default function PlannerClient() {
     <div className="mx-auto max-w-6xl px-4 pt-10 pb-16">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <div>
-          <div className="text-xs uppercase tracking-widest text-ink-400">Plan the week</div>
-          <h1 className="font-display text-4xl md:text-5xl text-ink-900 mt-1">Planner</h1>
+          <div className="text-xs uppercase tracking-widest text-ink-400">{t('planner.eyebrow')}</div>
+          <h1 className="font-display text-4xl md:text-5xl text-ink-900 mt-1">{t('planner.title')}</h1>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={() => setWeekStart(addDays(weekStart, -7))}
             className="rounded-pill border border-ink-200 bg-white px-3 py-1.5 hover:border-emerald-700 focus-ring"
-            aria-label="Previous week"
+            aria-label={t('planner.prevWeek')}
           >
-            ← Prev
+            {t('planner.prev')}
           </button>
           <div className="text-sm text-ink-500 tabular-nums">
-            {weekStart} → {weekEnd}
+            {t('planner.weekRange', { start: weekStart, end: weekEnd })}
           </div>
           <button
             onClick={() => setWeekStart(addDays(weekStart, 7))}
             className="rounded-pill border border-ink-200 bg-white px-3 py-1.5 hover:border-emerald-700 focus-ring"
-            aria-label="Next week"
+            aria-label={t('planner.nextWeek')}
           >
-            Next →
+            {t('planner.next')}
           </button>
         </div>
       </div>
@@ -153,17 +172,19 @@ export default function PlannerClient() {
           disabled={!entriesQ.data?.length}
           className="inline-flex items-center gap-2 rounded-pill bg-emerald-700 text-cream-50 px-4 py-2 text-sm font-medium hover:bg-emerald-600 focus-ring shadow-card disabled:opacity-40"
         >
-          Add week's missing to shopping list
+          {t('planner.addWeekMissing')}
         </button>
         <Link
           href="/shopping-list"
           className="text-sm text-emerald-700 hover:underline focus-ring"
         >
-          View shopping list →
+          {t('planner.viewShoppingList')}
         </Link>
         {addedToList !== null && (
           <div role="status" className="text-sm text-emerald-700">
-            Added {addedToList} {addedToList === 1 ? 'item' : 'items'} to your list.
+            {addedToList === 1
+              ? t('planner.addedToList.one', { count: addedToList })
+              : t('planner.addedToList.many', { count: addedToList })}
           </div>
         )}
       </div>
@@ -174,7 +195,7 @@ export default function PlannerClient() {
           <div />
           {days.map((d, i) => (
             <div key={d} className="text-center">
-              <div className="text-xs text-ink-400 uppercase tracking-widest">{DAY_LABELS[i]}</div>
+              <div className="text-xs text-ink-400 uppercase tracking-widest">{t(DAY_KEYS[i]!)}</div>
               <div className="text-sm font-medium text-ink-700 tabular-nums mt-0.5">{d.slice(5)}</div>
             </div>
           ))}
@@ -227,9 +248,11 @@ function MealRow({
   onOpenPicker: (date: string) => void;
   onClear: (entryId: string) => void;
 }) {
+  const { t } = useTranslator();
+  const mealLabel = t(MEAL_KEY[meal]);
   return (
     <>
-      <div className="self-center text-sm font-medium text-ink-700 capitalize">{meal}</div>
+      <div className="self-center text-sm font-medium text-ink-700">{mealLabel}</div>
       {days.map((d) => {
         const entry = entriesBySlot.get(`${d}::${meal}`);
         const recipe = entry ? recipesById.get(entry.recipeId) : undefined;
@@ -239,7 +262,7 @@ function MealRow({
               key={d}
               onClick={() => onOpenPicker(d)}
               className="h-24 rounded-2xl border border-dashed border-ink-100 bg-white grid place-items-center text-ink-300 hover:border-emerald-700 hover:text-emerald-700 focus-ring transition"
-              aria-label={`Add ${meal} on ${d}`}
+              aria-label={t('planner.slot.addLabel', { meal: mealLabel, date: d })}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
@@ -252,7 +275,7 @@ function MealRow({
             <CuisineArt seed={recipe.cuisineIds[0] ?? recipe.slug} size="sm" className="h-full rounded-none" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
             <div className="absolute inset-0 p-2 flex flex-col justify-end">
-              <div className="text-[10px] uppercase tracking-widest text-white/70">{meal}</div>
+              <div className="text-[10px] uppercase tracking-widest text-white/70">{mealLabel}</div>
               <div className="text-white text-xs leading-tight font-medium line-clamp-2">
                 {recipe.title.en}
               </div>
@@ -261,8 +284,8 @@ function MealRow({
               <button
                 onClick={() => onOpenPicker(d)}
                 className="ml-auto grid place-items-center w-6 h-6 rounded-full bg-white/90 text-ink-700 hover:text-emerald-700 focus-ring"
-                aria-label="Replace"
-                title="Replace"
+                aria-label={t('planner.replace')}
+                title={t('planner.replace')}
               >
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M4 8h11a5 5 0 010 10h-2M8 4L4 8l4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
@@ -271,8 +294,8 @@ function MealRow({
               <button
                 onClick={() => onClear(entry.id)}
                 className="grid place-items-center w-6 h-6 rounded-full bg-white/90 text-ink-700 hover:text-rose-400 focus-ring"
-                aria-label="Remove"
-                title="Remove"
+                aria-label={t('planner.remove')}
+                title={t('planner.remove')}
               >
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M6 6l12 12M6 18L18 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
@@ -299,6 +322,7 @@ function RecipePicker({
   onCancel: () => void;
   onPick: (recipeId: string) => void;
 }) {
+  const { t } = useTranslator();
   const [q, setQ] = useState('');
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
@@ -326,20 +350,22 @@ function RecipePicker({
       <div className="card w-full max-w-2xl max-h-[85vh] flex flex-col">
         <div className="px-6 pt-5 pb-3 border-b border-ink-100">
           <div className="flex justify-between items-baseline">
-            <h2 className="font-display text-2xl text-ink-900 capitalize">Pick a recipe · {meal}</h2>
+            <h2 className="font-display text-2xl text-ink-900">
+              {t('planner.picker.title', { meal: t(MEAL_KEY[meal]) })}
+            </h2>
             <div className="text-sm text-ink-500 tabular-nums">{date}</div>
           </div>
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Search"
+            placeholder={t('planner.picker.searchPlaceholder')}
             className="mt-3 w-full rounded-pill border border-ink-100 bg-white px-4 py-2 focus-ring"
             autoFocus
           />
         </div>
         <div className="overflow-y-auto p-4">
           {filtered.length === 0 ? (
-            <p className="text-ink-500 text-center py-8">Nothing matches.</p>
+            <p className="text-ink-500 text-center py-8">{t('planner.picker.empty')}</p>
           ) : (
             <ul className="grid gap-2 sm:grid-cols-2">
               {filtered.slice(0, 60).map((r) => (
@@ -355,7 +381,12 @@ function RecipePicker({
                     />
                     <div>
                       <div className="font-medium text-ink-900 line-clamp-1">{r.title.en}</div>
-                      <div className="text-xs text-ink-500">{r.totalMinutes} min · {r.difficulty}</div>
+                      <div className="text-xs text-ink-500">
+                        {t('planner.picker.itemSubtitle', {
+                          minutes: r.totalMinutes,
+                          difficulty: translateDifficultyPlanner(t, r.difficulty),
+                        })}
+                      </div>
                     </div>
                   </button>
                 </li>
@@ -365,10 +396,16 @@ function RecipePicker({
         </div>
         <div className="p-3 border-t border-ink-100 flex justify-end">
           <button onClick={onCancel} className="text-sm text-ink-500 px-3 py-2 hover:text-emerald-700 focus-ring rounded-lg">
-            Cancel
+            {t('action.cancel')}
           </button>
         </div>
       </div>
     </div>
   );
+}
+
+function translateDifficultyPlanner(t: TFn, d: string): string {
+  const key = `recipe.difficulty.${d}` as MessageKey;
+  const value = t(key);
+  return value === key ? d : value;
 }

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getData } from '../../../lib/data';
+import { getTranslator } from '../../../lib/i18n-server';
 import { RecipeActions } from './actions-client';
 import { CuisineArt } from '../../../components/CuisineArt';
 import { scaleIngredients } from '@emrooz/core';
@@ -12,11 +13,12 @@ interface Params {
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { slug } = await params;
+  const { t } = await getTranslator();
   const recipe = await getData().recipes.findBySlug(slug);
-  if (!recipe) return { title: 'Recipe not found' };
+  if (!recipe) return { title: t('meta.recipe.notFound') };
   return {
     title: recipe.title.en,
-    description: recipe.description?.en ?? `Recipe: ${recipe.title.en}`,
+    description: recipe.description?.en ?? t('meta.recipe.descFallback', { title: recipe.title.en }),
     openGraph: {
       title: recipe.title.en,
       description: recipe.description?.en,
@@ -27,6 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 
 export default async function RecipePage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
+  const { t } = await getTranslator();
   const data = getData();
   const recipe = await data.recipes.findBySlug(slug);
   if (!recipe) notFound();
@@ -107,10 +110,31 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
       <div className="mx-auto max-w-3xl px-4 -mt-2">
         {/* Meta strip */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 print:hidden">
-          <Meta icon="clock" label="Prep" value={`${recipe.prepMinutes} min`} />
-          <Meta icon="flame" label="Cook" value={`${recipe.cookMinutes} min`} />
-          <Meta icon="sum" label="Total" value={`${recipe.totalMinutes} min`} />
-          <Meta icon="chef" label="Difficulty" value={recipe.difficulty} capitalize />
+          <Meta
+            icon="clock"
+            label={t('recipe.prepTime')}
+            value={t('recipeMeta.minutesShort', { minutes: recipe.prepMinutes })}
+          />
+          <Meta
+            icon="flame"
+            label={t('recipe.cookTime')}
+            value={t('recipeMeta.minutesShort', { minutes: recipe.cookMinutes })}
+          />
+          <Meta
+            icon="sum"
+            label={t('recipe.totalTime')}
+            value={t('recipeMeta.minutesShort', { minutes: recipe.totalMinutes })}
+          />
+          <Meta
+            icon="chef"
+            label={t('recipe.difficulty')}
+            value={
+              t(`recipe.difficulty.${recipe.difficulty}` as
+                | 'recipe.difficulty.easy'
+                | 'recipe.difficulty.medium'
+                | 'recipe.difficulty.hard')
+            }
+          />
         </div>
 
         <RecipeActions
@@ -125,7 +149,7 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
         />
 
         <section className="mt-8 card p-6 md:p-8">
-          <h2 className="font-display text-2xl text-ink-900">Method</h2>
+          <h2 className="font-display text-2xl text-ink-900">{t('recipe.method')}</h2>
           <ol className="mt-4 space-y-4">
             {recipe.steps.map((s) => (
               <li key={s.order} className="flex gap-4">
@@ -140,21 +164,32 @@ export default async function RecipePage({ params }: { params: Promise<Params> }
 
         {recipe.dietaryTags.length > 0 && (
           <section className="mt-6 flex flex-wrap gap-2 print:hidden">
-            {recipe.dietaryTags.map((t) => (
-              <span key={t} className="rounded-pill bg-emerald-50 text-emerald-700 border border-emerald-100 px-3 py-1 text-xs font-medium">
-                {t.replace('_', ' ')}
-              </span>
-            ))}
-            {recipe.allergens.map((a) => (
-              <span key={a} className="rounded-pill bg-saffron-500/10 text-saffron-700 border border-saffron-500/20 px-3 py-1 text-xs font-medium">
-                contains {a.replace('_', ' ')}
-              </span>
-            ))}
+            {recipe.dietaryTags.map((tag) => {
+              const key = `diet.${tag}` as const;
+              const label = t(key as 'diet.vegetarian');
+              return (
+                <span key={tag} className="rounded-pill bg-emerald-50 text-emerald-700 border border-emerald-100 px-3 py-1 text-xs font-medium">
+                  {label === key ? tag.replace('_', ' ') : label}
+                </span>
+              );
+            })}
+            {recipe.allergens.map((a) => {
+              const key = `allergen.${a}` as const;
+              const label = t(key as 'allergen.peanut');
+              const display = label === key ? a.replace('_', ' ') : label;
+              return (
+                <span key={a} className="rounded-pill bg-saffron-500/10 text-saffron-700 border border-saffron-500/20 px-3 py-1 text-xs font-medium">
+                  {t('recipe.contains', { allergen: display })}
+                </span>
+              );
+            })}
           </section>
         )}
 
         {recipe.provenance.attributionText && (
-          <p className="text-xs text-ink-400 mt-8">Source: {recipe.provenance.attributionText}</p>
+          <p className="text-xs text-ink-400 mt-8">
+            {t('recipe.attribution', { source: recipe.provenance.attributionText })}
+          </p>
         )}
       </div>
     </article>

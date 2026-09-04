@@ -2,10 +2,23 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
 
+import type { MessageKey } from '@emrooz/i18n';
+
 import { getData } from '../../lib/data';
 import { useGuestId } from '../../lib/guest';
+import { useTranslator } from '../../lib/i18n-client';
+
+type TFn = (key: MessageKey, params?: Record<string, string | number>) => string;
+
+function translateCategory(t: TFn, category: string): string {
+  const key = `pantry.category.${category}` as MessageKey;
+  const value = t(key);
+  // If the key doesn't exist, `t` returns the key itself; fall back to the raw label.
+  return value === key ? category.replace('_', ' ') : value;
+}
 
 export default function PantryClient() {
+  const { t } = useTranslator();
   const data = getData();
   const userId = useGuestId();
   const client = useQueryClient();
@@ -54,11 +67,10 @@ export default function PantryClient() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 pt-10 pb-16">
-      <div className="text-xs uppercase tracking-widest text-ink-400">In your kitchen</div>
-      <h1 className="font-display text-4xl md:text-5xl text-ink-900 mt-1">Pantry</h1>
+      <div className="text-xs uppercase tracking-widest text-ink-400">{t('pantry.eyebrow')}</div>
+      <h1 className="font-display text-4xl md:text-5xl text-ink-900 mt-1">{t('pantry.title')}</h1>
       <p className="text-ink-500 mt-2 max-w-xl">
-        Tell Emrooz what you already have and we'll surface recipes that use it — or ones that need
-        just one or two more ingredients.
+        {t('pantry.subtitle.long')}
       </p>
 
       <div className="mt-6 relative">
@@ -69,14 +81,16 @@ export default function PantryClient() {
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Search ingredients — onion, olive oil, chickpea…"
+          placeholder={t('pantry.searchPlaceholder.long')}
           className="w-full rounded-pill border border-ink-100 bg-white pl-11 pr-5 py-3 text-base placeholder:text-ink-400 focus-ring shadow-card"
         />
       </div>
 
       {pantryIds.size > 0 && (
         <div className="mt-4 text-sm text-ink-500">
-          {pantryIds.size} {pantryIds.size === 1 ? 'ingredient' : 'ingredients'} in your pantry
+          {pantryIds.size === 1
+            ? t('pantry.count.one', { count: pantryIds.size })
+            : t('pantry.count.many', { count: pantryIds.size })}
         </div>
       )}
 
@@ -84,7 +98,7 @@ export default function PantryClient() {
         {grouped.map(([category, items]) => (
           <div key={category}>
             <h2 className="text-xs uppercase tracking-widest text-ink-400 mb-3">
-              {category.replace('_', ' ')}
+              {translateCategory(t, category)}
             </h2>
             <div className="flex flex-wrap gap-2">
               {(items ?? []).map((i) => {

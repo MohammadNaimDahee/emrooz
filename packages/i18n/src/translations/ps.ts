@@ -15,6 +15,19 @@
 //   - "eyebrow" (UI category label above a heading): rendered contextually (e.g., "لټون کړه", "پرانستل").
 //   - "reset link", "confirmation link", "verify inbox" flows: rendered literally; confirm.
 //   - Where a Dari/Persian loanword is more familiar to Afghan-Pashto speakers, it was preferred over a rare native word.
+// Second-pass additions (162 new keys for web extras):
+//   - meta.* (page titles): rendered concisely; confirm word choice vs. main-section titles.
+//   - 'cookies.title' / 'cookies.body': "cookies" rendered as loanword "کوکیز" — common in Afghan tech UX; confirm.
+//   - 'auth.working': rendered as "کار روان دی…"; confirm vs. "لطفاً انتظار…".
+//   - 'auth.signIn.methodLabel' ("Sign in method"): "د ننوتلو طریقه".
+//   - 'auth.resetPassword.expiredLink' ("forgot password"): rendered as inline link phrase "هېر شوی پاسورډ";
+//     the sentence 'auth.resetPassword.expiredIntro' ends with " له " so both pieces read together.
+//   - 'onboarding.web.eyebrow' ("Getting to know you"): "له تاسو سره پېژندنه"; may feel clinical, reviewer may soften.
+//   - 'recipeMeta.minutesShort' uses the placeholder {minutes} and full word "دقیقې"; the existing
+//     'recipe.minutesShort' uses {count} and the abbreviated "د" form. Different UI regions, keep both.
+//   - 'cuisines.slug.emptyPrefix' / 'browseOthers' / 'emptySuffix': three-token sentence; empties render as
+//     "موږ لا دا ټولګه چمتو کوو." + "نور خواړه وګوره" + "." — the middle token is the clickable link text.
+//   - Weekday-style short forms not needed here; nothing added.
 const ps = {
   // -- Brand ------------------------------------------------------------
   'app.name': 'Emrooz',
@@ -558,7 +571,7 @@ const ps = {
   'settings.household.title': 'د کورنۍ اندازه',
   'settings.time.title': 'هغه وخت چې معمولاً یې لرې',
   'settings.account.signedInHint': 'ننوتی — معلومات د وسیلو ترمنځ همغږې کیږي.',
-  'settings.account.signOut.body': 'هر وخت بیا ننوتلی شې.',
+  'settings.account.signOut.bodyShort': 'هر وخت بیا ننوتلی شې.',
   'settings.reminders.permissionHint': 'کله چې دا لومړی ځل فعال کړې، موږ به د خبرتیا اجازه وغواړو.',
   'settings.save': 'بدلونونه خوندي کړه',
   'settings.data.exportBtn': 'معلومات صادر کړه',
@@ -594,6 +607,56 @@ const ps = {
   'landing.footer.terms': 'شرایط',
   'landing.footer.imprint': 'خپرندوی',
   'landing.footer.contact': 'اړیکه',
+  'landing.footer.product': 'محصول',
+  'landing.footer.legal': 'قانوني',
+  'landing.footer.brandBody':
+    'یو شخصي د پخلي مرستیال چې د ورځنۍ پوښتنې ځواب ورکوي، د هغه څه سره سم چې لرې یې او خوښوې یې — د نړۍ له هرې خوا خواړو په اوږدو کې.',
+  'landing.footer.copyright': '© {year} {app}. {tagline}',
+
+  // -- Landing page (extended content) ---------------------------------
+  'landing.hero.headline.prefix': 'نن څه ',
+  'landing.hero.headline.emphasis': 'پخ',
+  'landing.hero.headline.suffix': ' کړم؟',
+  'landing.hero.body':
+    'درې سنجول شوي وړاندیزونه، د هغه څه سره سم چې ستا په پخلنځي کې دي، څومره وخت لرې، او څه خوښوې — د نړۍ له هرې خوا خواړو په اوږدو کې.',
+  'landing.hero.footnote': 'وړیا · حساب ته اړتیا نه ده · په ټیلیفون او وېب کار کوي',
+  'landing.hero.card.eyebrow': 'د ذخیرې خبرتیا',
+  'landing.hero.card.body': 'له هغه څه چې لرې کار اخلي.',
+  'landing.hero.recipeMinutes': '{minutes} دقیقې · {difficulty}',
+  'landing.features.pantry.longBody':
+    'Emrooz ته ووایه چې ستا په پخلنځي کې څه دي. موږ به داسې خواړه ښکاره کړو چې اوس یې پخولی شې — یا هغه چې یو دوه نور موادو ته اړتیا لري.',
+  'landing.features.time.longBody':
+    'د اونۍ د شپې ۲۰ دقیقې یا د یکشنبې آرامه پروژه؟ خپل وخت وټاکه او موږ به ټول وړاندیز سره برابر کړو.',
+  'landing.features.safe.longBody':
+    'حساسیتونه او خوراکي محدودیتونه سخت فلټرونه دي — هېڅکله اټکل نه کیږي. موږ یوازې هغه خواړه وړاندیز کوو چې کولی شو په مثبته توګه یې تایید کړو.',
+  'landing.cuisines.eyebrow': 'کشف',
+  'landing.cuisines.longBody':
+    'Emrooz له لومړۍ ورځې څخه یو نړیوال محصول دی — ایټالوي، جاپاني، مکسیکي، هندي، ترکي، ویتنامي، تای، فرانسوي، ایتوپیایي، او نور. هر ډول خواړه لومړی درجه غړی دی.',
+  'landing.cuisines.viewAll': 'ټول وګوره →',
+  'landing.popular.eyebrow': 'دا اونۍ مشهور',
+  'landing.popular.title': 'خلک څه پخوي',
+  'landing.popular.browseAll': 'ټول وګوره →',
+  'landing.afghan.eyebrow': 'یوه بېلګه ټولګه',
+  'landing.afghan.longTitle': 'افغاني خواړه، په ژوره توګه غوره شوي',
+  'landing.afghan.longBody':
+    'د زموږ د نړیوال پوښښ سره یوځای، موږ یوه په دقت کتل شوې افغاني ټولګه جوړه کړې ده — هغه ډول پوښښ چې د پخلي ډېری اپلیکېشنونه یې څنګ ته کوي. دا د ډېرو ټولګو په منځ کې یوه ټولګه ده، نه ټول اپلیکېشن.',
+  'landing.afghan.exploreCta': 'افغاني خواړه کشف کړه',
+  'landing.faq.eyebrow': 'ډېر پوښتل شوي',
+  'landing.faq.commonTitle': 'عمومي پوښتنې',
+  'landing.faq.guest2.q': 'آیا د Emrooz کارولو لپاره حساب جوړولو ته اړتیا لرم؟',
+  'landing.faq.guest2.a':
+    'نه. مېلمانه کولی شي وګوري، وړاندیزونه ترلاسه کړي، ذخیره وکاروي، خوښې کړي، پلان جوړ کړي، او پخ کړي. وروسته حساب جوړول د وسیلو ترمنځ هرڅه همغږي کوي.',
+  'landing.faq.allergies.q': 'تاسو حساسیتونه څنګه اداره کوئ؟',
+  'landing.faq.allergies.a':
+    'حساسیتونه سخت فلټرونه دي، نه غوره توبونه. که یو خوراک نه شي په مثبته توګه ستا لپاره خوندي تایید کیدلی، هېڅکله څرګند نه شي. موږ هېڅکله د خوندیتوب قواعد د ډېرو پایلو د تولید لپاره نه ورو کوو.',
+  'landing.faq.notAfghan.q': 'آیا Emrooz یوازې د افغاني خواړو اپلیکېشن دی؟',
+  'landing.faq.notAfghan.a':
+    'هېڅکله نه. Emrooz له لومړۍ ورځې څخه یو نړیوال اپلیکېشن دی. افغاني خواړه زموږ لومړنۍ بېلګه ټولګه دي ځکه چې د اصلي اپلیکېشنونو لخوا کم پام شوي دي — خو هر ډول خواړه لومړی درجه غړی دی.',
+  'landing.faq.offline.q': 'آیا آفلاین کار کوي؟',
+  'landing.faq.offline.a':
+    'هو. په موبایل کې، خواړه او ستا معلومات په محلي توګه کیش کیږي ترڅو د اړیکې پرته پخ کولی شې. په وېب کې، PWA پوښ کیش کوي ترڅو تاسو هغه څه چې لرلي یې لا هم وګورئ.',
+  'landing.cta.title': 'د ورځنۍ پوښتنې د ځواب لپاره چمتو یې؟',
+  'landing.cta.body': 'Emrooz پرانیزه او په ثانیو کې درې وړاندیزونه ترلاسه کړه.',
 
   // -- Generic status ---------------------------------------------------
   'demo.banner': 'د سیمه ییز ډیمو حالت کې چلي — یوازې بسته شوي خواړه.',
@@ -601,6 +664,209 @@ const ps = {
   'error.generic': 'یو څه سم نه شو. مهرباني وکړه بیا هڅه وکړه.',
   'loading': 'بارېږي…',
   'empty.tryAgain': 'هڅه وکړه فلټرونه پاک کړې یا یو بل لټون وکړې.',
+
+  // -- Today (web) -----------------------------------------------------
+  'today.web.subtitle': 'د نن ورځې انتخاب، ستاسو د ذخیرې، وخت، او غوره توبونو سره برابر. لاندې څو نور هم دي.',
+  'today.web.orTryTheseTitle': 'یا له دې څخه یو هڅه کړه',
+
+  // -- Metadata (web page titles) --------------------------------------
+  'meta.discover.title': 'کشف',
+  'meta.discover.description': 'د خواړو، وختونو، او خوراکي نښو له مخې خواړه وګوره.',
+  'meta.planner.title': 'پلان',
+  'meta.settings.title': 'تنظیمات',
+  'meta.shoppingList.title': 'د پیرودلو لیست',
+  'meta.favorites.title': 'خوښې',
+  'meta.history.title': 'تاریخچه',
+  'meta.pantry.title': 'خوراکي ذخیره',
+  'meta.recipe.notFound': 'خوراک ونه موندل شو',
+  'meta.recipe.descFallback': 'خوراک: {title}',
+  'meta.cuisines.title': 'خواړه',
+  'meta.cuisines.description': 'د Emrooz خواړه د آشپزۍ د ډول له مخې وګوره.',
+  'meta.cuisines.slug.title': 'د {name} خواړه',
+  'meta.cuisines.slug.description': 'د {name} د آشپزۍ د Emrooz خواړه.',
+  'meta.cuisines.notFound': 'خواړه ونه موندل شول',
+
+  // -- Discover (web extras) -------------------------------------------
+  'discover.subtitle': 'د پخلي لپاره نوی څه پیدا کړه. د نوم یا مادې له مخې لټون وکړه، یا د فلټرونو له لارې تنګ کړه.',
+  'discover.sort.quickest': 'لومړی ترټولو چټک',
+  'discover.pantryOnly.checkbox': 'یوازې هغه خواړه وښیه چې د زما له لرلو څخه کار اخلي (≥۶۰٪ د ذخیرې سمون)',
+  'discover.empty.tryLoose': 'هڅه وکړه یو فلټر ورو کړې یا ټول یې پاک کړې.',
+
+  // -- Planner (web extras) --------------------------------------------
+  'planner.prev': '← تېر',
+  'planner.next': 'راتلونکی →',
+  'planner.addWeekMissing': 'د اونۍ کم توکي د پیرودلو لیست ته ورزیات کړه',
+  'planner.viewShoppingList': 'د پیرودلو لیست وګوره →',
+  'planner.addedToList.one': '{count} توکی ستاسو لیست ته ورزیات شو.',
+  'planner.addedToList.many': '{count} توکي ستاسو لیست ته ورزیات شول.',
+  'planner.slot.addLabel': 'په {date} کې {meal} ورزیات کړه',
+  'planner.slot.replace': 'بدل کړه',
+  'planner.slot.removeAria': 'لرې کړه',
+  'planner.picker.title': 'یو خوراک وټاکه · {meal}',
+  'planner.picker.searchPlaceholder': 'لټون',
+  'planner.picker.empty': 'هېڅ سمون نشته.',
+  'planner.picker.itemSubtitle': '{minutes} دقیقې · {difficulty}',
+
+  // -- Pantry (web extras) ---------------------------------------------
+  'pantry.searchPlaceholder.long': 'د موادو لټون — پیاز، د زیتونو تیل، نخود…',
+  'pantry.subtitle.long': 'Emrooz ته ووایه چې څه دې لا لري او موږ به داسې خواړه ښکاره کړو چې دا مواد وکاروي — یا هغه چې یوازې یو دوه نور موادو ته اړتیا لري.',
+
+  // -- Settings (web extras) -------------------------------------------
+  'settings.eyebrow.preferences': 'غوره توبونه',
+  'settings.hint.language': 'له ښي څخه کیڼ ژبې د انټرفیس لوري بدلوي.',
+  'settings.hint.household': 'موږ د موادو اندازه ستاسو د مېز سره برابروو.',
+  'settings.hint.time': 'له دې کړکۍ بهر به هېڅ وړاندیز نه کوو.',
+  'settings.hint.diet': 'سخت محدودیتونه د سختو فلټرونو په توګه پلي کیږي.',
+  'settings.hint.allergies': 'هغه خواړه چې د ستا لپاره یې خوندي والی نه شو په مثبته توګه تایید کولی، هېڅکله نه ښکاریږي.',
+  'settings.hint.data': 'د JSON یو نقل صادر کړه یا هرڅه چې په محلي توګه خوندي دي ړنګ کړه.',
+  'settings.household.person': 'کس',
+  'settings.time.minutes': '{minutes} دقیقې',
+  'settings.time.noLimitShort': 'هېڅ حد نشته',
+  'settings.reminder.quote': '"نه پوهېږې چې څه پخ کړې؟ Emrooz د نن ورځې نظرونه چمتو لري."',
+  'settings.reminder.enableLabel': 'یادونه فعاله کړه',
+  'settings.reminder.localHint': 'محلي خبرتیاوې ستاسو په وسیله کې د موبایل اپلیکېشن له خوا رسیږي.',
+  'settings.account.signedInHint2': 'ننوتی. ستاسو معلومات په هره کارېدونکې وسیله کې همغږي کیږي.',
+  'settings.account.guestHint2': 'ته مېلمه یې. د خپلې ذخیرې، خوښو، او تاریخچې د همغږۍ لپاره حساب جوړ کړه.',
+  'settings.account.signedInBadge': 'ننوتی',
+  'settings.saved.short': 'خوندي شو.',
+  'settings.exportFailed.alert': 'صادرات ناکام شول ({status}). مهرباني وکړه بیا هڅه وکړه.',
+  'settings.delete.promptBody':
+    'دا به ستاسو حساب او په دې کې هرڅه (ذخیره، خوښې، تاریخچه، پلان، د پیرودلو لیست، نظرونه، غوره توبونه) په دایمي توګه ړنګ کړي.\n\nد تایید لپاره DELETE ولیکه.',
+  'settings.delete.demoConfirm':
+    'ټول محلي معلومات ړنګ کړم؟ دا به ستاسو د مېلمه پېژندنه، ذخیره، خوښې، تاریخچه، نظرونه، پلان، او د پیرودلو لیست پاک کړي. دا نه شي بېرته راګرځېدلی.',
+  'settings.delete.failed.alert': 'ړنګول ناکام شول: {error}',
+  'settings.deleteData': 'زما معلومات ړنګ کړه',
+
+  // -- Shopping list (web extras) --------------------------------------
+  'shoppingList.subtitle.active': '{active} د پیرودلو لپاره · {done} ترسره شول',
+  'shoppingList.subtitle.empty': 'اوس د پیرودلو لپاره څه نشته. له هر خوراک یا د پلان له اونۍ څخه کم مواد ورزیات کړه.',
+  'shoppingList.add.placeholder.long': 'څه چې غواړې ورزیات کړه — شیدې، د زیتونو تیل، د لوښو اسفنج…',
+  'shoppingList.add.button': 'ورزیات کړه',
+  'shoppingList.clearAllShort': 'ټول پاک کړه',
+  'shoppingList.clearAllPrompt': 'ټول د پیرودلو لیست پاک کړم؟ دا نه شي بېرته راګرځېدلی.',
+  'shoppingList.item.check': 'نښه یې کړه',
+  'shoppingList.item.uncheck': 'نښه یې لرې کړه',
+  'shoppingList.item.removeAria': 'لرې کړه',
+  'shoppingList.fromRecipeOne': 'له ۱ خوراک څخه',
+  'shoppingList.fromRecipeMany': 'له {count} خواړو څخه',
+  'shoppingList.empty.bodyPrefix': 'پورته یې په لاسي توګه ورزیات کړه، یا یو خوراک پرانیزه او ',
+  'shoppingList.empty.bodyCta': 'کم توکي د پیرودلو لیست ته ورزیات کړه',
+  'shoppingList.empty.bodySuffix': '.',
+
+  // -- Favorites (web extras) ------------------------------------------
+  'favorites.emptyBody.long': 'په هر خوښ خوراک باندې د زړه نښه کېکاږه او دلته به راشي.',
+  'favorites.discoverCta': 'خواړه کشف کړه',
+
+  // -- History (web extras) --------------------------------------------
+  'history.emptyBody.long': 'کله چې په یو خوراک باندې "ما دا پخ کړ" کېکاږې، دلته به راشي.',
+  'history.servings.one': 'برخه',
+  'history.servings.many': 'برخې',
+  'history.confirmRemove.prompt': 'د تاریخچې دا ننوتنه لرې کړم؟',
+  'history.removeShort': 'لرې کړه',
+  'history.plannerPicker.date': 'نېټه',
+  'history.plannerPicker.meal': 'خوراک',
+
+  // -- Recipe detail (web extras) --------------------------------------
+  'recipe.actions.logged': 'ثبت شو',
+  'recipe.actions.favorited': 'خوښ شو',
+  'recipe.share.linkCopied': 'لینک کلیپبورډ ته کاپي شو.',
+  'recipe.report.body': 'مننه چې د خواړو په سموالي کې مو راسره مرسته کوې. څه سم ندي؟',
+  'recipe.report.reason.ingredient': 'ماده غلطه یا کمه ده',
+  'recipe.report.reason.instructions': 'لارښوونې روښانه ندي',
+  'recipe.report.reason.time': 'د پخلي وخت سم نه دی',
+  'recipe.report.reason.dietary': 'خوراکي نښه غلطه ده',
+  'recipe.report.reason.other': 'بل څه',
+  'recipe.log.noteHint2': 'بدلونونه؟ راتلونکي ځل ته یاداشتونه؟ (اختیاري، یوازې د تا لپاره شخصي.)',
+  'recipe.pantryIndicator': 'په ذخیره کې',
+  'recipe.optionalLabel': 'اختیاري',
+  'recipe.containsShort': 'لري {allergen}',
+
+  // -- Auth (web extras) -----------------------------------------------
+  'auth.working': 'کار روان دی…',
+  'auth.signIn.methodLabel': 'د ننوتلو طریقه',
+  'auth.signIn.subtitleWeb': 'خپله ذخیره، خوښې، او د پخلي تاریخچه د وسیلو ترمنځ همغږې کړه.',
+  'auth.signIn.disabledHint.web':
+    'ننوتل به هغه وخت فعال شي کله چې د Supabase اعتبارنامې تنظیم شي. {code} وګوره. تر هغې پورې، Emrooz په بشپړ ډول لکه مېلمه کار کوي.',
+  'auth.signIn.newHereShort': 'نوی راغلی یې؟',
+  'auth.signIn.magicLink.sentInbox': 'موږ {email} ته د ننوتلو لینک ولېږه. خپل ایمیل صندوق وګوره.',
+  'auth.signUp.subtitleWeb':
+    'ستاسو د مېلمه ذخیره، خوښې، او د پخلي تاریخچه ستاسو سره په اتومات ډول حرکت کوي — همدا حساب ساتې، یوازې بریښنالیک ورسره تړل کیږي.',
+  'auth.signUp.disabledHint.web': 'حساب جوړول به هغه وخت فعال شي کله چې د Supabase اعتبارنامې تنظیم شي. {code} وګوره.',
+  'auth.signUp.confirmSentLong': 'موږ {email} ته د تایید لینک ولېږه. د خپل حساب د جوړولو د بشپړولو لپاره یې کېکاږه.',
+  'auth.signUp.terms.prefix': 'د دوام په منلو سره ته زموږ د',
+  'auth.signUp.terms.terms': 'شرایطو',
+  'auth.signUp.terms.and': 'او',
+  'auth.signUp.terms.privacy': 'د محرمیت اعلامیې',
+  'auth.signUp.terms.dot': 'سره موافق یې.',
+  'auth.signUp.alreadyHave': 'مخکې دې حساب لري؟',
+  'auth.forgotPassword.subtitleWeb': 'خپل بریښنالیک ولیکه، موږ به د بیا تنظیم لینک درولېږو. په یو ساعت کې پای ته رسیږي.',
+  'auth.forgotPassword.disabledHint.web': 'بیا تنظیم به هغه وخت فعال شي کله چې د Supabase اعتبارنامې تنظیم شي.',
+  'auth.forgotPassword.sending': 'لېږل کیږي…',
+  'auth.forgotPassword.remembered': 'یاد دې شو؟',
+  'auth.resetPassword.eyebrow': 'یو نوی پاسورډ وټاکه',
+  'auth.resetPassword.title': 'پاسورډ بیا تنظیم کړه',
+  'auth.resetPassword.expiredIntro': 'دا لینک پای ته رسېدلی یا مخکې ترې کار اخیستل شوی. له سره پیل کړه له ',
+  'auth.resetPassword.expiredLink': 'هېر شوی پاسورډ',
+  'auth.resetPassword.newPassword': 'نوی پاسورډ',
+  'auth.resetPassword.saving': 'خوندي کیږي…',
+  'auth.resetPassword.submit': 'نوی پاسورډ وټاکه',
+  'auth.resetPassword.updateFailed': 'پاسورډ ونه شو تازه کیدلی.',
+
+  // -- Account nav -----------------------------------------------------
+  'accountNav.account': 'حساب',
+
+  // -- Cookies banner --------------------------------------------------
+  'cookies.title': 'یوازې اړین کوکیز',
+  'cookies.body':
+    'Emrooz ستاسو په براوزر کې د ننوتلو یوه غونډه او ستاسو غوره توبونه ساتي. هېڅ تحلیل، هېڅ اعلانونه، هېڅ دریمې ډلې تعقیب نشته.',
+  'cookies.readMore': 'نور ولوله',
+  'cookies.gotIt': 'وپوهېدم',
+
+  // -- Cuisines index --------------------------------------------------
+  'cuisines.eyebrow': 'کشف',
+  'cuisines.subtitle':
+    'یو نړیوال مینو. هر ډول خواړه لومړی درجه غړی دی — له آشنا بنسټیزو څخه تر هغه دودونو پورې چې کم پام شوي دي.',
+  'cuisines.card.eyebrow': 'خواړه',
+  'cuisines.slug.count.one': 'په ټولګه کې {count} خوراک.',
+  'cuisines.slug.count.many': 'په ټولګه کې {count} خواړه.',
+  'cuisines.slug.emptyTitle': 'ژر راځي',
+  'cuisines.slug.emptyPrefix': 'موږ لا دا ټولګه چمتو کوو. ',
+  'cuisines.slug.browseOthers': 'نور خواړه وګوره',
+  'cuisines.slug.emptySuffix': '.',
+
+  // -- Onboarding sheet (web) ------------------------------------------
+  'onboarding.web.eyebrow': 'له تاسو سره پېژندنه',
+  'onboarding.web.progressOf': '{current} د {total}',
+  'onboarding.web.skipForNow': 'اوس یې پرېږده',
+  'onboarding.web.continue': 'دوام ورکړه',
+  'onboarding.web.allergiesHardFilter':
+    'Emrooz حساسیتونه د سخت فلټر په توګه چلوي. هغه خواړه چې د تا لپاره یې خوندي والی نه شو په مثبته توګه تایید کولی، هېڅکله نه ښکاریږي.',
+  'onboarding.web.step.language.title': 'خپله ژبه وټاکه',
+  'onboarding.web.step.language.subtitle': 'دا کولی شې د تنظیماتو له لارې هر وخت بدله کړې.',
+  'onboarding.web.step.cuisines.title': 'کوم خواړه خوښوې؟',
+  'onboarding.web.step.cuisines.subtitle':
+    'څومره چې غواړې وټاکه. Emrooz به دې دې ته میلان ولري — خو هېڅکله د تنوع په ضایع کولو سره نه.',
+  'onboarding.web.step.household.title': 'په مېز څو کسان دي؟',
+  'onboarding.web.step.household.subtitle': 'دا موږ ته مرسته کوي چې د خوراک د موادو اندازه سره برابره کړو.',
+  'onboarding.web.step.time.title': 'څومره وخت لرې؟',
+  'onboarding.web.step.time.subtitle': 'موږ به داسې څه وړاندیز نه کوو چې ستا له کړکۍ سره سمون ونه لري.',
+  'onboarding.web.step.diet.title': 'کومې خوراکي غوره توبونه لرې؟',
+  'onboarding.web.step.diet.subtitle': 'اختیاري. سخت محدودیتونه د سختو فلټرونو په توګه پلي کیږي.',
+  'onboarding.web.step.allergies.title': 'کومې حساسیتونه لرې؟',
+  'onboarding.web.step.allergies.subtitle':
+    'دا سخت فلټرونه دي — موږ به هېڅکله داسې څه وړاندیز نه کوو چې ستا لپاره خوندي نه وي.',
+  'onboarding.web.time.sub.quick': 'چټک',
+  'onboarding.web.time.sub.weeknight': 'د اونۍ شپه',
+  'onboarding.web.time.sub.weekend': 'د اونۍ پای',
+  'onboarding.web.time.noLimit.subtitle': 'وخت لرم',
+  'onboarding.web.time.noLimit.title': 'هېڅ حد نشته',
+
+  // -- Recipe hero meta strip labels -----------------------------------
+  'recipeMeta.prep': 'چمتوالی',
+  'recipeMeta.cook': 'پخلی',
+  'recipeMeta.total': 'ټول',
+  'recipeMeta.difficulty': 'ستونزمنتیا',
+  'recipeMeta.minutesShort': '{minutes} دقیقې',
 } as const;
 
 export default ps;

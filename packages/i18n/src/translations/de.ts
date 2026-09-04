@@ -1,6 +1,42 @@
 import type { EnMessages } from './en';
 
 // NOTE: draft translations — verify with a native German speaker before release.
+// Reviewer notes for uncertain terms:
+// - 'today.mealType.*' kept as ALLCAPS German meal names (FRÜHSTÜCK/MITTAGESSEN/…) to mirror the English "LUNCH/DINNER" style.
+// - 'discover.mealType.side' → "Beilage" (per reviewer glossary).
+// - 'shoppingList.category.fat_or_oil' → "Fette & Öle"; 'sweetener' → "Süßungsmittel"; 'nut_or_seed' → "Nüsse & Samen".
+// - 'onboarding.household.large' → "Große Runde" (informal, avoids "Big table" literal).
+// - 'landing.hero.headline.emphasis' translated as "kochen" so prefix/emphasis/suffix combine to "Was soll ich heute kochen?".
+// - 'auth.signUp.terms.dot' kept as literal '.' (punctuation only).
+// - 'planner.picker.itemSubtitle' uses {minutes} and {difficulty} verbatim; difficulty label localization happens elsewhere.
+// - 'recipe.share.message' preserves the URL slug placeholder; the greeting is translated but the URL is not.
+// - 'auth.resetPassword.expiredIntro' + 'expiredLink' form a sentence with an inline link — German equivalent kept short.
+// - 'shoppingList.category.other' and 'pantry.category.other' both → "Sonstiges".
+// - 'settings.reminder.quote' translates the marketing quote; keep in quotation marks.
+// - 'discover.eyebrow' → "Stöbern" (informal browsing eyebrow, matches 'Browse').
+// - 'discover.filter.timeBucket' → "≤{minutes} Min." keeps the ≤ symbol like the English original.
+// - 'planner.day.*' abbreviated to Mo/Di/Mi/Do/Fr/Sa/So per glossary.
+// - 'pantry.count.one/many' uses "Zutat/Zutaten in deinem Vorrat" — verify tone.
+// - 'shoppingList.count.one/many' → "Eintrag/Einträge"; 'checkedCount' → "{count} erledigt".
+// - 'shoppingList.itemFromRecipes.one/many' → short "aus 1 Rezept" / "aus {count} Rezepten".
+// - 'shoppingList.category.vegetable' → "Gemüse", 'fruit' → "Obst", separate from produce which stays "Obst & Gemüse".
+// - 'shoppingList.category.poultry' → "Geflügel", 'beverage' → "Getränke".
+// - 'onboarding.language.*' keep the endonyms ("English", "Deutsch", "دری", "پښتو") — same as English source.
+// - 'onboarding.time.sub.*' short chip subtitles; kept compact.
+// - 'onboarding.household.large' → "Große Runde".
+// - 'meta.*' page titles kept short and mirror nav labels.
+// - 'landing.hero.card.eyebrow' → "Vorrats-Fokus" — verify with reviewer.
+// - 'landing.afghan.eyebrow' → "Aushängeschild" — verify (flagship collection).
+// - 'landing.footer.imprint' → "Impressum" (standard DE legal term).
+// - 'landing.faq.notAfghan.q/a' — translated but requires nuance review; not an Afghan-only app.
+// - 'cookies.title' → "Nur essenzielle Cookies" — verify with legal.
+// - 'auth.signUp.terms.terms/privacy' → "Nutzungsbedingungen" / "Datenschutzhinweis".
+// - 'auth.resetPassword.*' — reset flow copy; concise German equivalents used.
+// - 'recipe.contains' / 'recipe.containsShort' both "enthält {allergen}" — same key values.
+// - 'recipe.minutesShort' → "{count} Min." (kept "Min." for the m-suffix); English is "{count}m" for tight cards.
+// - 'recipeMeta.minutesShort' → "{minutes} Min." (label strip on hero).
+// - 'shoppingList.empty.bodyPrefix/bodyCta/bodySuffix' — three-part sentence with inline button label; German kept natural.
+// - 'planner.slot.dayMeal' → "{day} · {meal}" (structural, unchanged placeholders).
 const de: EnMessages = {
   // -- Brand ------------------------------------------------------------
   'app.name': 'Emrooz',
@@ -87,6 +123,8 @@ const de: EnMessages = {
   'today.mealType.snack': 'SNACK',
   'today.mealType.soup': 'SUPPE',
   'today.mealType.dessert': 'DESSERT',
+  'today.web.subtitle': 'Der Vorschlag für heute — abgestimmt auf deinen Vorrat, deine Zeit und deine Vorlieben. Weitere Ideen darunter.',
+  'today.web.orTryTheseTitle': 'Oder probier eines davon',
 
   // -- Discover screen --------------------------------------------------
   'discover.title': 'Entdecken',
@@ -108,8 +146,10 @@ const de: EnMessages = {
   'discover.mealType.snack': 'Snack',
   'discover.mealType.soup': 'Suppe',
   'discover.mealType.dessert': 'Dessert',
-  'discover.results.count': '{count} Rezepte',
-  'discover.empty': 'Zu diesen Filtern passen noch keine Rezepte.',
+  'discover.results.one': '{count} Rezept',
+  'discover.results.many': '{count} Rezepte',
+  'discover.empty.title': 'Nichts passt',
+  'discover.empty.body': 'Zu diesen Filtern passen noch keine Rezepte.',
 
   // -- Pantry screen ----------------------------------------------------
   'pantry.title': 'Vorrat',
@@ -354,6 +394,480 @@ const de: EnMessages = {
   'error.generic': 'Etwas ist schiefgelaufen. Bitte versuche es erneut.',
   'loading': 'Lädt…',
   'empty.tryAgain': 'Setze die Filter zurück oder probiere eine andere Suche.',
+
+  // -- Discover screen (extended) --------------------------------------
+  'discover.eyebrow': 'Stöbern',
+  'discover.filters': 'Filter',
+  'discover.openFilters': 'Filter öffnen',
+  'discover.clearAll': 'Alles zurücksetzen',
+  'discover.showRecipes': 'Rezepte anzeigen',
+  'discover.filter.timeBucket': '≤{minutes} Min.',
+  'discover.pantryOnly.label': 'Nur aus meinem Vorrat',
+  'discover.pantryOnly.hint': 'Zeigt nur Rezepte, für die kaum etwas fehlt (≥60% Vorrats-Treffer).',
+  'discover.mealType.salad': 'Salat',
+  'discover.mealType.side': 'Beilage',
+  'discover.row.subtitle': '{minutes} Min. · {difficulty}',
+  'discover.subtitle': 'Finde etwas Neues zum Kochen. Suche nach Name oder Zutat — oder nutze Filter, um einzugrenzen.',
+  'discover.sort.quickest': 'Am schnellsten zuerst',
+  'discover.pantryOnly.checkbox': 'Nur Rezepte, die zu meinem Vorrat passen (≥60% Vorrats-Treffer)',
+  'discover.empty.tryLoose': 'Lockere einen Filter oder setze alle zurück.',
+
+  // -- Pantry screen (extended) ----------------------------------------
+  'pantry.eyebrow': 'In deiner Küche',
+  'pantry.subtitle': 'Emrooz nutzt das, um dir Rezepte vorzuschlagen, die du sofort kochen kannst.',
+  'pantry.count.one': '{count} Zutat in deinem Vorrat',
+  'pantry.count.many': '{count} Zutaten in deinem Vorrat',
+  'pantry.category.produce': 'Obst & Gemüse',
+  'pantry.category.dairy': 'Milchprodukte',
+  'pantry.category.meat': 'Fleisch',
+  'pantry.category.seafood': 'Meeresfrüchte',
+  'pantry.category.grain': 'Getreide',
+  'pantry.category.legume': 'Hülsenfrüchte',
+  'pantry.category.spice': 'Gewürze',
+  'pantry.category.herb': 'Kräuter',
+  'pantry.category.oil': 'Öle',
+  'pantry.category.condiment': 'Würzmittel',
+  'pantry.category.baking': 'Backzutaten',
+  'pantry.category.bread': 'Brot',
+  'pantry.category.nut': 'Nüsse',
+  'pantry.category.egg': 'Eier',
+  'pantry.category.other': 'Sonstiges',
+  'pantry.searchPlaceholder.long': 'Zutaten suchen — Zwiebel, Olivenöl, Kichererbse …',
+  'pantry.subtitle.long': 'Sag Emrooz, was du schon hast — wir bringen Rezepte nach vorn, die genau das nutzen. Oder solche, für die nur ein, zwei Zutaten fehlen.',
+
+  // -- Planner (extended) ----------------------------------------------
+  'planner.eyebrow': 'Plane deine Woche',
+  'planner.weekRange': '{start} → {end}',
+  'planner.openRecipe': 'Rezept öffnen',
+  'planner.addedItems.one': '{count} Eintrag hinzugefügt',
+  'planner.addedItems.many': '{count} Einträge hinzugefügt',
+  'planner.nothingNew': 'Nichts Neues hinzuzufügen',
+  'planner.allInPantry': 'Alles für diese Woche ist schon in deinem Vorrat oder auf deiner Liste.',
+  'planner.openList': 'Liste öffnen',
+  'planner.slot.dayMeal': '{day} · {meal}',
+  'planner.day.mon': 'Mo',
+  'planner.day.tue': 'Di',
+  'planner.day.wed': 'Mi',
+  'planner.day.thu': 'Do',
+  'planner.day.fri': 'Fr',
+  'planner.day.sat': 'Sa',
+  'planner.day.sun': 'So',
+  'planner.pickTitle': 'Rezept auswählen',
+  'planner.pickSubtitle': '{meal} · {date}',
+  'planner.pickSearch': 'Suchen',
+  'planner.prev': '← Zurück',
+  'planner.next': 'Weiter →',
+  'planner.addWeekMissing': 'Fehlendes der Woche zur Einkaufsliste',
+  'planner.viewShoppingList': 'Einkaufsliste öffnen →',
+  'planner.addedToList.one': '{count} Eintrag zur Liste hinzugefügt.',
+  'planner.addedToList.many': '{count} Einträge zur Liste hinzugefügt.',
+  'planner.slot.addLabel': '{meal} am {date} hinzufügen',
+  'planner.slot.replace': 'Ersetzen',
+  'planner.slot.removeAria': 'Entfernen',
+  'planner.picker.title': 'Rezept auswählen · {meal}',
+  'planner.picker.searchPlaceholder': 'Suchen',
+  'planner.picker.empty': 'Nichts passt.',
+  'planner.picker.itemSubtitle': '{minutes} Min. · {difficulty}',
+
+  // -- Generic OK ------------------------------------------------------
+  'ok': 'OK',
+
+  // -- Favorites (extended) --------------------------------------------
+  'favorites.eyebrow': 'Gespeichert',
+  'favorites.empty.title': 'Noch keine Favoriten',
+  'favorites.empty.body': 'Tippe auf das Herz bei einem Rezept, das du magst.',
+  'favorites.emptyBody.long': 'Tippe auf das Herz bei einem Rezept, das du magst — dann landet es hier.',
+  'favorites.discoverCta': 'Rezepte entdecken',
+
+  // -- Recipe detail (extended) ----------------------------------------
+  'recipe.eyebrowFallback': 'Rezept',
+  'recipe.back': 'Zurück',
+  'recipe.method': 'Zubereitung',
+  'recipe.toTaste': 'nach Geschmack',
+  'recipe.optional': 'opt.',
+  'recipe.contains': 'enthält {allergen}',
+  'recipe.qtyDecrease': 'Portionen verringern',
+  'recipe.qtyIncrease': 'Portionen erhöhen',
+  'recipe.addMissingToList': '{count} fehlende zur Einkaufsliste',
+  'recipe.addedToList': '{count} zur Liste hinzugefügt',
+  'recipe.iCookedThis.button': 'Habe ich gekocht',
+  'recipe.log.title': 'Diesen Kochvorgang notieren',
+  'recipe.log.hint': 'Anpassungen? Notizen fürs nächste Mal? (Optional, privat.)',
+  'recipe.log.notePlaceholder': 'Mehr Knoblauch, 5 Min. kürzer gekocht …',
+  'recipe.share.message': '{title} — via Emrooz\nhttps://emroozapp.com/recipes/{slug}',
+  'recipe.minutesShort': '{count} Min.',
+  'recipe.actions.logged': 'Notiert',
+  'recipe.actions.favorited': 'Favorisiert',
+  'recipe.share.linkCopied': 'Link in die Zwischenablage kopiert.',
+  'recipe.report.body': 'Danke, dass du uns hilfst, Rezepte genau zu halten. Was stimmt nicht?',
+  'recipe.report.reason.ingredient': 'Zutat ist falsch oder fehlt',
+  'recipe.report.reason.instructions': 'Anleitung ist unklar',
+  'recipe.report.reason.time': 'Kochzeit stimmt nicht',
+  'recipe.report.reason.dietary': 'Ernährungshinweis ist falsch',
+  'recipe.report.reason.other': 'Etwas anderes',
+  'recipe.log.noteHint2': 'Anpassungen? Notizen fürs nächste Mal? (Optional, nur für dich.)',
+  'recipe.pantryIndicator': 'im Vorrat',
+  'recipe.optionalLabel': 'optional',
+  'recipe.containsShort': 'enthält {allergen}',
+
+  // -- Auth (extended) -------------------------------------------------
+  'auth.error.signInFailed': 'Anmeldung fehlgeschlagen.',
+  'auth.error.magicLinkFailed': 'Anmeldelink konnte nicht gesendet werden.',
+  'auth.error.signUpFailed': 'Registrierung fehlgeschlagen.',
+  'auth.error.somethingWrong': 'Etwas ist schiefgelaufen.',
+  'auth.signIn.header': 'Anmelden',
+  'auth.signIn.eyebrow': 'Willkommen zurück',
+  'auth.signIn.subtitleShort': 'Vorrat, Favoriten und Verlauf synchronisieren.',
+  'auth.signIn.disabledHint': 'Die Anmeldung wird aktiv, sobald die Supabase-Zugangsdaten konfiguriert sind.',
+  'auth.signIn.mode.password': 'Passwort',
+  'auth.signIn.mode.magic': 'Magic Link',
+  'auth.signIn.newHerePrefix': 'Neu hier? ',
+  'auth.signIn.createAccountLink': 'Konto erstellen',
+  'auth.signUp.header': 'Konto erstellen',
+  'auth.signUp.eyebrow': 'Loslegen',
+  'auth.signUp.titleShort': 'Erstelle dein Konto',
+  'auth.signUp.subtitleShort': 'Deine Gastdaten wandern beim Registrieren in dein Konto.',
+  'auth.signUp.disabledHint': 'Die Registrierung wird aktiv, sobald die Supabase-Zugangsdaten konfiguriert sind.',
+  'auth.signUp.passwordHint': 'Mindestens 8 Zeichen.',
+  'auth.signUp.confirmationSent': 'Wir haben einen Bestätigungslink an {email} geschickt. Öffne ihn auf diesem Gerät.',
+  'auth.signUp.alreadyHavePrefix': 'Schon ein Konto? ',
+  'auth.signUp.signInLink': 'Anmelden',
+  'auth.forgotPassword.header': 'Passwort vergessen',
+  'auth.forgotPassword.eyebrow': 'Passwort zurücksetzen',
+  'auth.forgotPassword.titleShort': 'Passwort vergessen',
+  'auth.forgotPassword.subtitleShort': 'Gib deine E-Mail ein und wir schicken einen Link zum Zurücksetzen.',
+  'auth.forgotPassword.checkInbox': 'Schau in deinem Posteingang nach dem Link zum Zurücksetzen.',
+  'auth.error.needsBoth': 'Gib E-Mail und Passwort ein.',
+  'auth.error.serverError': 'Bei uns ist etwas schiefgelaufen. Bitte versuche es erneut.',
+  'auth.help.checkInbox': 'Schau in deinem Posteingang',
+  'auth.help.expires': 'Der Link läuft in einer Stunde ab.',
+  'auth.working': 'Wird verarbeitet …',
+  'auth.signIn.methodLabel': 'Anmeldemethode',
+  'auth.signIn.subtitleWeb': 'Synchronisiere Vorrat, Favoriten und Koch-Verlauf über alle Geräte.',
+  'auth.signIn.disabledHint.web':
+    'Die Anmeldung wird aktiv, sobald die Supabase-Zugangsdaten konfiguriert sind. Siehe {code}. In der Zwischenzeit funktioniert Emrooz vollständig als Gast.',
+  'auth.signIn.newHereShort': 'Neu hier?',
+  'auth.signIn.magicLink.sentInbox': 'Wir haben einen Anmeldelink an {email} geschickt. Schau in deinem Posteingang.',
+  'auth.signUp.subtitleWeb':
+    'Dein Gast-Vorrat, deine Favoriten und dein Koch-Verlauf wandern automatisch mit — dasselbe Konto, nur mit einer E-Mail verknüpft.',
+  'auth.signUp.disabledHint.web': 'Die Registrierung wird aktiv, sobald die Supabase-Zugangsdaten konfiguriert sind. Siehe {code}.',
+  'auth.signUp.confirmSentLong': 'Wir haben einen Bestätigungslink an {email} geschickt. Klick ihn an, um dein Konto fertigzustellen.',
+  'auth.signUp.terms.prefix': 'Mit dem Fortfahren stimmst du unseren',
+  'auth.signUp.terms.terms': 'Nutzungsbedingungen',
+  'auth.signUp.terms.and': 'und dem',
+  'auth.signUp.terms.privacy': 'Datenschutzhinweis',
+  'auth.signUp.terms.dot': ' zu.',
+  'auth.signUp.alreadyHave': 'Schon ein Konto?',
+  'auth.forgotPassword.subtitleWeb': 'Gib deine E-Mail ein und wir schicken einen Link zum Zurücksetzen. Er läuft nach einer Stunde ab.',
+  'auth.forgotPassword.disabledHint.web': 'Das Zurücksetzen wird aktiv, sobald die Supabase-Zugangsdaten konfiguriert sind.',
+  'auth.forgotPassword.sending': 'Wird gesendet …',
+  'auth.forgotPassword.remembered': 'Wieder eingefallen?',
+  'auth.resetPassword.eyebrow': 'Neues Passwort setzen',
+  'auth.resetPassword.title': 'Passwort zurücksetzen',
+  'auth.resetPassword.expiredIntro': 'Dieser Link ist abgelaufen oder wurde bereits verwendet. Starte erneut über ',
+  'auth.resetPassword.expiredLink': 'Passwort vergessen',
+  'auth.resetPassword.newPassword': 'Neues Passwort',
+  'auth.resetPassword.saving': 'Wird gespeichert …',
+  'auth.resetPassword.submit': 'Neues Passwort festlegen',
+  'auth.resetPassword.updateFailed': 'Passwort konnte nicht aktualisiert werden.',
+
+  // -- Shopping list (extended) ----------------------------------------
+  'shoppingList.eyebrow': 'Bald einkaufen',
+  'shoppingList.count.one': '{count} Eintrag',
+  'shoppingList.count.many': '{count} Einträge',
+  'shoppingList.checkedCount': '{count} erledigt',
+  'shoppingList.section.needed': 'Noch nötig',
+  'shoppingList.section.done': 'Erledigt',
+  'shoppingList.itemFromRecipes.one': 'aus 1 Rezept',
+  'shoppingList.itemFromRecipes.many': 'aus {count} Rezepten',
+  'shoppingList.addManualHint': 'Eintrag hinzufügen',
+  'shoppingList.headerEyebrow': 'Bereit zum Einkaufen',
+  'shoppingList.allDone': 'Alles erledigt',
+  'shoppingList.toBuy': '{count} zu kaufen',
+  'shoppingList.completed': '{count} erledigt',
+  'shoppingList.clearCountCompleted': '{count} erledigte entfernen',
+  'shoppingList.clearEntire.title': 'Ganze Einkaufsliste leeren?',
+  'shoppingList.clearEntire.body': 'Das lässt sich nicht rückgängig machen.',
+  'shoppingList.empty.title': 'Nichts auf deiner Liste',
+  'shoppingList.empty.body': 'Füge oben etwas hinzu oder öffne ein Rezept und tippe auf „Fehlendes zur Einkaufsliste“.',
+  'shoppingList.category.produce': 'Obst & Gemüse',
+  'shoppingList.category.vegetable': 'Gemüse',
+  'shoppingList.category.fruit': 'Obst',
+  'shoppingList.category.herb': 'Kräuter',
+  'shoppingList.category.spice': 'Gewürze',
+  'shoppingList.category.grain': 'Getreide',
+  'shoppingList.category.legume': 'Hülsenfrüchte',
+  'shoppingList.category.dairy': 'Milchprodukte',
+  'shoppingList.category.egg': 'Eier',
+  'shoppingList.category.meat': 'Fleisch',
+  'shoppingList.category.poultry': 'Geflügel',
+  'shoppingList.category.seafood': 'Meeresfrüchte',
+  'shoppingList.category.fat_or_oil': 'Fette & Öle',
+  'shoppingList.category.sweetener': 'Süßungsmittel',
+  'shoppingList.category.condiment': 'Würzmittel',
+  'shoppingList.category.baking': 'Backzutaten',
+  'shoppingList.category.nut_or_seed': 'Nüsse & Samen',
+  'shoppingList.category.beverage': 'Getränke',
+  'shoppingList.category.other': 'Sonstiges',
+  'shoppingList.subtitle.active': '{active} zu kaufen · {done} erledigt',
+  'shoppingList.subtitle.empty': 'Gerade nichts zu kaufen. Füge fehlende Zutaten aus einem Rezept oder deinem Wochenplan hinzu.',
+  'shoppingList.add.placeholder.long': 'Alles hinzufügen — Milch, Olivenöl, Spülschwamm …',
+  'shoppingList.add.button': 'Hinzufügen',
+  'shoppingList.clearAllShort': 'Alles leeren',
+  'shoppingList.clearAllPrompt': 'Ganze Einkaufsliste leeren? Das lässt sich nicht rückgängig machen.',
+  'shoppingList.item.check': 'Abhaken',
+  'shoppingList.item.uncheck': 'Häkchen entfernen',
+  'shoppingList.item.removeAria': 'Entfernen',
+  'shoppingList.fromRecipeOne': 'aus 1 Rezept',
+  'shoppingList.fromRecipeMany': 'aus {count} Rezepten',
+  'shoppingList.empty.bodyPrefix': 'Füge oben etwas hinzu oder öffne ein Rezept und tippe auf ',
+  'shoppingList.empty.bodyCta': 'Fehlendes zur Einkaufsliste',
+  'shoppingList.empty.bodySuffix': '.',
+
+  // -- History (extended) ----------------------------------------------
+  'history.eyebrow': 'Was du gekocht hast',
+  'history.count.one': '{count} Eintrag',
+  'history.count.many': '{count} Einträge',
+  'history.emptyTitle': 'Noch nichts gekocht',
+  'history.emptyBody': 'Rezepte, die du als gekocht markierst, erscheinen hier.',
+  'history.cookedOn': 'Gekocht am {date}',
+  'history.servings': '{count} Portionen',
+  'history.note': 'Notiz',
+  'history.headerEyebrow': 'Du hast gekocht',
+  'history.mealsCount': '{count} Mahlzeiten',
+  'history.servingsCount.one': '{count} Portion',
+  'history.servingsCount.many': '{count} Portionen',
+  'history.emptyBodyAlt': 'Tippe bei einem Rezept auf „Habe ich gekocht“ und es erscheint hier.',
+  'history.removeEntry.title': 'Eintrag entfernen?',
+  'history.addedToPlanner.title': 'Zum Wochenplan hinzugefügt',
+  'history.addedToPlanner.body': 'Für heute Abend eingeplant. Du kannst es im Wochenplan verschieben.',
+  'history.emptyBody.long': 'Sobald du bei einem Rezept auf „Habe ich gekocht“ tippst, landet es hier.',
+  'history.servings.one': 'Portion',
+  'history.servings.many': 'Portionen',
+  'history.confirmRemove.prompt': 'Diesen Verlaufseintrag entfernen?',
+  'history.removeShort': 'Entfernen',
+  'history.plannerPicker.date': 'Datum',
+  'history.plannerPicker.meal': 'Mahlzeit',
+
+  // -- Onboarding (extended) -------------------------------------------
+  'onboarding.progress': 'Schritt {current} von {total}',
+  'onboarding.language.en': 'English',
+  'onboarding.language.de': 'Deutsch',
+  'onboarding.language.faAF': 'دری',
+  'onboarding.language.ps': 'پښتو',
+  'onboarding.cuisines.none': 'Überspringen — überrasch mich später',
+  'onboarding.household.solo': 'Nur ich',
+  'onboarding.household.couple': 'Zu zweit',
+  'onboarding.household.small': 'Kleine Familie',
+  'onboarding.household.large': 'Große Runde',
+  'onboarding.time.20': 'Unter 20 Min.',
+  'onboarding.time.30': 'Um die 30 Min.',
+  'onboarding.time.45': 'Um die 45 Min.',
+  'onboarding.time.60': 'Um die 60 Min.',
+  'onboarding.time.any': 'Kein festes Limit',
+  'onboarding.diet.none': 'Keine Vorgabe',
+  'onboarding.allergies.none': 'Keine',
+  'onboarding.reminder.off': 'Nein, danke',
+  'onboarding.reminder.morning': 'Morgens',
+  'onboarding.reminder.noon': 'Mittags',
+  'onboarding.reminder.evening': 'Abends',
+  'onboarding.time.sub.quick': 'Schnell',
+  'onboarding.time.sub.weeknight': 'Werktags',
+  'onboarding.time.sub.comfortable': 'Entspannt',
+  'onboarding.time.sub.weekend': 'Wochenende',
+  'onboarding.time.sub.noLimit': 'Ich hab Zeit',
+
+  // -- Settings (extended) ---------------------------------------------
+  'settings.eyebrow': 'Du',
+  'settings.reminders.description': 'Ein sanfter Anstupser zu deiner Wunschzeit. Keine Push-Benachrichtigungen nötig.',
+  'settings.household.people': 'Personen',
+  'settings.time.noLimit': 'Kein Limit',
+  'settings.household.title': 'Haushaltsgröße',
+  'settings.time.title': 'Zeit, die du üblicherweise hast',
+  'settings.account.signedInHint': 'Angemeldet — Daten synchronisieren über alle Geräte.',
+  'settings.account.signOut.bodyShort': 'Du kannst dich jederzeit wieder anmelden.',
+  'settings.reminders.permissionHint': 'Wir fragen beim ersten Aktivieren nach der Benachrichtigungsberechtigung.',
+  'settings.save': 'Änderungen speichern',
+  'settings.data.exportBtn': 'Daten exportieren',
+  'settings.data.deleteBtn': 'Daten löschen',
+  'settings.data.viewHistory': 'Koch-Verlauf anzeigen',
+  'settings.saved.title': 'Gespeichert',
+  'settings.saved.body': 'Deine Einstellungen sind aktuell.',
+  'settings.reminders.error.title': 'Erinnerung nicht geplant',
+  'settings.export.dialogTitle': 'Emrooz-Datenexport',
+  'settings.export.savedTitle': 'Export gespeichert',
+  'settings.export.savedBody': 'Gespeichert unter {uri}',
+  'settings.export.failedTitle': 'Export fehlgeschlagen',
+  'settings.delete.account.title': 'Konto löschen?',
+  'settings.delete.account.body':
+    'Dein Konto und alle darin gespeicherten Rezepte, Favoriten, Verlaufseinträge und Einstellungen werden dauerhaft entfernt. Tippe LÖSCHEN zum Bestätigen.',
+  'settings.delete.cancelled.title': 'Löschung abgebrochen',
+  'settings.delete.cancelled.body': 'Du musst LÖSCHEN eintippen, um zu bestätigen.',
+  'settings.delete.failed.title': 'Löschung fehlgeschlagen',
+  'settings.delete.local.title': 'Alle lokalen Daten löschen?',
+  'settings.delete.local.body':
+    'Das entfernt deinen Vorrat, Favoriten, Verlauf, Feedback, Wochenplan und Einkaufsliste auf diesem Gerät.',
+  'settings.eyebrow.preferences': 'Einstellungen',
+  'settings.hint.language': 'Rechts-nach-links-Sprachen kehren die UI-Richtung um.',
+  'settings.hint.household': 'Wir skalieren Zutatenmengen auf deine Runde.',
+  'settings.hint.time': 'Wir schlagen nichts außerhalb dieses Zeitfensters vor.',
+  'settings.hint.diet': 'Strenge Vorgaben werden als harte Filter durchgesetzt.',
+  'settings.hint.allergies': 'Rezepte, die wir nicht sicher als unbedenklich einstufen können, erscheinen nie.',
+  'settings.hint.data': 'Exportiere einen JSON-Snapshot oder lösche alles lokal Gespeicherte.',
+  'settings.household.person': 'Person',
+  'settings.time.minutes': '{minutes} Min.',
+  'settings.time.noLimitShort': 'Kein Limit',
+  'settings.reminder.quote': '„Nicht sicher, was du kochen sollst? Emrooz hat heute schon Ideen für dich.“',
+  'settings.reminder.enableLabel': 'Erinnerung aktivieren',
+  'settings.reminder.localHint': 'Lokale Benachrichtigungen werden von der mobilen App auf deinem Gerät geliefert.',
+  'settings.account.signedInHint2': 'Angemeldet. Deine Daten synchronisieren auf jedem Gerät, das du nutzt.',
+  'settings.account.guestHint2': 'Du bist als Gast unterwegs. Erstelle ein Konto, um Vorrat, Favoriten und Verlauf zu synchronisieren.',
+  'settings.account.signedInBadge': 'Angemeldet',
+  'settings.saved.short': 'Gespeichert.',
+  'settings.exportFailed.alert': 'Export fehlgeschlagen ({status}). Bitte versuche es erneut.',
+  'settings.delete.promptBody':
+    'Dein Konto und alles darin (Vorrat, Favoriten, Verlauf, Wochenplan, Einkaufsliste, Feedback, Einstellungen) wird dauerhaft entfernt.\n\nTippe LÖSCHEN zum Bestätigen.',
+  'settings.delete.demoConfirm':
+    'Alle lokalen Daten löschen? Das entfernt deine Gast-Identität, Vorrat, Favoriten, Verlauf, Feedback, Wochenplan und Einkaufsliste. Das lässt sich nicht rückgängig machen.',
+  'settings.delete.failed.alert': 'Löschung fehlgeschlagen: {error}',
+  'settings.deleteData': 'Meine Daten löschen',
+
+  // -- Web landing (extended) ------------------------------------------
+  'landing.nav.today': 'Heute',
+  'landing.nav.discover': 'Entdecken',
+  'landing.nav.cuisines': 'Küchen',
+  'landing.nav.signIn': 'Anmelden',
+  'landing.hero.eyebrow': 'Ein persönlicher Kochassistent',
+  'landing.hero.exampleTitle': 'Heute für dich',
+  'landing.section.previews.title': 'Auf deinem Handy und in deinem Browser',
+  'landing.section.previews.body': 'Einmal anmelden, überall synchron. Oder bleib Gast — alles bleibt auf dem Gerät.',
+  'landing.footer.privacy': 'Datenschutz',
+  'landing.footer.terms': 'Nutzungsbedingungen',
+  'landing.footer.imprint': 'Impressum',
+  'landing.footer.contact': 'Kontakt',
+  'landing.footer.product': 'Produkt',
+  'landing.footer.legal': 'Rechtliches',
+  'landing.footer.brandBody':
+    'Ein persönlicher Kochassistent, der die tägliche Frage beantwortet — abgestimmt auf das, was du schon hast und liebst — aus Küchen von überall auf der Welt.',
+  'landing.footer.copyright': '© {year} {app}. {tagline}',
+
+  // -- Landing page (extended content) ---------------------------------
+  'landing.hero.headline.prefix': 'Was soll ich heute ',
+  'landing.hero.headline.emphasis': 'kochen',
+  'landing.hero.headline.suffix': '?',
+  'landing.hero.body':
+    'Drei durchdachte Vorschläge — abgestimmt auf das, was in deiner Küche steht, wie viel Zeit du hast und was du liebst — aus Küchen von überall auf der Welt.',
+  'landing.hero.footnote': 'Kostenlos · Ohne Registrierung · Mobile und Web',
+  'landing.hero.card.eyebrow': 'Vorrats-Fokus',
+  'landing.hero.card.body': 'Nutzt, was du schon hast.',
+  'landing.hero.recipeMinutes': '{minutes} Min. · {difficulty}',
+  'landing.features.pantry.longBody':
+    'Sag Emrooz, was in deiner Küche steht. Wir bringen Rezepte nach vorn, die du schon kochen kannst — oder solche, für die nur ein, zwei Zutaten fehlen.',
+  'landing.features.time.longBody':
+    '20-Minuten-Werktag oder ruhiges Sonntagsprojekt? Setz dein Zeitfenster — wir passen die ganze Empfehlung an.',
+  'landing.features.safe.longBody':
+    'Allergien und Ernährungsvorgaben sind harte Filter — nie geraten. Wir empfehlen nur Rezepte, die wir positiv verifizieren können.',
+  'landing.cuisines.eyebrow': 'Entdecken',
+  'landing.cuisines.longBody':
+    'Emrooz ist vom ersten Tag an ein globales Produkt — italienisch, japanisch, mexikanisch, indisch, türkisch, vietnamesisch, thailändisch, französisch, äthiopisch und mehr. Jede Küche zählt gleichermaßen.',
+  'landing.cuisines.viewAll': 'Alle anzeigen →',
+  'landing.popular.eyebrow': 'Diese Woche beliebt',
+  'landing.popular.title': 'Was gerade gekocht wird',
+  'landing.popular.browseAll': 'Alle stöbern →',
+  'landing.afghan.eyebrow': 'Aushängeschild',
+  'landing.afghan.longTitle': 'Afghanische Küche, tief kuratiert',
+  'landing.afghan.longBody':
+    'Neben unserer weltweiten Auswahl haben wir eine sorgfältig geprüfte afghanische Kollektion aufgebaut — die Tiefe, die den meisten Koch-Apps fehlt. Eine Kollektion von vielen, nicht die ganze App.',
+  'landing.afghan.exploreCta': 'Afghanische Rezepte entdecken',
+  'landing.faq.eyebrow': 'FAQ',
+  'landing.faq.commonTitle': 'Häufige Fragen',
+  'landing.faq.guest2.q': 'Muss ich mich registrieren, um Emrooz zu nutzen?',
+  'landing.faq.guest2.a':
+    'Nein. Als Gast kannst du stöbern, Vorschläge bekommen, deinen Vorrat pflegen, favorisieren, planen und kochen. Registrierst du dich später, wird alles über Geräte hinweg synchronisiert.',
+  'landing.faq.allergies.q': 'Wie geht ihr mit Allergien um?',
+  'landing.faq.allergies.a':
+    'Allergien sind harte Filter, keine Vorlieben. Kann ein Rezept nicht positiv als sicher für dich verifiziert werden, erscheint es nie. Wir lockern nie Sicherheitsregeln, um mehr Ergebnisse zu zeigen.',
+  'landing.faq.notAfghan.q': 'Ist Emrooz nur für afghanische Küche?',
+  'landing.faq.notAfghan.a':
+    'Ganz und gar nicht. Emrooz ist vom ersten Tag an eine globale App. Afghanische Küche ist unsere erste Aushängeschild-Kollektion, weil sie von gängigen Apps unterrepräsentiert wird — aber jede Küche zählt gleichermaßen.',
+  'landing.faq.offline.q': 'Funktioniert es offline?',
+  'landing.faq.offline.a':
+    'Ja. Auf dem Handy werden Rezepte und deine Daten lokal zwischengespeichert, damit du auch ohne Verbindung kochen kannst. Im Web speichert die PWA die Hülle, sodass du weiterhin durchstöbern kannst, was du hattest.',
+  'landing.cta.title': 'Bereit, die tägliche Frage zu beantworten?',
+  'landing.cta.body': 'Öffne Emrooz und erhalte in Sekunden drei Vorschläge.',
+
+  // -- Metadata (web) --------------------------------------------------
+  'meta.discover.title': 'Entdecken',
+  'meta.discover.description': 'Stöbere Rezepte quer durch Küchen, Zeiten und Ernährungshinweise.',
+  'meta.planner.title': 'Wochenplan',
+  'meta.settings.title': 'Einstellungen',
+  'meta.shoppingList.title': 'Einkaufsliste',
+  'meta.favorites.title': 'Favoriten',
+  'meta.history.title': 'Verlauf',
+  'meta.pantry.title': 'Vorrat',
+  'meta.recipe.notFound': 'Rezept nicht gefunden',
+  'meta.recipe.descFallback': 'Rezept: {title}',
+  'meta.cuisines.title': 'Küchen',
+  'meta.cuisines.description': 'Stöbere Emrooz-Rezepte nach Küche.',
+  'meta.cuisines.slug.title': '{name} Rezepte',
+  'meta.cuisines.slug.description': 'Emrooz-Rezepte aus der {name} Küche.',
+  'meta.cuisines.notFound': 'Küche nicht gefunden',
+
+  // -- Account nav -----------------------------------------------------
+  'accountNav.account': 'Konto',
+
+  // -- Essential cookies banner ----------------------------------------
+  'cookies.title': 'Nur essenzielle Cookies',
+  'cookies.body':
+    'Emrooz speichert eine Anmelde-Sitzung und deine Einstellungen in deinem Browser. Kein Tracking, keine Werbung, keine Drittanbieter.',
+  'cookies.readMore': 'Mehr lesen',
+  'cookies.gotIt': 'Verstanden',
+
+  // -- Cuisines index --------------------------------------------------
+  'cuisines.eyebrow': 'Entdecken',
+  'cuisines.subtitle':
+    'Ein globales Menü. Jede Küche zählt gleichermaßen — von bekannten Klassikern bis zu unterrepräsentierten Traditionen.',
+  'cuisines.card.eyebrow': 'Küche',
+  'cuisines.slug.count.one': '{count} Rezept in der Kollektion.',
+  'cuisines.slug.count.many': '{count} Rezepte in der Kollektion.',
+  'cuisines.slug.emptyTitle': 'Bald verfügbar',
+  'cuisines.slug.emptyPrefix': 'Wir kuratieren diese Kollektion noch. ',
+  'cuisines.slug.browseOthers': 'Andere Küchen stöbern',
+  'cuisines.slug.emptySuffix': '.',
+
+  // -- Onboarding sheet (web) ------------------------------------------
+  'onboarding.web.eyebrow': 'Ein bisschen über dich',
+  'onboarding.web.progressOf': '{current} von {total}',
+  'onboarding.web.skipForNow': 'Vorerst überspringen',
+  'onboarding.web.continue': 'Weiter',
+  'onboarding.web.allergiesHardFilter':
+    'Emrooz behandelt Allergien als harten Filter. Rezepte, die wir nicht sicher als unbedenklich einstufen können, erscheinen nie.',
+  'onboarding.web.step.language.title': 'Wähle deine Sprache',
+  'onboarding.web.step.language.subtitle': 'Du kannst das jederzeit in den Einstellungen ändern.',
+  'onboarding.web.step.cuisines.title': 'Welche Küchen magst du?',
+  'onboarding.web.step.cuisines.subtitle':
+    'Wähle so viele du möchtest. Emrooz lehnt sich daran an — nie auf Kosten der Vielfalt.',
+  'onboarding.web.step.household.title': 'Wie viele sitzen am Tisch?',
+  'onboarding.web.step.household.subtitle': 'So skalieren wir die Zutatenmengen der Rezepte.',
+  'onboarding.web.step.time.title': 'Wie viel Zeit hast du?',
+  'onboarding.web.step.time.subtitle': 'Wir schlagen nichts vor, das nicht in dein Zeitfenster passt.',
+  'onboarding.web.step.diet.title': 'Ernährungsweisen?',
+  'onboarding.web.step.diet.subtitle': 'Optional. Strenge Vorgaben werden als harte Filter durchgesetzt.',
+  'onboarding.web.step.allergies.title': 'Allergien?',
+  'onboarding.web.step.allergies.subtitle':
+    'Das sind harte Filter — wir schlagen nie etwas vor, das nicht sicher für dich ist.',
+  'onboarding.web.time.sub.quick': 'Schnell',
+  'onboarding.web.time.sub.weeknight': 'Werktags',
+  'onboarding.web.time.sub.weekend': 'Wochenende',
+  'onboarding.web.time.noLimit.subtitle': 'Ich hab Zeit',
+  'onboarding.web.time.noLimit.title': 'Kein Limit',
+
+  // -- Recipe hero meta strip labels -----------------------------------
+  'recipeMeta.prep': 'Vorbereitung',
+  'recipeMeta.cook': 'Kochzeit',
+  'recipeMeta.total': 'Gesamt',
+  'recipeMeta.difficulty': 'Schwierigkeit',
+  'recipeMeta.minutesShort': '{minutes} Min.',
 };
 
 export default de;

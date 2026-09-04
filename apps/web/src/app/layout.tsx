@@ -8,7 +8,7 @@ import { OfflineBanner } from './offline-banner';
 import { AccountNav } from './account-nav';
 import { MigrationBoot } from './migration-boot';
 import { EssentialCookieBanner } from './essential-cookies';
-import { getTranslator, getServerLocale } from '../lib/i18n';
+import { getTranslator, getServerLocale } from '../lib/i18n-server';
 import { LocaleProvider } from '../lib/i18n-client';
 import { direction as directionFor, t as translate, type MessageKey } from '@emrooz/i18n';
 import type { Locale } from '@emrooz/i18n';
