@@ -2,54 +2,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-225.28 -225.28 1474.56 1474.56">
   <rect x="-225.28" y="-225.28" width="1474.56" height="1474.56" fill="#FFF8ED"/>
   <g>
-  <defs>
+  <rect width="1024" height="1024" fill="#FFF8ED"/>
+
+  <g stroke="#254D32" stroke-width="22" stroke-linecap="square" fill="none">
     
-    <filter id="pencil" x="-5%" y="-5%" width="110%" height="110%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="11" />
-      <feDisplacementMap in="SourceGraphic" scale="3.5" />
-    </filter>
-
-    
-    <filter id="paper" x="0%" y="0%" width="100%" height="100%">
-      <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="1" seed="4" />
-      <feColorMatrix values="0 0 0 0 0.98
-                             0 0 0 0 0.95
-                             0 0 0 0 0.88
-                             0 0 0 0.05 0" />
-      <feComposite in2="SourceGraphic" operator="in" />
-    </filter>
-  </defs>
-
-  
-  <rect id="paper-bg" width="1024" height="1024" fill="#FFF8ED" />
-  <rect width="1024" height="1024" fill="#FFF8ED" filter="url(#paper)" opacity="0.9" />
-
-  
-  <g filter="url(#pencil)"
-     stroke="#254D32"
-     stroke-width="66"
-     stroke-linecap="round"
-     stroke-linejoin="round"
-     fill="none">
+    <line x1="245" y1="210" x2="760" y2="210" />
+    <line x1="245" y1="210" x2="245" y2="380" />
+    <line x1="760" y1="210" x2="760" y2="380" />
 
     
-    <path d="
-      M 745 430
-      C 735 340, 640 265, 512 265
-      C 385 265, 260 345, 245 480
-      C 232 605, 305 720, 430 750
-      C 555 775, 680 730, 745 655
-    " />
+    <line x1="385" y1="340" x2="385" y2="845" />
+    <line x1="385" y1="845" x2="940" y2="845" />
+    <line x1="940" y1="340" x2="940" y2="845" />
 
     
-    <path d="M 255 505 L 755 495" />
-  </g>
-
-  
-  <g filter="url(#pencil)">
-    <circle cx="430" cy="870" r="18" fill="#F4A261" />
-    <circle cx="512" cy="870" r="18" fill="#F4A261" />
-    <circle cx="594" cy="870" r="18" fill="#F4A261" />
+    <circle cx="662.5" cy="592.5" r="90" />
   </g>
 </g>
 </svg>

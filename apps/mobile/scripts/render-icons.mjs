@@ -106,15 +106,24 @@ renderPng(adaptiveSvg, resolve(MOBILE, 'assets', 'adaptive-icon.png'), 1024);
 renderPng(SOURCE, resolve(MOBILE, 'assets', 'splash-icon.png'), 1200);
 renderPng(SOURCE, resolve(MOBILE, 'assets', 'favicon.png'), 48);
 
-// Web icons — Next.js serves SVGs directly at all three slots. We use
-// icon-web.svg (flat vector, no filters) so it renders crisply at browser
-// favicon sizes (16×16, 32×32). The pencil-artwork master is only used
-// for large mobile PNGs where the filters can breathe.
+// Web icons — Next.js serves SVGs directly for modern browsers, plus a
+// handful of PNG fallbacks for older browsers and for iOS Safari's
+// home-screen (which specifically needs apple-touch-icon.png at 180×180).
 if (!existsSync(WEB_PUBLIC)) mkdirSync(WEB_PUBLIC, { recursive: true });
+
+// SVG copies — used by modern browsers and the manifest.
 for (const name of ['favicon.svg', 'icon-192.svg', 'icon-512.svg']) {
   const dest = resolve(WEB_PUBLIC, name);
   copyFileSync(SOURCE_WEB, dest);
   console.log(`  ✓ ${dest.replace(REPO + '/', '')}`);
 }
+
+// PNG fallbacks — rasterized from icon-web.svg (flat vector, no filters)
+// so they stay crisp at small sizes.
+renderPng(SOURCE_WEB, resolve(WEB_PUBLIC, 'favicon-32.png'), 32);
+renderPng(SOURCE_WEB, resolve(WEB_PUBLIC, 'favicon-16.png'), 16);
+renderPng(SOURCE_WEB, resolve(WEB_PUBLIC, 'apple-touch-icon.png'), 180);
+renderPng(SOURCE_WEB, resolve(WEB_PUBLIC, 'icon-192.png'), 192);
+renderPng(SOURCE_WEB, resolve(WEB_PUBLIC, 'icon-512.png'), 512);
 
 console.log('[render-icons] done');

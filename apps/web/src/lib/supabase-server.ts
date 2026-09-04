@@ -9,10 +9,14 @@ import type { SupabaseClient } from '@supabase/supabase-js';
  */
 export async function getServerSupabase(): Promise<SupabaseClient | null> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !anon) return null;
+  // Prefer the new `sb_publishable_*` key; fall back to the legacy anon JWT
+  // so a hosted project that hasn't rotated keys still works.
+  const publishable =
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !publishable) return null;
   const cookieStore = await cookies();
-  return createServerClient(url, anon, {
+  return createServerClient(url, publishable, {
     cookies: {
       getAll() {
         return cookieStore.getAll();

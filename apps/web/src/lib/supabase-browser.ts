@@ -13,8 +13,12 @@ export function getBrowserSupabase(): SupabaseClient | null {
   if (typeof window === 'undefined') return null;
   if (cached) return cached;
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !anon) return null;
-  cached = createBrowserClient(url, anon);
+  // Prefer the new `sb_publishable_*` key; fall back to legacy anon JWT
+  // so a hosted project that still uses the old naming keeps working.
+  const publishable =
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !publishable) return null;
+  cached = createBrowserClient(url, publishable);
   return cached;
 }

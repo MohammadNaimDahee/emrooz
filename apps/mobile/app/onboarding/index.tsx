@@ -2,7 +2,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import React, { useMemo, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { SUPPORTED_LOCALES } from '@emrooz/types';
@@ -98,23 +98,72 @@ export default function Onboarding() {
   );
 
   const isLast = step === STEPS.length - 1;
+  const [saving, setSaving] = useState(false);
 
   async function finish() {
-    if (!profile) return;
-    const prefs: UserPreferences = {
-      userId: profile.id,
-      language,
-      cuisineIds: cuisines,
-      householdSize,
-      maxCookMinutes,
-      dietaryTags: dietary,
-      allergens,
-      dislikedIngredientIds: [],
-      pantrySeedIngredientIds: [],
-      onboardedAt: new Date().toISOString(),
-    };
-    await setPreferences(prefs);
-    router.replace('/(tabs)/today');
+    if (saving) return;
+    // If profile still loading (Supabase session hasn't landed / demo
+    // guest not created yet), surface it explicitly instead of silently
+    // no-oping. The DataProvider populates `profile` on mount; if it's
+    // still undefined here the user is on a first cold boot with slow
+    // network — a short wait usually resolves it.
+    if (!profile) {
+      Alert.alert(t('error.generic'), t('loading'));
+      return;
+    }
+    setSaving(true);
+    try {
+      const prefs: UserPreferences = {
+        userId: profile.id,
+        language,
+        cuisineIds: cuisines,
+        householdSize,
+        maxCookMinutes,
+        dietaryTags: dietary,
+        allergens,
+        dislikedIngredientIds: [],
+        pantrySeedIngredientIds: [],
+        onboardedAt: new Date().toISOString(),
+      };
+      await setPreferences(prefs);
+      router.replace('/(tabs)/today');
+    } catch (err) {
+      // Surface backend errors so the user isn't stuck on a dead button.
+      Alert.alert(t('error.generic'), err instanceof Error ? err.message : String(err));
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  /**
+   * Skip is a soft-abandon: leave onboarding without persisting any of the
+   * partially-filled preferences. If a profile happens to exist we still
+   * stamp `onboardedAt` so the user isn't re-prompted next launch; if not,
+   * we just navigate away.
+   */
+  async function skip() {
+    if (saving) return;
+    setSaving(true);
+    try {
+      if (profile) {
+        await setPreferences({
+          userId: profile.id,
+          language,
+          cuisineIds: [],
+          householdSize: 2,
+          dietaryTags: [],
+          allergens: [],
+          dislikedIngredientIds: [],
+          pantrySeedIngredientIds: [],
+          onboardedAt: new Date().toISOString(),
+        });
+      }
+    } catch {
+      // Skip should never block navigation — if the write fails, still leave.
+    } finally {
+      setSaving(false);
+      router.replace('/(tabs)/today');
+    }
   }
 
   return (
@@ -259,8 +308,9 @@ export default function Onboarding() {
 
         <SafeAreaView edges={['bottom']} style={styles.actions}>
           <Pressable
-            onPress={() => (step === 0 ? finish() : setStep(step - 1))}
-            style={styles.ghost}
+            onPress={() => (step === 0 ? skip() : setStep(step - 1))}
+            style={[styles.ghost, saving && { opacity: 0.5 }]}
+            disabled={saving}
           >
             <Text style={styles.ghostText}>
               {step === 0 ? t('onboarding.skip') : t('onboarding.back')}
@@ -274,10 +324,15 @@ export default function Onboarding() {
           ) : (
             <Pressable
               onPress={finish}
-              style={[styles.primary, { backgroundColor: COLORS.saffron500 }]}
+              disabled={saving}
+              style={[
+                styles.primary,
+                { backgroundColor: COLORS.saffron500 },
+                saving && { opacity: 0.6 },
+              ]}
             >
               <Text style={[styles.primaryText, { color: COLORS.ink900 }]}>
-                {t('onboarding.finish')}
+                {saving ? t('loading') : t('onboarding.finish')}
               </Text>
               <Ionicons name={dirIcons.arrowForward} size={18} color={COLORS.ink900} />
             </Pressable>

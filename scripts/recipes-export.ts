@@ -69,7 +69,8 @@ async function main(): Promise<void> {
   log('export.start', { out: args.out });
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  // Prefer the new secret_key name; fall back to legacy service_role_key.
+  const key = process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY;
   let payload: unknown;
 
   if (url && key) {

@@ -32,5 +32,10 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.svg|manifest.webmanifest|sw.js|icon-.*).*)'],
+  // Skip middleware for static assets. Keep favicon-*, apple-touch-icon,
+  // and manifest icon fallbacks in the exclude list so browser requests
+  // for them don't go through the auth-refresh path.
+  matcher: [
+    '/((?!_next/static|_next/image|favicon\\.svg|favicon-.*|apple-touch-icon\\.png|manifest\\.webmanifest|sw\\.js|icon-.*).*)',
+  ],
 };

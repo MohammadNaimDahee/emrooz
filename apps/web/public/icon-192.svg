@@ -1,40 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Web-optimized Emrooz mark. Same lowercase "e" monogram as the master, but
-  without the SVG filters (feTurbulence / feDisplacementMap / paper grain).
-
-  Why a second SVG for the web:
-    - Browsers render favicons as small as 16×16. At that size the master's
-      pencil-wobble filter turns into pixel mush and the "e" becomes an
-      unrecognizable smudge — the user sees only the saffron accent dots.
-    - Filters also change rendering per-browser (Safari vs Chrome vs Firefox).
-  Flat vector paths render crisply at every size a browser will ever ask for.
-
-  The saffron warmth signature has been pulled up into the counter (open
-  space) of the "e" and reduced to a single dot — three dots below the letter
-  disappear at favicon size and add visual clutter at manifest-icon sizes.
+  Web-optimized Emrooz mark. Same two-brackets-plus-circle geometry as
+  the mobile master. Slightly thicker strokes so the outline survives at
+  browser favicon sizes (16px, 32px).
 -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
   <rect width="1024" height="1024" fill="#FFF8ED"/>
+  <g stroke="#254D32" stroke-width="40" stroke-linecap="square" fill="none">
+    <line x1="245" y1="210" x2="760" y2="210" />
+    <line x1="245" y1="210" x2="245" y2="380" />
+    <line x1="760" y1="210" x2="760" y2="380" />
 
-  <g stroke="#254D32" stroke-width="72" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <!-- Open C-body of the "e": counter-clockwise sweep from the top of the
-         aperture, up and over, down the left, across the bottom, terminating
-         at the bottom of the aperture. Bottom-right stays open. -->
-    <path d="
-      M 750 420
-      C 740 320, 640 245, 512 245
-      C 380 245, 245 335, 235 480
-      C 220 610, 300 730, 430 760
-      C 560 785, 690 735, 755 655
-    " />
+    <line x1="385" y1="340" x2="385" y2="845" />
+    <line x1="385" y1="845" x2="940" y2="845" />
+    <line x1="940" y1="340" x2="940" y2="845" />
 
-    <!-- Crossbar, slightly rising to the right for a handwritten feel. -->
-    <path d="M 250 505 L 760 495" />
+    <circle cx="662.5" cy="592.5" r="100" />
   </g>
-
-  <!-- Single saffron dot inside the top counter — the "warmth" accent that
-       still reads at 16×16. Placed low-and-right of center so it doesn't
-       collide with the crossbar. -->
-  <circle cx="565" cy="405" r="42" fill="#F4A261"/>
 </svg>

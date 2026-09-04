@@ -54,7 +54,12 @@ export async function generateMetadata(): Promise<Metadata> {
       title: heroTitle,
     },
     manifest: '/manifest.webmanifest',
-    icons: [{ rel: 'icon', url: '/favicon.svg', type: 'image/svg+xml' }],
+    icons: [
+      { rel: 'icon', url: '/favicon.svg', type: 'image/svg+xml' },
+      { rel: 'icon', url: '/favicon-32.png', type: 'image/png', sizes: '32x32' },
+      { rel: 'icon', url: '/favicon-16.png', type: 'image/png', sizes: '16x16' },
+      { rel: 'apple-touch-icon', url: '/apple-touch-icon.png', sizes: '180x180' },
+    ],
   };
 }
 
@@ -121,10 +126,10 @@ function SiteHeader({ locale }: { locale: Locale }) {
           className="flex items-center gap-2 text-emerald-700 focus-ring"
           aria-label={`${appName} — Home`}
         >
-          <span className="grid place-items-center w-9 h-9 rounded-xl bg-emerald-700 text-cream-50 shadow-card">
-            <EmroozMark />
+          <EmroozMark />
+          <span className="font-sans text-2xl leading-none font-semibold tracking-tight lowercase">
+            {appName}
           </span>
-          <span className="font-display text-2xl leading-none tracking-tight">{appName}</span>
         </Link>
 
         <nav
@@ -254,10 +259,10 @@ function SiteFooter({ locale }: { locale: Locale }) {
       <div className="mx-auto max-w-6xl px-4 py-12 grid gap-8 md:grid-cols-4">
         <div className="md:col-span-2">
           <div className="flex items-center gap-2 text-emerald-700">
-            <span className="grid place-items-center w-8 h-8 rounded-lg bg-emerald-700 text-cream-50">
-              <EmroozMark />
+            <EmroozMark />
+            <span className="font-sans text-xl font-semibold tracking-tight lowercase">
+              {appName}
             </span>
-            <span className="font-display text-xl">{appName}</span>
           </div>
           <p className="mt-3 max-w-md text-sm text-ink-500">
             {tr(locale, 'landing.footer.brandBody')}
@@ -325,21 +330,31 @@ function SiteFooter({ locale }: { locale: Locale }) {
 }
 
 function EmroozMark() {
-  // Compact "e" monogram for use in the header + footer at ~18px.
-  // At this size we drop the pencil-wobble filter and warmth dots that the
-  // 1024px master carries — they read as noise below ~40px. The essential
-  // shape (open C-body + crossbar + saffron accent dot) survives cleanly.
+  // Two overlapping open brackets, sharp corners, plus a hollow circle
+  // inside the lower rectangle:
+  //
+  //   ⊓  top-left bracket:  top edge + two short verticals dropping down
+  //   ⊔  bottom-right open: left edge + bottom edge + right edge (no top)
+  //   ○  hollow circle inside the lower rectangle, upper area
+  //
+  // Every segment is deep-green line art on the header's cream background.
+  // No rounded corners anywhere.
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M18 9.4C17.5 6.6 15 4.8 12 4.8C8.5 4.8 5.5 7 5.5 10.8C5.5 14.5 8 17 11.5 17C13.9 17 15.6 16 17 14.4"
-        stroke="#254D32"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-        fill="none"
-      />
-      <path d="M6 11.2 L17.6 11" stroke="#254D32" strokeWidth="2.4" strokeLinecap="round" />
-      <circle cx="12" cy="20.4" r="1.1" fill="#F4A261" />
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <g stroke="#254D32" strokeWidth="1" strokeLinecap="square">
+        {/* Top bracket ⊓ — shifted further right */}
+        <line x1="6" y1="6" x2="18" y2="6" />
+        <line x1="6" y1="6" x2="6" y2="10" />
+        <line x1="18" y1="6" x2="18" y2="10" />
+
+        {/* Lower open rectangle ⊔ — shallower (bottom raised from 22 to 19) */}
+        <line x1="9" y1="9" x2="9" y2="19" />
+        <line x1="9" y1="19" x2="22" y2="19" />
+        <line x1="22" y1="9" x2="22" y2="19" />
+
+        {/* Hollow circle — dead-center of the lower rectangle (x 9..22, y 9..19) */}
+        <circle cx="15.5" cy="14" r="2" fill="none" />
+      </g>
     </svg>
   );
 }

@@ -295,5 +295,10 @@ export function inferDemoMode(env: Record<string, string | undefined>): boolean 
   const explicit = env.EMROOZ_DEMO_MODE;
   if (explicit === 'on') return true;
   if (explicit === 'off') return false;
-  return !env.NEXT_PUBLIC_SUPABASE_URL || !env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  // Look for either the new publishable_key or the legacy anon_key so
+  // hosted projects that haven't rotated keys still count as configured.
+  const hasKey =
+    Boolean(env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY) ||
+    Boolean(env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+  return !env.NEXT_PUBLIC_SUPABASE_URL || !hasKey;
 }

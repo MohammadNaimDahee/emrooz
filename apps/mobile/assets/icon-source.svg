@@ -1,81 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Emrooz brand mark — hand-drawn lowercase "e" monogram.
+  Emrooz mark — two overlapping open brackets.
 
-  Concept: a single calligraphic pen stroke tracing a lowercase "e",
-  finished with three saffron dots as a "warmth signature" underneath.
-
-  Why an "e" monogram: Emrooz means "today" in Persian/Dari. A wordmark
-  centers the identity on the brand rather than on any one cuisine or
-  food object, which is essential for a globally-positioned app.
-  The rough pencil stroke keeps the personal-cooking-assistant warmth.
+  Composition:
+    ⊓  top-left bracket:  top edge + two short verticals (no bottom)
+    ⊔  bottom-right open: left + bottom + right (no top)
+    ○  hollow circle inside the lower rectangle, upper area
+    all corners sharp — no rounding anywhere
 
   Palette:
-    cream    #FFF8ED   paper
-    deep     #254D32   pencil ink (Emrooz deep green)
-    saffron  #F4A261   warmth dots
+    field   #FFF8ED  cream
+    stroke  #254D32  deep green
 
-  Rendered by scripts/render-icons.mjs to all mobile + web targets.
+  Rendered by scripts/render-icons.mjs to every mobile + web target.
 -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
-  <defs>
-    <!-- Pencil wobble: turbulence displacement gives the pen stroke a
-         subtle hand-drawn imperfection. -->
-    <filter id="pencil" x="-5%" y="-5%" width="110%" height="110%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="11" />
-      <feDisplacementMap in="SourceGraphic" scale="3.5" />
-    </filter>
+  <rect width="1024" height="1024" fill="#FFF8ED"/>
 
-    <!-- Paper grain: very faint noise so cream reads as paper, not vector. -->
-    <filter id="paper" x="0%" y="0%" width="100%" height="100%">
-      <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="1" seed="4" />
-      <feColorMatrix values="0 0 0 0 0.98
-                             0 0 0 0 0.95
-                             0 0 0 0 0.88
-                             0 0 0 0.05 0" />
-      <feComposite in2="SourceGraphic" operator="in" />
-    </filter>
-  </defs>
+  <g stroke="#254D32" stroke-width="22" stroke-linecap="square" fill="none">
+    <!-- Top bracket ⊓ — shifted further right (+80 from previous) -->
+    <line x1="245" y1="210" x2="760" y2="210" />
+    <line x1="245" y1="210" x2="245" y2="380" />
+    <line x1="760" y1="210" x2="760" y2="380" />
 
-  <!-- Paper background -->
-  <rect id="paper-bg" width="1024" height="1024" fill="#FFF8ED" />
-  <rect width="1024" height="1024" fill="#FFF8ED" filter="url(#paper)" opacity="0.9" />
+    <!-- Lower open rectangle ⊔ — shallower (bottom raised from y=945 to y=845) -->
+    <line x1="385" y1="340" x2="385" y2="845" />
+    <line x1="385" y1="845" x2="940" y2="845" />
+    <line x1="940" y1="340" x2="940" y2="845" />
 
-  <!-- Lowercase "e" as two overlapping pen strokes:
-       1) An open "C" (outer body), leaving the bottom-right quarter open
-          for the aperture — this is what makes it read as "e" not "o".
-       2) A horizontal crossbar through the visual middle.
-       Both strokes use round caps so terminals feel like ink drops. -->
-  <g filter="url(#pencil)"
-     stroke="#254D32"
-     stroke-width="66"
-     stroke-linecap="round"
-     stroke-linejoin="round"
-     fill="none">
-
-    <!-- Outer C-body: starts at top of the aperture, sweeps
-         counter-clockwise up and over, down the left, across the
-         bottom, and terminates at the bottom of the aperture. -->
-    <path d="
-      M 745 430
-      C 735 340, 640 265, 512 265
-      C 385 265, 260 345, 245 480
-      C 232 605, 305 720, 430 750
-      C 555 775, 680 730, 745 655
-    " />
-
-    <!-- Crossbar: straight through the middle, cutting across the
-         aperture opening. Slightly angled up-right for a handwritten
-         feel rather than a machine-drawn horizontal. -->
-    <path d="M 255 505 L 755 495" />
-  </g>
-
-  <!-- Warmth signature: three saffron dots underneath, like saffron
-       threads scattered on the page — a small mark that survives even
-       at favicon sizes. -->
-  <g filter="url(#pencil)">
-    <circle cx="430" cy="870" r="18" fill="#F4A261" />
-    <circle cx="512" cy="870" r="18" fill="#F4A261" />
-    <circle cx="594" cy="870" r="18" fill="#F4A261" />
+    <!-- Hollow circle — dead-center of the lower rectangle (x 385..940, y 340..845) -->
+    <circle cx="662.5" cy="592.5" r="90" />
   </g>
 </svg>

@@ -1,14 +1,23 @@
 // Emrooz PWA shell cache.
 // App-shell caching with a network-first fallback for HTML and a stale-while-revalidate
 // fallback for static assets. On failure the shell page is served offline.
-const CACHE = 'emrooz-shell-v1';
+//
+// Bump the cache version any time the shell URL list changes so old clients
+// evict their stale caches on next activation. Currently v2 (added PNG
+// icon fallbacks for older browsers + iOS Safari home-screen).
+const CACHE = 'emrooz-shell-v2';
 const SHELL = [
   '/',
   '/app',
   '/manifest.webmanifest',
   '/favicon.svg',
+  '/favicon-16.png',
+  '/favicon-32.png',
+  '/apple-touch-icon.png',
   '/icon-192.svg',
   '/icon-512.svg',
+  '/icon-192.png',
+  '/icon-512.png',
 ];
 
 self.addEventListener('install', (event) => {

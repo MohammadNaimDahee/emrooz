@@ -8,8 +8,13 @@ let cached: SupabaseClient | null = null;
  * Mobile Supabase client. Session persistence via AsyncStorage so the user
  * stays signed in across app launches without a network round-trip.
  *
- * Reads URL + anon key from Expo's `extra` config (app.json → extra.supabase)
+ * Reads URL + publishable key from Expo's `extra` config (app.json → extra.supabase)
  * or from the standard EXPO_PUBLIC_* env vars, whichever is populated.
+ *
+ * Key naming: Supabase's newer key format is `sb_publishable_*` (client-safe,
+ * replaces the legacy anon JWT). We prefer `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+ * but fall back to `EXPO_PUBLIC_SUPABASE_ANON_KEY` so a hosted project that
+ * still has legacy keys keeps working. `@supabase/supabase-js` accepts both.
  */
 export function getSupabase(): SupabaseClient | null {
   if (cached) return cached;
@@ -19,9 +24,13 @@ export function getSupabase(): SupabaseClient | null {
   const env =
     (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env ?? {};
   const url = extra.EXPO_PUBLIC_SUPABASE_URL ?? env.EXPO_PUBLIC_SUPABASE_URL;
-  const anon = extra.EXPO_PUBLIC_SUPABASE_ANON_KEY ?? env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !anon) return null;
-  cached = createClient(url, anon, {
+  const publishable =
+    extra.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
+    env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
+    extra.EXPO_PUBLIC_SUPABASE_ANON_KEY ??
+    env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !publishable) return null;
+  cached = createClient(url, publishable, {
     auth: {
       storage: AsyncStorage,
       autoRefreshToken: true,

@@ -51,20 +51,36 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       if (supabase) {
         // Real backend: guarantee a session (anonymous if needed), then load
         // the corresponding profile row created by the auth trigger.
-        const session = await ensureSession();
-        if (session) {
-          const p = await data.profile.get(session.userId);
-          if (p) userProfile = p;
+        try {
+          const session = await ensureSession();
+          if (session) {
+            const p = await data.profile.get(session.userId);
+            if (p) userProfile = p;
+          }
+        } catch (err) {
+          console.warn('[emrooz] Supabase session failed, will fall back to local guest', err);
         }
-      } else {
-        // Demo mode: reuse or create a local guest identity.
+      }
+      // Guest fallback: applies in demo mode AND when Supabase mode fails to
+      // establish a session (e.g. Android emulator can't reach 127.0.0.1,
+      // network is offline, or anonymous auth is disabled). Without this
+      // fallback the app boots with `profile === undefined` and onboarding
+      // is stuck ("Let's cook" fails, silently or with an alert).
+      if (!userProfile) {
         const storedGuestJson = await AsyncStorage.getItem(GUEST_KEY);
         if (storedGuestJson) {
           const p = JSON.parse(storedGuestJson) as UserProfile;
-          await data.profile.upsert(p);
+          try {
+            await data.profile.upsert(p);
+          } catch {
+            // Upsert failing to Supabase is fine — we still have the local id.
+          }
           userProfile = p;
         } else {
-          const created = await data.profile.createGuest();
+          // createGuest throws in the Supabase adapter (it expects
+          // anonymous-auth to be used instead), so use the demo helper
+          // directly to synthesize a stable local user identity.
+          const created = await createDemoData().profile.createGuest();
           await AsyncStorage.setItem(GUEST_KEY, JSON.stringify(created));
           userProfile = created;
         }

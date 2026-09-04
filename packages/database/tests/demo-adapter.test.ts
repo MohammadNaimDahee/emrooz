@@ -248,4 +248,12 @@ describe('inferDemoMode', () => {
       }),
     ).toBe(false);
   });
+  it('is false when the new publishable key is set (Supabase 2.x naming)', () => {
+    expect(
+      inferDemoMode({
+        NEXT_PUBLIC_SUPABASE_URL: 'https://x',
+        NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: 'sb_publishable_xyz',
+      }),
+    ).toBe(false);
+  });
 });
