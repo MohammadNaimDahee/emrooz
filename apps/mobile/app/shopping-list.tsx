@@ -18,6 +18,7 @@ import type { ShoppingListItem } from '@emrooz/types';
 
 import { useData } from '../src/data/context';
 import { useTranslator } from '../src/i18n/hook';
+import { useDirIcons } from '../src/i18n/rtl';
 import { COLORS, FONTS, FONT_SIZES, RADIUS, SHADOW, SPACING } from '../src/theme/tokens';
 
 const CATEGORY_KEYS = [
@@ -45,6 +46,7 @@ const CATEGORY_KEYS = [
 export default function ShoppingListScreen() {
   const { data, profile } = useData();
   const { t } = useTranslator();
+  const dirIcons = useDirIcons();
   const client = useQueryClient();
   const [manualLabel, setManualLabel] = useState('');
 
@@ -143,7 +145,7 @@ export default function ShoppingListScreen() {
           style={styles.backBtn}
           accessibilityLabel={t('action.back')}
         >
-          <Ionicons name="chevron-back" size={22} color={COLORS.ink900} />
+          <Ionicons name={dirIcons.back} size={22} color={COLORS.ink900} />
         </Pressable>
         <Text style={styles.headerTitle}>{t('shoppingList.title')}</Text>
         <View style={{ width: 22 }} />

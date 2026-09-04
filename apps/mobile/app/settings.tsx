@@ -22,6 +22,7 @@ import { signOut } from '../src/data/auth';
 import { useData } from '../src/data/context';
 import { getSupabase } from '../src/data/supabase';
 import { useTranslator } from '../src/i18n/hook';
+import { useDirIcons } from '../src/i18n/rtl';
 import { scheduleDailyReminder, cancelDailyReminder } from '../src/notifications/reminder';
 import { COLORS, FONTS, FONT_SIZES, RADIUS, SHADOW, SPACING } from '../src/theme/tokens';
 
@@ -37,6 +38,7 @@ const ALLERGENS: Allergen[] = ['gluten', 'dairy', 'egg', 'peanut', 'tree_nut', '
 export default function SettingsScreen() {
   const { data, profile, preferences, setPreferences, supabaseEnabled } = useData();
   const { t } = useTranslator();
+  const dirIcons = useDirIcons();
   const [accountEmail, setAccountEmail] = useState<string | null>(null);
 
   useEffect(() => {
@@ -224,7 +226,7 @@ export default function SettingsScreen() {
     <SafeAreaView style={styles.safe} edges={['top']}>
       <View style={styles.header}>
         <Pressable onPress={() => router.back()} hitSlop={12} style={styles.backBtn} accessibilityLabel={t('action.back')}>
-          <Ionicons name="chevron-back" size={22} color={COLORS.ink900} />
+          <Ionicons name={dirIcons.back} size={22} color={COLORS.ink900} />
         </Pressable>
         <Text style={styles.headerTitle}>{t('settings.title')}</Text>
         <View style={{ width: 22 }} />

@@ -112,6 +112,7 @@ function tr(locale: Locale, key: MessageKey, params?: Record<string, string | nu
 
 function SiteHeader({ locale }: { locale: Locale }) {
   const appName = tr(locale, 'app.name');
+  const dir = directionFor(locale);
   return (
     <header className="sticky top-0 z-30 border-b border-ink-100/60 bg-cream-50/80 backdrop-blur supports-[backdrop-filter]:bg-cream-50/60">
       <div className="mx-auto max-w-6xl px-4 h-[72px] flex items-center justify-between">
@@ -146,7 +147,7 @@ function SiteHeader({ locale }: { locale: Locale }) {
           </summary>
           <div className="absolute right-0 mt-2 w-64 rounded-xl bg-white shadow-card border border-ink-100 p-2 text-sm">
             <MobileLink href="/app" primary>
-              {tr(locale, 'nav.today')} →
+              {tr(locale, 'nav.today')} {dir === 'rtl' ? '←' : '→'}
             </MobileLink>
             <div className="my-1 h-px bg-ink-100" />
             <MobileLink href="/discover">{tr(locale, 'nav.discover')}</MobileLink>

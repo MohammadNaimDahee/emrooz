@@ -17,11 +17,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { sendPasswordReset } from '../../src/data/auth';
 import { useData } from '../../src/data/context';
 import { useTranslator } from '../../src/i18n/hook';
+import { useDirIcons } from '../../src/i18n/rtl';
 import { COLORS, FONTS, FONT_SIZES, RADIUS, SHADOW, SPACING } from '../../src/theme/tokens';
 
 export default function ForgotPasswordScreen() {
   const { supabaseEnabled } = useData();
   const { t } = useTranslator();
+  const dirIcons = useDirIcons();
   const [email, setEmail] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
@@ -44,7 +46,7 @@ export default function ForgotPasswordScreen() {
     <SafeAreaView style={styles.safe} edges={['top']}>
       <View style={styles.header}>
         <Pressable onPress={() => router.back()} hitSlop={12} style={styles.backBtn}>
-          <Ionicons name="chevron-back" size={22} color={COLORS.ink900} />
+          <Ionicons name={dirIcons.back} size={22} color={COLORS.ink900} />
         </Pressable>
         <Text style={styles.headerTitle}>{t('auth.forgotPassword.header')}</Text>
         <View style={{ width: 22 }} />

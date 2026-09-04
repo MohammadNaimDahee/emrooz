@@ -20,12 +20,14 @@ import { scaleIngredients, toIsoDate } from '@emrooz/core';
 import { CuisineArt } from '../../src/components/CuisineArt';
 import { useData } from '../../src/data/context';
 import { useTranslator } from '../../src/i18n/hook';
+import { useDirIcons } from '../../src/i18n/rtl';
 import { COLORS, FONTS, FONT_SIZES, RADIUS, SHADOW, SPACING } from '../../src/theme/tokens';
 
 export default function RecipeScreen() {
   const { slug } = useLocalSearchParams<{ slug: string }>();
   const { data, profile } = useData();
   const { t } = useTranslator();
+  const dirIcons = useDirIcons();
   const client = useQueryClient();
 
   const recipeQ = useQuery({
@@ -181,7 +183,7 @@ export default function RecipeScreen() {
               accessibilityLabel={t('recipe.back')}
               hitSlop={12}
             >
-              <Ionicons name="chevron-back" size={22} color={COLORS.ink900} />
+              <Ionicons name={dirIcons.back} size={22} color={COLORS.ink900} />
             </Pressable>
             <View style={{ flex: 1 }} />
             <Pressable

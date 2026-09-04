@@ -21,6 +21,7 @@ import type { MealPlanEntry, Recipe, RecipeSummary } from '@emrooz/types';
 import { CuisineArt } from '../../src/components/CuisineArt';
 import { useData } from '../../src/data/context';
 import { useTranslator } from '../../src/i18n/hook';
+import { useDirIcons } from '../../src/i18n/rtl';
 import { COLORS, FONTS, FONT_SIZES, RADIUS, SHADOW, SPACING } from '../../src/theme/tokens';
 
 const MEALS = ['breakfast', 'lunch', 'dinner'] as const;
@@ -30,6 +31,7 @@ const DAY_KEYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as const;
 export default function Planner() {
   const { data, profile } = useData();
   const { t } = useTranslator();
+  const dirIcons = useDirIcons();
   const client = useQueryClient();
 
   const [weekStart, setWeekStart] = useState<string>(() => startOfWeek(toIsoDate()));
@@ -152,7 +154,7 @@ export default function Planner() {
             style={styles.navBtn}
             accessibilityLabel={t('planner.prevWeek')}
           >
-            <Ionicons name="chevron-back" size={18} color={COLORS.ink900} />
+            <Ionicons name={dirIcons.back} size={18} color={COLORS.ink900} />
           </Pressable>
           <Text style={styles.weekLabel}>
             {t('planner.weekRange', { start: weekStart, end: weekEnd })}
@@ -163,7 +165,7 @@ export default function Planner() {
             style={styles.navBtn}
             accessibilityLabel={t('planner.nextWeek')}
           >
-            <Ionicons name="chevron-forward" size={18} color={COLORS.ink900} />
+            <Ionicons name={dirIcons.forward} size={18} color={COLORS.ink900} />
           </Pressable>
         </View>
 

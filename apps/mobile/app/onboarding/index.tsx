@@ -17,6 +17,7 @@ import type { MessageKey } from '@emrooz/i18n';
 
 import { useData } from '../../src/data/context';
 import { useTranslator } from '../../src/i18n/hook';
+import { useDirIcons } from '../../src/i18n/rtl';
 import { COLORS, FONTS, FONT_SIZES, RADIUS, SHADOW, SPACING } from '../../src/theme/tokens';
 
 const CUISINE_OPTIONS: { id: string; label: string }[] = [
@@ -64,8 +65,9 @@ const LANG_OPTIONS: { code: Locale; label: string; dir: 'ltr' | 'rtl' }[] = [
 const STEPS = ['Language', 'Cuisines', 'Household', 'Time', 'Diet', 'Allergies'] as const;
 
 export default function Onboarding() {
-  const { profile, setPreferences } = useData();
+  const { profile, setPreferences, setLocale } = useData();
   const { t } = useTranslator();
+  const dirIcons = useDirIcons();
   const [step, setStep] = useState(0);
   const [language, setLanguage] = useState<Locale>('en');
   const [cuisines, setCuisines] = useState<string[]>([]);
@@ -135,7 +137,15 @@ export default function Onboarding() {
                   key={l.code}
                   active={language === l.code}
                   onPress={() => {
-                    if (SUPPORTED_LOCALES.includes(l.code)) setLanguage(l.code);
+                    if (SUPPORTED_LOCALES.includes(l.code)) {
+                      setLanguage(l.code);
+                      // Propagate to the app-wide locale immediately so
+                      // the remaining onboarding steps re-render in the
+                      // picked language. Without this, someone who chose
+                      // Dari because they can't read English still sees
+                      // English for the rest of onboarding.
+                      setLocale(l.code);
+                    }
                   }}
                   title={l.label}
                   subtitle={l.code}
@@ -248,12 +258,12 @@ export default function Onboarding() {
           {!isLast ? (
             <Pressable onPress={() => setStep(step + 1)} style={styles.primary}>
               <Text style={styles.primaryText}>{t('onboarding.next')}</Text>
-              <Ionicons name="arrow-forward" size={18} color={COLORS.cream} />
+              <Ionicons name={dirIcons.arrowForward} size={18} color={COLORS.cream} />
             </Pressable>
           ) : (
             <Pressable onPress={finish} style={[styles.primary, { backgroundColor: COLORS.saffron500 }]}>
               <Text style={[styles.primaryText, { color: COLORS.ink900 }]}>{t('onboarding.finish')}</Text>
-              <Ionicons name="arrow-forward" size={18} color={COLORS.ink900} />
+              <Ionicons name={dirIcons.arrowForward} size={18} color={COLORS.ink900} />
             </Pressable>
           )}
         </SafeAreaView>

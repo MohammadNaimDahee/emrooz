@@ -55,15 +55,16 @@ export default function PantryClient() {
     await client.invalidateQueries({ queryKey: ['today'] });
   }
 
+  const suggestionsData = suggestions.data;
   const grouped = useMemo(() => {
-    const map = new Map<string, typeof suggestions.data>();
-    for (const ing of suggestions.data ?? []) {
+    const map = new Map<string, NonNullable<typeof suggestionsData>>();
+    for (const ing of suggestionsData ?? []) {
       const list = map.get(ing.category) ?? [];
       list.push(ing);
       map.set(ing.category, list);
     }
     return [...map.entries()];
-  }, [suggestions.data]);
+  }, [suggestionsData]);
 
   return (
     <div className="mx-auto max-w-4xl px-4 pt-10 pb-16">

@@ -1,4 +1,5 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import type { MessageKey } from '@emrooz/i18n';
 import type { Allergen, DietaryTag, Locale, UserPreferences } from '@emrooz/types';
@@ -58,6 +59,7 @@ export default function OnboardingSheet({
   onSave: (prefs: UserPreferences) => void;
 }) {
   const { t } = useTranslator();
+  const router = useRouter();
   const [step, setStep] = useState(0);
   const [language, setLanguage] = useState<Locale>('en');
   const [cuisines, setCuisines] = useState<string[]>([]);
@@ -134,7 +136,18 @@ export default function OnboardingSheet({
               ).map(([code, label, dir]) => (
                 <button
                   key={code}
-                  onClick={() => setLanguage(code)}
+                  onClick={() => {
+                    setLanguage(code);
+                    // Persist the picked locale to the cookie the server
+                    // layout reads, then refresh so the remaining
+                    // onboarding steps (and <html lang dir>) render in
+                    // it immediately. Without this, someone who chose
+                    // Dari because they can't read English still sees
+                    // English for the rest of onboarding.
+                    const oneYear = 60 * 60 * 24 * 365;
+                    document.cookie = `emrooz-locale=${code}; path=/; max-age=${oneYear}; SameSite=Lax`;
+                    router.refresh();
+                  }}
                   aria-pressed={language === code}
                   className={`rounded-2xl border px-5 py-4 text-left transition focus-ring ${
                     language === code

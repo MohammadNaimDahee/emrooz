@@ -17,11 +17,13 @@ import { toIsoDate } from '@emrooz/core';
 import { CuisineArt } from '../src/components/CuisineArt';
 import { useData } from '../src/data/context';
 import { useTranslator } from '../src/i18n/hook';
+import { useDirIcons } from '../src/i18n/rtl';
 import { COLORS, FONTS, FONT_SIZES, RADIUS, SHADOW, SPACING } from '../src/theme/tokens';
 
 export default function HistoryScreen() {
   const { data, profile } = useData();
   const { t } = useTranslator();
+  const dirIcons = useDirIcons();
   const client = useQueryClient();
 
   const q = useQuery({
@@ -89,7 +91,7 @@ export default function HistoryScreen() {
           style={styles.backBtn}
           accessibilityLabel={t('action.back')}
         >
-          <Ionicons name="chevron-back" size={22} color={COLORS.ink900} />
+          <Ionicons name={dirIcons.back} size={22} color={COLORS.ink900} />
         </Pressable>
         <Text style={styles.headerTitle}>{t('nav.history')}</Text>
         <View style={{ width: 22 }} />

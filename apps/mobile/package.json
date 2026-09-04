@@ -10,7 +10,7 @@
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
-    "test": "jest",
+    "test": "echo 'No mobile tests yet — add vitest + jest-expo when the first spec lands' && exit 0",
     "prebuild": "expo prebuild && node ./scripts/strip-personal-team-entitlements.mjs",
     "prebuild:ios": "expo prebuild --platform ios && node ./scripts/strip-personal-team-entitlements.mjs",
     "prebuild:android": "expo prebuild --platform android",
@@ -53,7 +53,9 @@
   "devDependencies": {
     "@babel/core": "^7.24.9",
     "@emrooz/config": "workspace:*",
+    "@eslint/js": "^9.13.0",
     "@types/react": "~18.2.79",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.69.0"
   }
 }
