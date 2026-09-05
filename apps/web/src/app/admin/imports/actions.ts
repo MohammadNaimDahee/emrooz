@@ -90,9 +90,13 @@ export async function promoteCandidate(input: PromoteCandidateInput): Promise<{ 
     .insert({
       slug,
       title_en: input.title,
-      prep_minutes: 0,
-      cook_minutes: 0,
-      total_minutes: 1, // constraint: total > 0. Reviewer fills in real values.
+      // Placeholder times — reviewer sets real values before publishing.
+      // Non-zero defaults so `total_minutes > 0` check passes AND the
+      // editor's `total = prep + cook` derivation lands at a plausible
+      // starting point (30 min) instead of failing on save with 0+0.
+      prep_minutes: 10,
+      cook_minutes: 20,
+      total_minutes: 30,
       difficulty: 'easy',
       meal_types: [],
       servings: 4,
@@ -119,13 +123,36 @@ export async function promoteCandidate(input: PromoteCandidateInput): Promise<{ 
     if (e2) throw new Error(`Cuisines: ${e2.message}`);
   }
 
+  // Resolve ingredient UUIDs from the LIVE `ingredients` table by
+  // name. The pipeline's `resolvedIngredientIds` come from the demo
+  // dataset (string IDs like "ing_sugar" or bare "sugar"), which are
+  // not valid Postgres UUIDs — pushing them into the DB fails with
+  // `invalid input syntax for type uuid`. Looking up by name means:
+  //   - ingredients that exist in Supabase get linked correctly,
+  //   - ingredients that don't get skipped silently (the reviewer
+  //     can add them by hand in the recipe editor before publishing).
+  const names = input.ingredientLines.map((line) => line.ingredient.trim()).filter(Boolean);
+  const uniqueNames = Array.from(new Set(names.map((n) => n.toLowerCase())));
+
+  const nameToUuid = new Map<string, string>();
+  if (uniqueNames.length > 0) {
+    const { data: rows } = await supabase
+      .from('ingredients')
+      .select('id, name_en, slug')
+      .or(uniqueNames.map((n) => `name_en.ilike.${n},slug.ilike.${n}`).join(','));
+    for (const row of (rows as { id: string; name_en: string; slug: string }[] | null) ?? []) {
+      nameToUuid.set(row.name_en.toLowerCase(), row.id);
+      nameToUuid.set(row.slug.toLowerCase(), row.id);
+    }
+  }
+
   const ingredientRows = input.ingredientLines
     .map((line, i) => {
-      const ingredient_id = input.resolvedIngredientIds[i];
-      if (!ingredient_id) return null;
+      const uuid = nameToUuid.get(line.ingredient.trim().toLowerCase());
+      if (!uuid) return null;
       return {
         recipe_id: recipeId,
-        ingredient_id,
+        ingredient_id: uuid,
         position: i,
         quantity: line.quantity ?? null,
         unit: line.unit ?? null,

@@ -2,6 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getData } from '../../../lib/data';
+
+// Recipe content changes any time an editor publishes / unpublishes /
+// re-classifies a recipe. Next 15's default fetch cache turns that into
+// stale content on this page (a request that returned 0 recipes at
+// build time is served forever until manually invalidated). Force
+// dynamic rendering so every visit sees the current published set.
+export const dynamic = 'force-dynamic';
 import { getTranslator } from '../../../lib/i18n-server';
 import { CuisineArt } from '../../../components/CuisineArt';
 import { RecipeCard } from '../../../components/RecipeCard';

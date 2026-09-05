@@ -382,16 +382,19 @@ export class SupabaseEmroozData implements EmroozData {
   };
 
   private async queryRecipes(query: RecipeQuery | undefined): Promise<RecipeRow[]> {
-    let q = this.supabase.from('recipes').select(RECIPE_SELECT).eq('editorial_state', 'published');
+    // When a cuisine filter is active, swap the default `recipe_cuisines`
+    // embed in RECIPE_SELECT for the `!inner` variant. Embedding the same
+    // relation twice (once regular, once inner) makes PostgREST return
+    // 400 Bad Request — that was the reason /discover and /cuisines/*
+    // rendered empty even with published recipes in the DB.
+    const select = query?.cuisineId
+      ? RECIPE_SELECT.replace('recipe_cuisines(cuisine_id)', 'recipe_cuisines!inner(cuisine_id)')
+      : RECIPE_SELECT;
+
+    let q = this.supabase.from('recipes').select(select).eq('editorial_state', 'published');
 
     if (query?.cuisineId) {
-      // Filter through the join table via server-side inner select. The `!inner`
-      // relation forces PostgREST to join and drop unmatched rows.
-      q = this.supabase
-        .from('recipes')
-        .select(`${RECIPE_SELECT}, recipe_cuisines!inner(cuisine_id)`)
-        .eq('editorial_state', 'published')
-        .eq('recipe_cuisines.cuisine_id', query.cuisineId);
+      q = q.eq('recipe_cuisines.cuisine_id', query.cuisineId);
     }
     if (query?.regionId) {
       q = q as never; // typing note: same pattern as cuisineId if needed later

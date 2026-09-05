@@ -35,7 +35,17 @@ export function getData(): EmroozData {
     const url = env.NEXT_PUBLIC_SUPABASE_URL!;
     const publishable =
       env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-    cachedSupabase = new SupabaseEmroozData(createClient(url, publishable));
+    cachedSupabase = new SupabaseEmroozData(
+      createClient(url, publishable, {
+        global: {
+          // Next 15 auto-caches every `fetch()` in server components.
+          // Recipe/cuisine reads should always show the current
+          // published set, so opt out per-request. Reads are cheap and
+          // RLS gates what's visible.
+          fetch: (input, init) => fetch(input, { ...init, cache: 'no-store' }),
+        },
+      }),
+    );
   }
   return cachedSupabase;
 }

@@ -210,6 +210,12 @@ export function RecipeEditor({ initial, cuisines, regions, countries, ingredient
       setError('Slug and title are required.');
       return;
     }
+    if (total <= 0) {
+      // DB enforces `total_minutes > 0`. Fail early with a clear message
+      // instead of round-tripping to Postgres for a constraint violation.
+      setError('Prep + cook must be at least 1 minute.');
+      return;
+    }
     const payload: RecipeEditorInput = {
       id: initial?.id,
       slug,

@@ -20,17 +20,36 @@ import { STAFF_ROLES } from '../../../lib/staff-auth';
 
 async function requireEditorClient() {
   const supabase = await getServerSupabase();
-  if (!supabase) throw new Error('Backend not configured.');
-  const { data } = await supabase.auth.getUser();
-  if (!data.user) throw new Error('Sign in required.');
-  const { data: staff } = await supabase
+  if (!supabase) throw new Error('Backend not configured — missing Supabase env vars.');
+
+  // Distinguish the three failure modes so we can debug from the client:
+  //   1. No session cookie at all (getUser() returns error / null user)
+  //   2. Session valid but user has no staff_members row
+  //   3. Session valid, staff row exists, but role isn't in STAFF_ROLES
+  const { data: userData, error: userErr } = await supabase.auth.getUser();
+  if (userErr || !userData.user) {
+    throw new Error(
+      `Sign-in required (server saw no session${userErr ? `: ${userErr.message}` : ''}). Sign out and back in on the browser tab to refresh cookies.`,
+    );
+  }
+
+  const { data: staff, error: staffErr } = await supabase
     .from('staff_members')
     .select('role')
-    .eq('user_id', data.user.id)
-    .in('role', [...STAFF_ROLES])
+    .eq('user_id', userData.user.id)
     .maybeSingle();
-  if (!staff) throw new Error('Staff access required.');
-  return { supabase, userId: data.user.id };
+  if (staffErr) throw new Error(`Staff lookup failed: ${staffErr.message}`);
+  if (!staff) {
+    throw new Error(
+      `Staff access required — user ${userData.user.email ?? userData.user.id} has no staff_members row.`,
+    );
+  }
+  if (!(STAFF_ROLES as readonly string[]).includes(staff.role)) {
+    throw new Error(
+      `Staff access required — user has role "${staff.role}", expected one of ${STAFF_ROLES.join(', ')}.`,
+    );
+  }
+  return { supabase, userId: userData.user.id };
 }
 
 export interface RecipeEditorInput {

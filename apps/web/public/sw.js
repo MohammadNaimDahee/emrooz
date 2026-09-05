@@ -3,9 +3,10 @@
 // fallback for static assets. On failure the shell page is served offline.
 //
 // Bump the cache version any time the shell URL list changes so old clients
-// evict their stale caches on next activation. Currently v2 (added PNG
-// icon fallbacks for older browsers + iOS Safari home-screen).
-const CACHE = 'emrooz-shell-v2';
+// evict their stale caches on next activation. Currently v3 (fixed the
+// "clone-after-consume" bug in the fetch handler; PNG icon fallbacks
+// added in v2).
+const CACHE = 'emrooz-shell-v3';
 const SHELL = [
   '/',
   '/app',
@@ -49,7 +50,14 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(req)
         .then((r) => {
-          caches.open(CACHE).then((c) => c.put(req, r.clone()));
+          // Clone eagerly — cloning inside the async caches.open() chain
+          // races the browser's own consumption of `r` and throws
+          // "Response body is already used".
+          const copy = r.clone();
+          caches
+            .open(CACHE)
+            .then((c) => c.put(req, copy))
+            .catch(() => {});
           return r;
         })
         .catch(() => caches.match(req).then((c) => c ?? caches.match('/'))),
@@ -61,7 +69,12 @@ self.addEventListener('fetch', (event) => {
     caches.match(req).then((cached) => {
       const fetchPromise = fetch(req)
         .then((r) => {
-          caches.open(CACHE).then((c) => c.put(req, r.clone()));
+          // Same clone-first pattern as the HTML branch above.
+          const copy = r.clone();
+          caches
+            .open(CACHE)
+            .then((c) => c.put(req, copy))
+            .catch(() => {});
           return r;
         })
         .catch(() => cached);
